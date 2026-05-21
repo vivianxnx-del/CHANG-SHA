@@ -1,68 +1,1755 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>長沙4日3夜私人導遊</title>
-    <style>
-        body { font-family: 'Helvetica Neue', sans-serif; background: #fdfaf6; margin: 0; padding-bottom: 80px; color: #333; }
-        header { background: #8b4513; color: white; padding: 20px; text-align: center; }
-        .card { background: white; margin: 15px; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn { display: block; background: #d2b48c; color: white; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; margin-top: 10px; font-weight: bold; }
-        .link-btn { display: block; color: #8b4513; margin-top: 5px; font-size: 0.9em; text-decoration: underline; }
-        img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
-        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 2px solid #8b4513; }
-        .tab { display: none; }
-        .active { display: block; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#c0392b">
+<title>長沙 4 日 3 夜｜家族旅行</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: #fdf6f0;
+    color: #2c1810;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(135deg, #c0392b 0%, #e67e22 100%);
+    color: white;
+    padding: 18px 20px 14px;
+    box-shadow: 0 2px 12px rgba(192, 57, 43, 0.3);
+  }
+  .header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .header .subtitle {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-top: 2px;
+  }
+  .header::after {
+    content: '🌶️';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 28px;
+    opacity: 0.4;
+  }
+
+  .main {
+    padding: 16px 16px 90px;
+    min-height: 100vh;
+  }
+  
+  .page { display: none; animation: fadeIn 0.3s ease; }
+  .page.active { display: block; }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .day-tabs::-webkit-scrollbar { display: none; }
+  
+  .day-tab {
+    flex-shrink: 0;
+    padding: 10px 16px;
+    background: white;
+    border: 2px solid #f0d9c8;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8b4513;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .day-tab.active {
+    background: linear-gradient(135deg, #c0392b, #e67e22);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
+  }
+
+  .day-header {
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    border-left: 4px solid #c0392b;
+  }
+  .day-header h2 {
+    font-size: 18px;
+    color: #c0392b;
+    margin-bottom: 4px;
+  }
+  .day-header p {
+    font-size: 13px;
+    color: #6b5b4d;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, #c0392b, #e67e22, #f0d9c8);
+  }
+
+  .event {
+    position: relative;
+    background: white;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .event::before {
+    content: '';
+    position: absolute;
+    left: -23px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border: 3px solid #c0392b;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px #fdf6f0;
+  }
+  .event.highlight::before {
+    background: #c0392b;
+    border-color: #e67e22;
+  }
+
+  .event-time {
+    font-size: 12px;
+    color: #c0392b;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .event-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2c1810;
+    margin-bottom: 4px;
+  }
+  .event-desc {
+    font-size: 13px;
+    color: #6b5b4d;
+    margin-bottom: 8px;
+  }
+  .event-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    background: #fef0e6;
+    color: #c0392b;
+    font-weight: 500;
+  }
+  .tag.cost {
+    background: #fff8e1;
+    color: #b7791f;
+  }
+
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #4285f4, #1a73e8);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(66, 133, 244, 0.3);
+    transition: transform 0.15s;
+  }
+  .map-btn:active { transform: scale(0.95); }
+  .map-btn::before {
+    content: '📍';
+    font-size: 14px;
+  }
+
+  /* === 交通對比卡片 === */
+  .transport-compare {
+    position: relative;
+    margin: -4px 0 12px 0;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, #f8fbff 0%, #fff8f0 100%);
+    border-radius: 12px;
+    border: 1px dashed #d4a574;
+    margin-left: -28px;
+    padding-left: 28px;
+  }
+  .transport-compare::before {
+    content: '🚦';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    background: #fdf6f0;
+    padding: 2px;
+    border-radius: 50%;
+  }
+  .transport-title {
+    font-size: 11px;
+    color: #8b6f5c;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .transport-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #f0d9c8;
+    margin-left: 4px;
+  }
+  .transport-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .transport-opt {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1.5px solid transparent;
+    position: relative;
+  }
+  .transport-opt.metro {
+    border-color: #d1e7dd;
+  }
+  .transport-opt.taxi {
+    border-color: #fde2cf;
+  }
+  .transport-opt-head {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+  .transport-opt-icon {
+    font-size: 16px;
+  }
+  .transport-opt-name {
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .transport-opt.metro .transport-opt-name { color: #2d8a5f; }
+  .transport-opt.taxi .transport-opt-name { color: #d97706; }
+  .transport-opt-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #6b5b4d;
+    margin-top: 3px;
+  }
+  .transport-opt-row strong {
+    color: #2c1810;
+    font-size: 12px;
+  }
+  .transport-recommend {
+    position: absolute;
+    top: -6px;
+    right: 6px;
+    background: #c0392b;
+    color: white;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-weight: 700;
+  }
+  .transport-note {
+    font-size: 10px;
+    color: #8b6f5c;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .card h3 {
+    font-size: 16px;
+    color: #c0392b;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card h3 .icon {
+    font-size: 20px;
+  }
+
+  .train-card {
+    background: linear-gradient(135deg, #fff 0%, #fef9f3 100%);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-left: 4px solid #e67e22;
+  }
+  .train-no {
+    display: inline-block;
+    background: #c0392b;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .train-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 12px 0;
+  }
+  .station {
+    text-align: center;
+    flex: 1;
+  }
+  .station-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c1810;
+  }
+  .station-time {
+    font-size: 18px;
+    font-weight: 700;
+    color: #c0392b;
+    margin-top: 2px;
+  }
+  .train-arrow {
+    flex: 0 0 auto;
+    padding: 0 12px;
+    color: #e67e22;
+    font-size: 20px;
+  }
+  .train-info {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px dashed #f0d9c8;
+    font-size: 12px;
+    color: #6b5b4d;
+  }
+
+  .pack-category {
+    margin-bottom: 16px;
+  }
+  .pack-category h4 {
+    font-size: 14px;
+    color: #c0392b;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #fef0e6;
+  }
+  .pack-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 4px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid #faf0e6;
+  }
+  .pack-item:last-child { border-bottom: none; }
+  .pack-checkbox {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #e67e22;
+    border-radius: 6px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .pack-item.checked .pack-checkbox {
+    background: #c0392b;
+    border-color: #c0392b;
+  }
+  .pack-item.checked .pack-checkbox::after {
+    content: '✓';
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .pack-item.checked .pack-text {
+    text-decoration: line-through;
+    color: #b8a99a;
+  }
+  .pack-text {
+    font-size: 14px;
+    flex: 1;
+  }
+
+  .budget-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #faf0e6;
+  }
+  .budget-row:last-child { border-bottom: none; }
+  .budget-label {
+    font-size: 14px;
+    color: #2c1810;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .budget-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #c0392b;
+  }
+  .budget-total {
+    background: linear-gradient(135deg, #c0392b, #e67e22);
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    margin-top: 14px;
+    text-align: center;
+  }
+  .budget-total .label { font-size: 13px; opacity: 0.9; }
+  .budget-total .amount { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .budget-total .perperson { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+
+  .hotel-info {
+    background: linear-gradient(135deg, #fef9f3, #ffffff);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .hotel-info p {
+    font-size: 13px;
+    color: #6b5b4d;
+    margin-bottom: 6px;
+  }
+  .hotel-info p strong {
+    color: #2c1810;
+    margin-right: 6px;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 -2px 16px rgba(0,0,0,0.08);
+    display: flex;
+    z-index: 100;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .nav-item {
+    flex: 1;
+    padding: 10px 4px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    background: transparent;
+  }
+  .nav-icon {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 2px;
+    transition: transform 0.2s;
+  }
+  .nav-label {
+    font-size: 10px;
+    color: #8b6f5c;
+    font-weight: 500;
+  }
+  .nav-item.active .nav-icon { transform: scale(1.15); }
+  .nav-item.active .nav-label {
+    color: #c0392b;
+    font-weight: 700;
+  }
+  .nav-item.active {
+    position: relative;
+  }
+  .nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 3px;
+    background: linear-gradient(90deg, #c0392b, #e67e22);
+    border-radius: 0 0 3px 3px;
+  }
+
+  .notice {
+    background: #fff8e1;
+    border-left: 4px solid #f39c12;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: #7d5a00;
+  }
+  .notice strong { color: #c0392b; }
+
+  .deco {
+    text-align: center;
+    margin: 20px 0 10px;
+    font-size: 20px;
+    opacity: 0.5;
+    letter-spacing: 8px;
+  }
+
+  /* 對比總表 */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .compare-table th {
+    background: #fef0e6;
+    color: #c0392b;
+    padding: 8px 6px;
+    font-weight: 700;
+    text-align: left;
+    font-size: 11px;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #faf0e6;
+    color: #2c1810;
+  }
+  .compare-table .col-metro { color: #2d8a5f; font-weight: 600; }
+  .compare-table .col-taxi { color: #d97706; font-weight: 600; }
+</style>
 </head>
 <body>
-    <header><h1>長沙深度行</h1></header>
 
-    <div id="itinerary" class="tab active">
-        <!-- 5/22 -->
-        <div class="card">
-            <h3>5/22 橘子洲</h3>
-            <img src="https://images.unsplash.com/photo-1628153351989-1384e5658e0a?w=800" alt="橘子洲">
-            <p><strong>活動：</strong>毛澤東青年雕像，湘江中心綠洲。<br>費用：觀光車20元/人。</p>
-            <a class="btn" href="https://maps.app.goo.gl/u3F3T7T9H3Y3G7m58">📍 導航橘子洲</a>
-            <a class="link-btn" href="https://baike.baidu.com/item/橘子洲">了解景點介紹</a>
-        </div>
-        <!-- 5/23 -->
-        <div class="card">
-            <h3>5/23 火宮殿至杜甫江閣</h3>
-            <img src="https://images.unsplash.com/photo-1596434440051-249591395568?w=800" alt="長沙美食">
-            <p><strong>美食：</strong>火宮殿早餐、大師兄午餐。<br><strong>觀光：</strong>岳麓山纜車、杜甫江閣夜景。</p>
-            <a class="btn" href="https://maps.app.goo.gl/M4z6HkQZ9yW2SjS98">📍 導航火宮殿</a>
-            <a class="link-btn" href="https://www.trip.com/travel-guide/attraction/changsha-104-dofu-jiangge-10777508/">杜甫江閣介紹</a>
-        </div>
-        <!-- 5/24 -->
-        <div class="card">
-            <h3>5/24 博物館與31號公館</h3>
-            <img src="https://images.unsplash.com/photo-1590487988256-9ed221330366?w=800" alt="湖南博物館">
-            <p><strong>行程：</strong>笨蘿蔔午餐、湖南博物院、31號公館晚餐。</p>
-            <a class="btn" href="https://maps.app.goo.gl/w5vFz8K6n9C7x2v19">📍 導航至博物院</a>
-            <a class="link-btn" href="https://www.hnmuseum.com/">湖南博物院官網</a>
-        </div>
+<header class="header">
+  <h1>🏮 長沙 4 日 3 夜</h1>
+  <p class="subtitle">5/22 (四) - 5/25 (日)｜家族旅行</p>
+</header>
+
+<main class="main">
+
+  <!-- 每日行程 -->
+  <section class="page active" id="page-itinerary">
+    <div class="day-tabs">
+      <button class="day-tab active" data-day="1">Day 1 · 5/22</button>
+      <button class="day-tab" data-day="2">Day 2 · 5/23</button>
+      <button class="day-tab" data-day="3">Day 3 · 5/24</button>
+      <button class="day-tab" data-day="4">Day 4 · 5/25</button>
     </div>
 
-    <div id="info" class="tab">
-        <div class="card">
-            <h3>實用資訊</h3>
-            <p>• <strong>北二樓大排檔：</strong>適合宵夜，體驗地道長沙味。<br>• <strong>交通：</strong>推薦滴滴出行，免去長輩步行之苦。<br>• <strong>預算：</strong>預留 3000-5000 RMB 輕鬆遊玩。</p>
+    <!-- Day 1 -->
+    <div class="day-content" id="day-1">
+      <div class="day-header">
+        <h2>抵達長沙 + 橘子洲</h2>
+        <p>🚄 高鐵抵達 · 🌳 橘子洲日落 · 🍢 大排檔晚餐</p>
+      </div>
+      <div class="timeline">
+        <div class="event">
+          <div class="event-time">07:30</div>
+          <div class="event-title">🚉 香港西九龍站集合</div>
+          <div class="event-desc">提前報到、過關安檢</div>
         </div>
+        <div class="event highlight">
+          <div class="event-time">09:07 - 12:30</div>
+          <div class="event-title">🚄 G904 高鐵</div>
+          <div class="event-desc">香港西九龍 → 長沙南｜車程約 3.5 小時</div>
+        </div>
+
+        <!-- 對比：長沙南站 → 酒店 -->
+        <div class="transport-compare">
+          <div class="transport-title">長沙南站 → 五一廣場酒店</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵 2 號線</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 25 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥4 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥16 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 25 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥45-55</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥50 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 帶行李 + 4人共乘，叫車比地鐵划算又輕鬆</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">12:30 - 13:40</div>
+          <div class="event-title">🚕 出站 → 酒店 Check-in</div>
+          <div class="event-desc">滴滴約 ¥45-55 / 25 分鐘</div>
+        </div>
+        <div class="event">
+          <div class="event-time">13:40 - 14:30</div>
+          <div class="event-title">🍜 午餐：大師兄弟米粉</div>
+          <div class="event-desc">長沙必吃米粉，肉絲粉、酸辣粉</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=大师兄弟+米粉+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：米粉店 → 橘子洲 -->
+        <div class="transport-compare">
+          <div class="transport-title">五一廣場 → 橘子洲</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵 2 號線</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 8 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥3 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥12 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 15 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥20-30</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥25 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 直達一站「橘子洲站」，地鐵更快更方便</div>
+        </div>
+
+        <div class="event highlight">
+          <div class="event-time">15:00 - 18:30</div>
+          <div class="event-title">🌳 橘子洲（已訂票）</div>
+          <div class="event-desc">毛澤東青年雕像、湘江景觀</div>
+          <div class="event-tags">
+            <span class="tag">地鐵 2 號線 ¥3</span>
+            <span class="tag cost">小火車 ¥20/人</span>
+          </div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=橘子洲+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：橘子洲 → 北二樓大排檔 -->
+        <div class="transport-compare">
+          <div class="transport-title">橘子洲 → 北二樓大排檔</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵 2 號線</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 15 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥3 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥12 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 12 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥18-25</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥22 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 玩了一下午腳痠，叫車省力，每人多 ¥2.5</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">18:30 - 19:30</div>
+          <div class="event-title">🍢 晚餐：北二樓大排檔</div>
+          <div class="event-desc">長沙在地大排檔，臭豆腐、口味蝦</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=北二楼大排档+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：大排檔 → 太平老街 -->
+        <div class="transport-compare">
+          <div class="transport-title">北二樓 → 太平老街</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚶</span>
+                <span class="transport-opt-name">步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 10 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>免費</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥0</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 8 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥15-18</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥16 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 距離很近，飯後散步順便消化最佳</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">19:30 - 21:30</div>
+          <div class="event-title">🌃 太平老街</div>
+          <div class="event-desc">夜景燈光、文青小店、伴手禮</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=太平老街+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：太平老街 → 酒店 -->
+        <div class="transport-compare">
+          <div class="transport-title">太平老街 → 酒店</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚶</span>
+                <span class="transport-opt-name">步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 8-12 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>免費</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥0</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 5 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥12-15</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥14 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 第一天累了，叫車回去讓長輩休息</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">21:30</div>
+          <div class="event-title">🏨 回酒店休息</div>
+        </div>
+      </div>
     </div>
 
-    <nav>
-        <div onclick="show('itinerary')">📅 行程</div>
-        <div onclick="show('info')">ℹ️ 資訊</div>
-    </nav>
+    <!-- Day 2 -->
+    <div class="day-content" id="day-2" style="display:none">
+      <div class="day-header">
+        <h2>岳麓山 + 杜甫江閣</h2>
+        <p>⛰ 名山書院 · 🏯 湘江日落 · 🍲 道地湘菜</p>
+      </div>
+      <div class="timeline">
+        <div class="event">
+          <div class="event-time">08:00 - 09:00</div>
+          <div class="event-title">🥐 酒店 / 附近早餐</div>
+        </div>
 
-    <script>
-        function show(id) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
-    </script>
+        <!-- 對比：酒店 → 岳麓山 -->
+        <div class="transport-compare">
+          <div class="transport-title">五一廣場 → 岳麓山</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵 2 號線</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 30 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥4 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥16 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 25-35 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥35-45</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥40 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 早高峰過湘江容易塞車，地鐵更穩定</div>
+        </div>
+
+        <div class="event highlight">
+          <div class="event-time">09:40 - 13:00</div>
+          <div class="event-title">⛰ 岳麓山</div>
+          <div class="event-desc">愛晚亭、麓山寺、岳麓書院（中國四大書院）</div>
+          <div class="event-tags">
+            <span class="tag cost">纜車 ¥30/人</span>
+            <span class="tag cost">觀光車 ¥20/人</span>
+          </div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=岳麓山+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：岳麓山 → 笨蘿蔔 -->
+        <div class="transport-compare">
+          <div class="transport-title">岳麓山 → 笨蘿蔔</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵+步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 25 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥3 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥12 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 10 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥15-20</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥18 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 爬完山腳痠肚餓，叫車快又直達</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">13:30 - 14:30</div>
+          <div class="event-title">🍲 午餐：笨蘿蔔（湘菜）</div>
+          <div class="event-desc">道地湘菜館，剁椒魚頭推薦</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=笨萝卜+湘菜+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：笨蘿蔔 → 酒店 -->
+        <div class="transport-compare">
+          <div class="transport-title">笨蘿蔔 → 酒店</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵 2 號線</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 25 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥4 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥16 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 25-30 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥35-45</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥40 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 飯後想休息，叫車直接到酒店門口</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">14:30 - 15:30</div>
+          <div class="event-title">🛌 回酒店午休</div>
+          <div class="event-desc">長輩可以休息一下</div>
+        </div>
+
+        <!-- 對比：酒店 → 杜甫江閣 -->
+        <div class="transport-compare">
+          <div class="transport-title">酒店 → 杜甫江閣</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚶</span>
+                <span class="transport-opt-name">步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 12 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>免費</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥0</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 6 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥12-15</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥14 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 沿江散步看景，到杜甫江閣剛好看日落</div>
+        </div>
+
+        <div class="event highlight">
+          <div class="event-time">16:00 - 18:00</div>
+          <div class="event-title">🏯 杜甫江閣</div>
+          <div class="event-desc">湘江畔登閣看日落</div>
+          <div class="event-tags">
+            <span class="tag cost">門票 ¥20/人</span>
+          </div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=杜甫江阁+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：杜甫江閣 → 費大廚 -->
+        <div class="transport-compare">
+          <div class="transport-title">杜甫江閣 → 費大廚</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚶</span>
+                <span class="transport-opt-name">步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 15 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>免費</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥0</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 8 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥15-18</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥16 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 不趕時間就散步，趕訂位就叫車</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">18:00 - 19:30</div>
+          <div class="event-title">🌶️ 晚餐：費大廚辣椒炒肉</div>
+          <div class="event-desc">招牌辣椒炒肉、必點</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=费大厨+辣椒炒肉+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：費大廚 → 五一廣場 -->
+        <div class="transport-compare">
+          <div class="transport-title">費大廚 → 五一廣場 / 酒店</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚶</span>
+                <span class="transport-opt-name">步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 5 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>免費</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥0</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 5 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥10-12</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥11 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 五一廣場周邊步行最方便，逛街順路</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">19:30 - 21:30</div>
+          <div class="event-title">🌉 湘江風光帶 + 五一廣場</div>
+          <div class="event-desc">夜景散步 + 黃興路步行街</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=五一广场+长沙" target="_blank">Google 導航</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-content" id="day-3" style="display:none">
+      <div class="day-header">
+        <h2>老街文化 + 博物館 + 31號公館</h2>
+        <p>🍜 火宮殿小吃 · 🏛 馬王堆漢墓 · 🍷 高級晚宴</p>
+      </div>
+      <div class="timeline">
+
+        <!-- 對比：酒店 → 火宮殿 -->
+        <div class="transport-compare">
+          <div class="transport-title">酒店 → 火宮殿（坡子街）</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚶</span>
+                <span class="transport-opt-name">步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 10 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>免費</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥0</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 5 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥12-15</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥14 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 五一廣場一帶散步走過去，順便消化早晨</div>
+        </div>
+
+        <div class="event highlight">
+          <div class="event-time">08:30 - 10:00</div>
+          <div class="event-title">🍜 早餐：火宮殿（坡子街總店）</div>
+          <div class="event-desc">臭豆腐、糖油粑粑、米粉、小吃集合</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=火宫殿+坡子街+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：火宮殿 → 黃興路 -->
+        <div class="transport-compare">
+          <div class="transport-title">火宮殿 → 黃興路步行街</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚶</span>
+                <span class="transport-opt-name">步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 3 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>免費</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥0</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>不建議</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥10+</strong></div>
+              <div class="transport-opt-row"><span>備註</span><strong>距離太近</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 步行 3 分鐘到，叫車反而麻煩</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">10:00 - 12:00</div>
+          <div class="event-title">🛍 坡子街 + 黃興路步行街</div>
+          <div class="event-desc">逛街購物、買伴手禮</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=黄兴路步行街+长沙" target="_blank">Google 導航</a>
+        </div>
+        <div class="event">
+          <div class="event-time">12:00 - 13:30</div>
+          <div class="event-title">🍱 午餐：盛香亭 / 向群鍋餃</div>
+          <div class="event-desc">坡子街附近，輕便用餐</div>
+        </div>
+
+        <!-- 對比：步行街 → 湖南博物院 -->
+        <div class="transport-compare">
+          <div class="transport-title">黃興路 → 湖南博物院</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵+步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 35 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥4 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥16 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 20 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥30-40</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥35 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 博物院距地鐵站較遠，叫車省 15 分鐘</div>
+        </div>
+
+        <div class="event highlight">
+          <div class="event-time">14:00 - 17:30</div>
+          <div class="event-title">🏛 湖南博物院（已訂票）</div>
+          <div class="event-desc">必看：馬王堆漢墓、辛追夫人</div>
+          <div class="event-tags">
+            <span class="tag">免費入場</span>
+            <span class="tag">需帶證件</span>
+          </div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=湖南博物院" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：博物院 → 酒店 -->
+        <div class="transport-compare">
+          <div class="transport-title">湖南博物院 → 酒店</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵+步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 35 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥4 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥16 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 25 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥30-40</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥35 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 晚上要赴宴，叫車更從容、不出汗</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">17:30 - 18:30</div>
+          <div class="event-title">🛌 回酒店休息 + 換衣服</div>
+          <div class="event-desc">準備晚上的高級晚餐</div>
+        </div>
+
+        <!-- 對比：酒店 → 31號公館 -->
+        <div class="transport-compare">
+          <div class="transport-title">酒店 → 31號公館</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵+步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 25 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥3 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥12 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 12 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥18-25</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥22 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 穿正裝赴高級餐廳，當然叫車最得體</div>
+        </div>
+
+        <div class="event highlight">
+          <div class="event-time">19:00 - 21:30</div>
+          <div class="event-title">🍷 晚餐：31號公館（已訂位）</div>
+          <div class="event-desc">老別墅改造的高級湘菜館</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=31号公馆+长沙" target="_blank">Google 導航</a>
+        </div>
+
+        <!-- 對比：31號公館 → 酒店 -->
+        <div class="transport-compare">
+          <div class="transport-title">31號公館 → 酒店</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>已收班</strong></div>
+              <div class="transport-opt-row"><span>備註</span><strong>22:30 後停</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>不適用</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">必選</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 12 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥20-28</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥24 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 太晚地鐵收班，只能叫車</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-content" id="day-4" style="display:none">
+      <div class="day-header">
+        <h2>輕鬆購物 + 返港</h2>
+        <p>🛍 買手信 · 🚄 高鐵轉乘 · 🏠 平安回家</p>
+      </div>
+      <div class="notice">
+        ⚠️ <strong>提醒：</strong>回程需轉乘 G6011 → G6531，請提前 1 小時抵達長沙南站，預留至少 30-40 分鐘轉車時間。
+      </div>
+      <div class="timeline">
+        <div class="event">
+          <div class="event-time">08:00 - 09:30</div>
+          <div class="event-title">🥐 酒店早餐 + 整理行李</div>
+        </div>
+
+        <!-- 對比：酒店 → IFS -->
+        <div class="transport-compare">
+          <div class="transport-title">酒店 → IFS 國金中心</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <span class="transport-recommend">推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚶</span>
+                <span class="transport-opt-name">步行</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 5 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>免費</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥0</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>不建議</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>起步價 ¥10</strong></div>
+              <div class="transport-opt-row"><span>備註</span><strong>距離太近</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 IFS 就在五一廣場上，步行最快</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">09:30 - 11:30</div>
+          <div class="event-title">🛍 五一商圈 / IFS 國金中心</div>
+          <div class="event-desc">買手信、最後購物時間</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=长沙IFS国金中心" target="_blank">Google 導航</a>
+        </div>
+        <div class="event">
+          <div class="event-time">11:30 - 12:30</div>
+          <div class="event-title">🏨 回酒店取行李、退房</div>
+        </div>
+
+        <!-- 對比：酒店 → 長沙南站 -->
+        <div class="transport-compare">
+          <div class="transport-title">酒店 → 長沙南站（帶行李）</div>
+          <div class="transport-options">
+            <div class="transport-opt metro">
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚇</span>
+                <span class="transport-opt-name">地鐵 2 號線</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 30 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥4 / 人</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥16 (4人)</strong></div>
+            </div>
+            <div class="transport-opt taxi">
+              <span class="transport-recommend">強烈推薦</span>
+              <div class="transport-opt-head">
+                <span class="transport-opt-icon">🚕</span>
+                <span class="transport-opt-name">滴滴專車</span>
+              </div>
+              <div class="transport-opt-row"><span>時間</span><strong>約 25-35 分</strong></div>
+              <div class="transport-opt-row"><span>費用</span><strong>¥45-55</strong></div>
+              <div class="transport-opt-row"><span>合計</span><strong>¥50 (4人共乘)</strong></div>
+            </div>
+          </div>
+          <div class="transport-note">💡 帶大行李 + 趕高鐵，叫車絕對划算！</div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">12:30 - 13:30</div>
+          <div class="event-title">🚕 前往長沙南站</div>
+          <div class="event-desc">滴滴約 ¥45-55 / 30 分鐘，提前 1 小時抵達</div>
+          <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=长沙南站" target="_blank">Google 導航</a>
+        </div>
+        <div class="event highlight">
+          <div class="event-time">下午</div>
+          <div class="event-title">🚄 G6011 第一段</div>
+          <div class="event-desc">長沙南 → 廣州南/深圳北（請以車票為準）</div>
+        </div>
+        <div class="event">
+          <div class="event-time">轉乘</div>
+          <div class="event-title">🔄 換乘 G6531</div>
+          <div class="event-desc">注意行李、預留轉車時間</div>
+        </div>
+        <div class="event highlight">
+          <div class="event-time">晚上</div>
+          <div class="event-title">🚄 G6531 抵達西九龍</div>
+          <div class="event-desc">平安到家！</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 交通頁 -->
+  <section class="page" id="page-transport">
+    <div class="card">
+      <h3><span class="icon">🚄</span>高鐵班次</h3>
+      
+      <div class="train-card">
+        <span class="train-no">去程 G904</span>
+        <div class="train-route">
+          <div class="station">
+            <div class="station-name">香港西九龍</div>
+            <div class="station-time">09:07</div>
+          </div>
+          <div class="train-arrow">→</div>
+          <div class="station">
+            <div class="station-name">長沙南</div>
+            <div class="station-time">12:30</div>
+          </div>
+        </div>
+        <div class="train-info">
+          <span>📅 5/22 (四)</span>
+          <span>⏱ 約 3 小時 23 分</span>
+        </div>
+      </div>
+
+      <div class="train-card">
+        <span class="train-no">回程① G6011</span>
+        <div class="train-route">
+          <div class="station">
+            <div class="station-name">長沙南</div>
+            <div class="station-time">--:--</div>
+          </div>
+          <div class="train-arrow">→</div>
+          <div class="station">
+            <div class="station-name">轉車站</div>
+            <div class="station-time">--:--</div>
+          </div>
+        </div>
+        <div class="train-info">
+          <span>📅 5/25 (日)</span>
+          <span>⏱ 待補充</span>
+        </div>
+      </div>
+
+      <div class="train-card">
+        <span class="train-no">回程② G6531</span>
+        <div class="train-route">
+          <div class="station">
+            <div class="station-name">轉車站</div>
+            <div class="station-time">--:--</div>
+          </div>
+          <div class="train-arrow">→</div>
+          <div class="station">
+            <div class="station-name">香港西九龍</div>
+            <div class="station-time">--:--</div>
+          </div>
+        </div>
+        <div class="train-info">
+          <span>📅 5/25 (日)</span>
+          <span>⏱ 待補充</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 全程交通對比總表 -->
+    <div class="card">
+      <h3><span class="icon">📊</span>全程交通對比一覽</h3>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>路線</th>
+            <th class="col-metro">🚇 地鐵</th>
+            <th class="col-taxi">🚕 叫車</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>長沙南→酒店</td>
+            <td class="col-metro">25分/¥16</td>
+            <td class="col-taxi">25分/¥50</td>
+          </tr>
+          <tr>
+            <td>酒店→橘子洲</td>
+            <td class="col-metro">8分/¥12</td>
+            <td class="col-taxi">15分/¥25</td>
+          </tr>
+          <tr>
+            <td>酒店→岳麓山</td>
+            <td class="col-metro">30分/¥16</td>
+            <td class="col-taxi">30分/¥40</td>
+          </tr>
+          <tr>
+            <td>酒店→博物院</td>
+            <td class="col-metro">35分/¥16</td>
+            <td class="col-taxi">25分/¥35</td>
+          </tr>
+          <tr>
+            <td>酒店→31號公館</td>
+            <td class="col-metro">25分/¥12</td>
+            <td class="col-taxi">12分/¥22</td>
+          </tr>
+          <tr>
+            <td>酒店→長沙南</td>
+            <td class="col-metro">30分/¥16</td>
+            <td class="col-taxi">30分/¥50</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="notice" style="margin-top:14px;margin-bottom:0">
+        💡 <strong>整體建議：</strong>4 人同行，叫車費用平均每人 ¥10-13，比地鐵只多一點，但更舒適、不用走路找站。<br><br>
+        ✅ <strong>優先叫車：</strong>帶行李、晚上 22:30 後、長輩疲累、趕時間<br>
+        ✅ <strong>優先地鐵：</strong>單程超過 30 分鐘且不塞車路段、想體驗在地生活
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🚇</span>長沙地鐵須知</h3>
+      <div class="budget-row">
+        <span class="budget-label">⏰ 營運時間</span>
+        <span class="budget-value">06:30 - 22:30</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">💰 票價範圍</span>
+        <span class="budget-value">¥2 - 7</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">📱 支付方式</span>
+        <span class="budget-value">微信/支付寶掃碼</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">🎫 主要線路</span>
+        <span class="budget-value">2 號線最常用</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🚕</span>叫車（滴滴）使用</h3>
+      <div class="budget-row">
+        <span class="budget-label">📲 App</span>
+        <span class="budget-value">滴滴出行</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">💰 起步價</span>
+        <span class="budget-value">¥8-10</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">📊 每公里</span>
+        <span class="budget-value">¥1.8-2.5</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">🌙 夜間加價</span>
+        <span class="budget-value">23:00 後 +20%</span>
+      </div>
+      <div class="notice" style="margin-top:12px;margin-bottom:0">
+        💡 4 人共乘叫一台車最划算，需大車可選「滴滴 6 座」。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">📍</span>重要車站</h3>
+      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=长沙南站" target="_blank" style="margin-bottom:8px">長沙南站</a><br>
+      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=香港西九龙站" target="_blank">香港西九龍站</a>
+    </div>
+  </section>
+
+  <!-- 住宿 -->
+  <section class="page" id="page-hotel">
+    <div class="card">
+      <h3><span class="icon">🏨</span>長沙住宿</h3>
+      <div class="hotel-info">
+        <p><strong>📅 入住：</strong>5/22（四）</p>
+        <p><strong>📅 退房：</strong>5/25（日）</p>
+        <p><strong>🌙 共 3 晚</strong></p>
+        <p><strong>👥 4 位 · 家庭房</strong></p>
+      </div>
+      <div class="notice" style="margin-top:14px">
+        💡 <strong>建議區域：</strong>五一廣場 / 黃興路步行街周邊，地鐵交通方便、餐廳眾多。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">📋</span>入住須知</h3>
+      <div class="budget-row">
+        <span class="budget-label">🆔 證件</span>
+        <span class="budget-value">回鄉證 / 護照</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">⏰ Check-in</span>
+        <span class="budget-value">14:00 後</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">⏰ Check-out</span>
+        <span class="budget-value">12:00 前</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">💰 押金</span>
+        <span class="budget-value">¥200-500</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">📞</span>緊急聯絡</h3>
+      <div class="budget-row">
+        <span class="budget-label">🚨 報警</span>
+        <span class="budget-value">110</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">🚑 急救</span>
+        <span class="budget-value">120</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">🇭🇰 駐港辦</span>
+        <span class="budget-value">+852 3413 2300</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 行李 -->
+  <section class="page" id="page-packing">
+    <div class="card">
+      <h3><span class="icon">🎒</span>行李清單</h3>
+      <p style="font-size:12px;color:#8b6f5c;margin-top:-8px;margin-bottom:12px">點擊勾選 ✓ 已準備物品</p>
+
+      <div class="pack-category">
+        <h4>📄 證件 / 重要</h4>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">港澳通行證 / 回鄉證</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">高鐵車票（電子 / 紙本）</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">酒店訂單確認</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">人民幣現金（¥1000+）</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">信用卡 / 銀聯卡</span></div>
+      </div>
+
+      <div class="pack-category">
+        <h4>📱 電子產品</h4>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">手機 + 充電器</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">行動電源</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">轉換插頭（中國通用）</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">相機 + 記憶卡</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">中國 SIM 卡 / 漫遊</span></div>
+      </div>
+
+      <div class="pack-category">
+        <h4>📲 必裝 App</h4>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">微信（WeChat）+ 支付</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">支付寶（Alipay）</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">滴滴出行</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">高德地圖 / 百度地圖</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">大眾點評</span></div>
+      </div>
+
+      <div class="pack-category">
+        <h4>👕 衣物（5月長沙約 20-28°C）</h4>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">短袖 T 恤 × 4</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">薄外套 × 1（晚上微涼）</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">長褲 / 牛仔褲 × 2</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">舒適好走的鞋</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">內衣褲、襪子</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">睡衣</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">31號公館用：稍正式服裝</span></div>
+      </div>
+
+      <div class="pack-category">
+        <h4>🧴 盥洗用品</h4>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">牙刷、牙膏</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">洗面乳、保養品</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">防曬乳 SPF50+</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">化妝品</span></div>
+      </div>
+
+      <div class="pack-category">
+        <h4>💊 藥品 / 健康</h4>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">個人慢性病用藥</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">腸胃藥（吃辣必備）</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">感冒藥、頭痛藥</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">OK 繃、暈車藥</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">口罩 × 數個</span></div>
+      </div>
+
+      <div class="pack-category">
+        <h4>🌂 其他</h4>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">折疊雨傘（5 月易下雨）</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">墨鏡、帽子</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">小包面紙、濕紙巾</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">環保購物袋</span></div>
+        <div class="pack-item"><span class="pack-checkbox"></span><span class="pack-text">小零食（火車上吃）</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 預算 -->
+  <section class="page" id="page-budget">
+    <div class="card">
+      <h3><span class="icon">💰</span>預算總覽（4 人）</h3>
+      <div class="budget-row">
+        <span class="budget-label">🍽 餐飲</span>
+        <span class="budget-value">¥2,500 - 3,500</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">🚕 市內交通</span>
+        <span class="budget-value">¥600 - 900</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">🎟 景點門票</span>
+        <span class="budget-value">¥300</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">🛍 購物 / 手信</span>
+        <span class="budget-value">¥1,000 - 2,000</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">📦 雜費</span>
+        <span class="budget-value">¥400 - 600</span>
+      </div>
+      <div class="budget-total">
+        <div class="label">總計（不含高鐵 / 住宿）</div>
+        <div class="amount">¥4,800 - 7,300</div>
+        <div class="perperson">約每人 ¥1,200 - 1,825</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">📊</span>每日預估</h3>
+      <div class="budget-row">
+        <span class="budget-label">Day 1 · 5/22</span>
+        <span class="budget-value">¥600 - 800</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">Day 2 · 5/23</span>
+        <span class="budget-value">¥800 - 1,000</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">Day 3 · 5/24</span>
+        <span class="budget-value">¥700 - 900</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">Day 4 · 5/25</span>
+        <span class="budget-value">¥400 - 600</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🚦</span>交通預算對比（4 人全程）</h3>
+      <div class="budget-row">
+        <span class="budget-label">🚇 全程地鐵+步行</span>
+        <span class="budget-value">約 ¥150-200</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">🚕 全程叫車（推薦）</span>
+        <span class="budget-value">約 ¥500-700</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">⚖️ 混合（建議）</span>
+        <span class="budget-value">約 ¥300-450</span>
+      </div>
+      <div class="notice" style="margin-top:14px;margin-bottom:0">
+        💡 4 人同行，混合方式（短程步行、近距離地鐵、行李/晚歸叫車）最划算。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">💳</span>支付建議</h3>
+      <div class="notice" style="margin-bottom:0">
+        💡 中國大陸幾乎只用 <strong>微信支付 / 支付寶</strong>。建議出發前綁定香港信用卡（Visa/Master），現金作為備用。
+      </div>
+    </div>
+
+    <div class="deco">🌶️ · 🏮 · 🌶️</div>
+  </section>
+
+</main>
+
+<nav class="bottom-nav">
+  <button class="nav-item active" data-page="itinerary">
+    <span class="nav-icon">📅</span>
+    <span class="nav-label">行程</span>
+  </button>
+  <button class="nav-item" data-page="transport">
+    <span class="nav-icon">🚄</span>
+    <span class="nav-label">交通</span>
+  </button>
+  <button class="nav-item" data-page="hotel">
+    <span class="nav-icon">🏨</span>
+    <span class="nav-label">住宿</span>
+  </button>
+  <button class="nav-item" data-page="packing">
+    <span class="nav-icon">🎒</span>
+    <span class="nav-label">行李</span>
+  </button>
+  <button class="nav-item" data-page="budget">
+    <span class="nav-icon">💰</span>
+    <span class="nav-label">預算</span>
+  </button>
+</nav>
+
+<script>
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById('page-' + item.dataset.page).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  document.querySelectorAll('.day-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.day-content').forEach(c => c.style.display = 'none');
+      tab.classList.add('active');
+      document.getElementById('day-' + tab.dataset.day).style.display = 'block';
+    });
+  });
+
+  document.querySelectorAll('.pack-item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('checked');
+    });
+  });
+</script>
+
 </body>
 </html>
