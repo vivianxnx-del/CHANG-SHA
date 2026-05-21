@@ -24,33 +24,22 @@
     background: rgba(255,255,255,0.25); border: 1.5px solid rgba(255,255,255,0.5);
     color: white; padding: 6px 10px; border-radius: 16px;
     font-size: 11px; font-weight: 600; cursor: pointer;
-    display: flex; align-items: center; gap: 3px;
-    -webkit-user-select: none; user-select: none;
   }
-  .h-btn.active { background: white; color: #c0392b; border-color: white; }
+  .h-btn.active { background: white; color: #c0392b; }
   .main { padding: 12px 12px 80px; }
-  .page { display: none; animation: fadeIn 0.3s ease; }
-  .page.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  
+
   .alert-banner {
-    background: linear-gradient(135deg, #fff8e1, #ffeec5);
-    border-left: 4px solid #f39c12;
+    background: linear-gradient(135deg, #ffe4ec, #fff0f5);
+    border-left: 4px solid #ff2e4d;
     padding: 10px 12px; border-radius: 10px; margin-bottom: 10px;
-    font-size: 12px; color: #7d5a00;
+    font-size: 12px; color: #b00020;
   }
-  .alert-banner strong { color: #c0392b; }
   .alert-banner.info {
     background: linear-gradient(135deg, #e3f2fd, #d1e7f7);
     border-color: #1a73e8; color: #1a4d8f;
   }
-  .alert-banner.success {
-    background: linear-gradient(135deg, #e8f5e9, #d4edda);
-    border-color: #28a745; color: #155724;
-  }
 
   .editable {
-    -webkit-user-select: text; user-select: text;
     -webkit-user-modify: read-write-plaintext-only;
     cursor: text; outline: none;
     display: inline-block; min-width: 16px;
@@ -68,21 +57,12 @@
   .edit-only { display: none !important; }
   body.edit-mode .event { padding-right: 32px; position: relative; }
 
-  /* Highlight editable train fields specially */
-  body.edit-mode .train-card .editable {
-    background: #fff8e1;
-    border-color: #c0392b;
-  }
-  .train-card .editable:hover {
-    background: #fff3cd;
-  }
-
   @keyframes flashUpdate {
     0% { background: #fff3cd; }
     50% { background: #ffe066; }
     100% { background: transparent; }
   }
-  .auto-updated { animation: flashUpdate 1.2s ease; }
+  .auto-updated { animation: flashUpdate 1s ease; }
 
   .delete-btn {
     position: absolute; top: 8px; right: 8px;
@@ -90,36 +70,25 @@
     background: #fee; color: #c0392b; border-radius: 50%;
     cursor: pointer; font-size: 14px; font-weight: bold;
     align-items: center; justify-content: center;
-    -webkit-user-select: none; user-select: none;
   }
   .add-event-btn {
     width: 100%; padding: 11px; margin-top: 8px;
     background: linear-gradient(135deg, #fff8e1, #fef0e6);
     border: 2px dashed #e67e22; border-radius: 12px;
     color: #c0392b; font-weight: 600; font-size: 13px; cursor: pointer;
-    -webkit-user-select: none; user-select: none;
   }
 
-  .day-tabs { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .day-tabs { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px; }
   .day-tabs::-webkit-scrollbar { display: none; }
   .day-tab {
     flex-shrink: 0; padding: 8px 12px; background: white;
     border: 2px solid #f0d9c8; border-radius: 16px;
     font-size: 11px; font-weight: 600; color: #8b4513; cursor: pointer; white-space: nowrap;
-    -webkit-user-select: none; user-select: none;
   }
   .day-tab.active {
     background: linear-gradient(135deg, #c0392b, #e67e22);
     color: white; border-color: transparent;
-    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
   }
-  .day-summary {
-    background: white; border-radius: 12px; padding: 12px;
-    margin-bottom: 10px; font-size: 12px; color: #6b5b4d;
-    border: 1px solid #f0d9c8;
-    display: flex; justify-content: space-around; text-align: center;
-  }
-  .day-summary div span { display: block; font-size: 16px; font-weight: 700; color: #c0392b; }
 
   .day-header {
     background: white; border-radius: 12px; padding: 12px 14px;
@@ -128,54 +97,6 @@
   }
   .day-header h2 { font-size: 16px; color: #c0392b; margin-bottom: 2px; }
   .day-header p { font-size: 11px; color: #6b5b4d; }
-
-  .train-card {
-    background: linear-gradient(135deg, #fff 0%, #fef9f3 100%);
-    border-radius: 12px; padding: 12px; margin-bottom: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border-left: 4px solid #e67e22; position: relative;
-  }
-  .train-card.return { border-left-color: #2d8a5f; }
-  .train-card.return .train-no { background: #2d8a5f; }
-  .train-card.return .station-time { color: #2d8a5f; }
-  .train-card.transfer { border-left-color: #9b59b6; background: linear-gradient(135deg, #fff 0%, #f8f3fc 100%); }
-  .train-card.transfer .train-no { background: #9b59b6; }
-  .train-card.transfer .station-time { color: #9b59b6; }
-  .train-card.transfer .train-arrow { color: #9b59b6; }
-  .train-no {
-    display: inline-block; background: #c0392b; color: white;
-    padding: 2px 10px; border-radius: 6px;
-    font-weight: 700; font-size: 12px;
-  }
-  .train-direction { display: inline-block; margin-left: 6px; font-size: 11px; color: #8b6f5c; font-weight: 600; }
-  .train-route { display: flex; align-items: center; justify-content: space-between; margin: 8px 0; }
-  .station { text-align: center; flex: 1; }
-  .station-name { font-size: 12px; font-weight: 600; color: #2c1810; }
-  .station-time { font-size: 16px; font-weight: 700; color: #c0392b; margin-top: 2px; }
-  .station-date { font-size: 10px; color: #8b6f5c; margin-top: 1px; }
-  .train-arrow { padding: 0 8px; color: #e67e22; font-size: 16px; }
-  .train-info { display: flex; justify-content: space-between; padding-top: 6px; border-top: 1px dashed #f0d9c8; font-size: 11px; color: #6b5b4d; }
-
-  .train-edit-bar {
-    display: flex; gap: 6px; margin-top: 8px; padding-top: 8px;
-    border-top: 1px dashed #f0d9c8;
-  }
-  .train-edit-btn {
-    flex: 1; padding: 7px; font-size: 11px; font-weight: 600;
-    background: #fff8e1; color: #c0392b;
-    border: 1.5px solid #f0d9c8; border-radius: 8px;
-    cursor: pointer;
-  }
-  .train-edit-btn:hover { background: #ffeec5; }
-  .train-edit-btn.lock { background: #e8f5e9; color: #2d8a5f; border-color: #c8e6c9; }
-  .train-edit-btn.lock.active { background: #2d8a5f; color: white; border-color: #2d8a5f; }
-
-  .train-hint {
-    margin-top: 8px; padding-top: 6px;
-    border-top: 1px dashed #f0d9c8;
-    font-size: 10px; color: #888;
-  }
-  .train-hint.locked { color: #2d8a5f; }
 
   .timeline { position: relative; padding-left: 22px; }
   .timeline::before {
@@ -194,22 +115,38 @@
     border: 3px solid #c0392b; border-radius: 50%;
     box-shadow: 0 0 0 3px #fdf6f0;
   }
-  .event.highlight::before { background: #c0392b; border-color: #e67e22; }
   .event-time { font-size: 11px; color: #c0392b; font-weight: 700; margin-bottom: 2px; }
   .event-title { font-size: 13px; font-weight: 600; color: #2c1810; margin-bottom: 2px; }
   .event-desc { font-size: 12px; color: #6b5b4d; }
 
-  .map-btn {
+  .event-tag {
+    display: inline-block; font-size: 10px; padding: 1px 6px;
+    border-radius: 4px; margin-right: 4px; vertical-align: 1px;
+    font-weight: 600;
+  }
+  .tag-attraction { background: #e8f5e9; color: #2d8a5f; }
+  .tag-food { background: #ffe5d9; color: #c0392b; }
+  .tag-hotel { background: #e3f2fd; color: #1a4d8f; }
+  .tag-other { background: #f0f0f0; color: #666; }
+
+  .event-links {
+    display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px;
+  }
+  .event-links a {
     display: inline-flex; align-items: center; gap: 3px;
-    margin-top: 5px; padding: 4px 9px;
+    padding: 5px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 600; text-decoration: none;
+    color: white;
+  }
+  .event-links .map-btn {
     background: linear-gradient(135deg, #4285f4, #1a73e8);
-    color: white; text-decoration: none;
-    border-radius: 6px; font-size: 11px; font-weight: 600;
-    -webkit-user-select: none; user-select: none;
+  }
+  .event-links .xhs-btn {
+    background: linear-gradient(135deg, #ff2e4d, #ff5277);
   }
 
   .transit {
-    position: relative; margin: -2px 0 8px 22px;
+    margin: -2px 0 8px 22px;
     background: linear-gradient(135deg, #f0f7ff, #e8f5f3);
     border-radius: 10px; padding: 9px 11px;
     border: 1px dashed #4285f4;
@@ -217,1412 +154,333 @@
   }
   .transit-route {
     color: #1a4d8f; font-weight: 600; margin-bottom: 6px;
-    display: flex; align-items: center; gap: 4px; font-size: 11px;
-  }
-  .transit-route .arrow { color: #888; }
-  .transit-options { display: flex; gap: 6px; }
-  .t-opt {
-    flex: 1; background: white; padding: 7px 8px;
-    border-radius: 8px; border: 1.5px solid transparent;
-    display: flex; gap: 6px; align-items: center;
     font-size: 11px;
   }
-  .t-opt.recommend { border-color: #28a745; box-shadow: 0 2px 6px rgba(40,167,69,0.15); }
-  .t-opt .t-icon { font-size: 18px; }
-  .t-opt .t-info { flex: 1; line-height: 1.3; }
-  .t-opt .t-mode { font-weight: 700; color: #2c1810; font-size: 11px; }
-  .t-opt.metro .t-mode { color: #1a73e8; }
-  .t-opt.taxi .t-mode { color: #e67e22; }
-  .t-opt.walk .t-mode { color: #28a745; }
-  .t-opt .t-detail { color: #6b5b4d; font-size: 10px; }
-  .t-opt .t-cost { font-weight: 700; color: #c0392b; font-size: 11px; }
-  .t-badge {
-    display: inline-block; background: #28a745; color: white;
-    padding: 1px 5px; border-radius: 3px; font-size: 9px;
-    margin-left: 3px; vertical-align: middle;
+  .transit-route .from { color: #666; }
+  .transit-route .arrow { color: #888; margin: 0 4px; }
+  .transit-route .to { color: #c0392b; }
+  .transit-detail {
+    background: white; padding: 7px 9px; border-radius: 7px;
+    color: #333; font-size: 11px; line-height: 1.5;
+    margin-bottom: 6px;
   }
-  .t-opt.unknown {
-    background: #fff8e1;
-    border: 1.5px dashed #f39c12;
+  .transit-detail .line {
+    display: inline-block; padding: 1px 6px; border-radius: 3px;
+    color: white; font-weight: 600; margin: 0 2px; font-size: 10px;
+  }
+  .l1 { background: #c0392b; }
+  .l2 { background: #e67e22; }
+  .l3 { background: #2d8a5f; }
+  .l4 { background: #1a73e8; }
+  .l5 { background: #9b59b6; }
+  .l6 { background: #16a085; }
+  .transfer-icon { color: #ff2e4d; font-weight: 700; }
+  .transit-baidu {
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 5px 10px; border-radius: 6px;
+    background: linear-gradient(135deg, #4285f4, #1a73e8);
+    color: white; font-size: 11px; font-weight: 600;
+    text-decoration: none;
   }
 
-  .card {
+  .info-box {
     background: white; border-radius: 12px; padding: 14px;
     margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
-  .card h3 { font-size: 14px; color: #c0392b; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-  .hotel-row { display: flex; padding: 5px 0; border-bottom: 1px dashed #f0d9c8; font-size: 12px; }
-  .hotel-row:last-child { border-bottom: none; }
-  .hotel-row .label { flex: 0 0 70px; color: #8b6f5c; font-weight: 600; }
-  .hotel-row .value { color: #2c1810; flex: 1; }
-
-  .hotel-hero {
-    background: linear-gradient(135deg, #c0392b 0%, #e67e22 100%);
-    color: white; padding: 18px 16px; border-radius: 14px;
-    margin-bottom: 12px; position: relative; overflow: hidden;
-  }
-  .hotel-hero::before {
-    content: '🏨'; position: absolute; right: -10px; top: -10px;
-    font-size: 100px; opacity: 0.15;
-  }
-  .hotel-hero .badge {
-    display: inline-block; background: rgba(255,255,255,0.25);
-    padding: 3px 10px; border-radius: 12px; font-size: 10px;
-    font-weight: 600; margin-bottom: 6px;
-  }
-  .hotel-hero h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-  .hotel-hero .name-en { font-size: 11px; opacity: 0.9; margin-bottom: 8px; }
-  .hotel-hero .stars { font-size: 13px; margin-bottom: 8px; }
-  .hotel-hero .floor {
-    background: rgba(255,255,255,0.2); padding: 6px 10px;
-    border-radius: 8px; font-size: 12px; display: inline-block;
-  }
-  body.edit-mode .hotel-hero .editable {
-    background: rgba(255,255,255,0.2);
-    border-color: rgba(255,255,255,0.7);
-    color: white;
-  }
-
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-  .info-card {
-    background: white; padding: 10px; border-radius: 10px;
-    text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    border: 1px solid #f0d9c8;
-  }
-  .info-card .icon { font-size: 22px; display: block; margin-bottom: 4px; }
-  .info-card .val { font-size: 13px; font-weight: 700; color: #c0392b; }
-  .info-card .lbl { font-size: 10px; color: #8b6f5c; margin-top: 2px; }
-
-  .room-card {
-    background: linear-gradient(135deg, #fff8f3, #ffffff);
-    padding: 12px; border-radius: 12px; margin-bottom: 10px;
-    border-left: 4px solid #e67e22;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-  .room-card .room-title {
-    font-size: 13px; font-weight: 700; color: #c0392b;
-    display: flex; justify-content: space-between; margin-bottom: 6px;
-  }
-  .room-card .room-meta {
-    font-size: 11px; color: #6b5b4d; line-height: 1.7;
-  }
-  .room-card .room-meta strong { color: #2c1810; }
-
-  .feature-list {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
-  }
-  .feature-list .feat {
-    font-size: 11px; padding: 6px 8px;
-    background: #fef9f3; border-radius: 7px;
-    color: #6b5b4d; display: flex; align-items: center; gap: 5px;
-  }
-
-  .nearby-list .nearby-item {
-    display: flex; align-items: center; padding: 8px 0;
-    border-bottom: 1px dashed #f0d9c8;
-  }
-  .nearby-list .nearby-item:last-child { border-bottom: none; }
-  .nearby-list .n-icon {
-    width: 32px; height: 32px; background: #fef0e6;
-    border-radius: 50%; display: flex; align-items: center;
-    justify-content: center; font-size: 16px; flex-shrink: 0;
-  }
-  .nearby-list .n-info { flex: 1; padding: 0 10px; }
-  .nearby-list .n-name { font-size: 12px; font-weight: 600; color: #2c1810; }
-  .nearby-list .n-detail { font-size: 10px; color: #8b6f5c; margin-top: 1px; }
-  .nearby-list .n-dist {
-    font-size: 11px; font-weight: 700; color: #c0392b;
-    text-align: right; flex-shrink: 0;
-  }
-
-  .checkin-timeline {
-    background: linear-gradient(135deg, #e8f5e9, #fff);
-    padding: 12px; border-radius: 10px;
-    border: 1px solid #c8e6c9;
-  }
-  .ci-item {
-    display: flex; align-items: center; padding: 6px 0;
-    border-bottom: 1px dashed #c8e6c9; font-size: 12px;
-  }
-  .ci-item:last-child { border-bottom: none; }
-  .ci-item .ci-icon {
-    width: 26px; height: 26px; background: white;
-    border-radius: 50%; display: flex; align-items: center;
-    justify-content: center; margin-right: 8px; font-size: 14px;
-  }
-  .ci-item .ci-text { flex: 1; }
-  .ci-item .ci-text strong { color: #2d8a5f; }
-
-  .contact-btns {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
-    margin-top: 10px;
-  }
-  .contact-btn {
-    padding: 10px; text-align: center; border-radius: 10px;
-    text-decoration: none; font-size: 12px; font-weight: 600;
-    display: flex; align-items: center; justify-content: center; gap: 5px;
-  }
-  .contact-btn.map { background: linear-gradient(135deg, #4285f4, #1a73e8); color: white; }
-  .contact-btn.phone { background: linear-gradient(135deg, #28a745, #20c997); color: white; }
-
-  .bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: white; box-shadow: 0 -2px 16px rgba(0,0,0,0.08);
-    display: flex; z-index: 100;
-  }
-  .nav-item { flex: 1; padding: 8px 4px 6px; text-align: center; cursor: pointer; border: none; background: transparent; -webkit-user-select: none; user-select: none; }
-  .nav-icon { font-size: 19px; display: block; margin-bottom: 1px; }
-  .nav-label { font-size: 10px; color: #8b6f5c; font-weight: 500; }
-  .nav-item.active { position: relative; }
-  .nav-item.active .nav-label { color: #c0392b; font-weight: 700; }
-  .nav-item.active::before {
-    content: ''; position: absolute; top: 0; left: 50%;
-    transform: translateX(-50%); width: 28px; height: 3px;
-    background: linear-gradient(90deg, #c0392b, #e67e22);
-    border-radius: 0 0 3px 3px;
-  }
-
-  .toast {
-    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
-    background: rgba(44, 24, 16, 0.95); color: white;
-    padding: 9px 18px; border-radius: 22px;
-    font-size: 12px; opacity: 0; transition: opacity 0.3s;
-    z-index: 200; pointer-events: none;
-    max-width: 90%; text-align: center;
-  }
-  .toast.show { opacity: 1; }
-
-  .total-budget {
-    background: linear-gradient(135deg, #c0392b, #e67e22); color: white;
-    padding: 14px; border-radius: 12px; margin-top: 12px; text-align: center;
-  }
-  .total-budget .label { font-size: 11px; opacity: 0.9; }
-  .total-budget .num { font-size: 22px; font-weight: 700; margin-top: 2px; }
-  .total-budget .per { font-size: 11px; opacity: 0.85; margin-top: 2px; }
-  body.edit-mode .total-budget .editable {
-    background: rgba(255,255,255,0.2);
-    border-color: rgba(255,255,255,0.7);
-    color: white;
-  }
-
-  .sync-tip { font-size: 10px; color: #888; margin-top: 4px; text-align: right; }
+  .info-box h3 { font-size: 14px; color: #c0392b; margin-bottom: 8px; }
+  .info-box p { font-size: 12px; color: #6b5b4d; margin-bottom: 4px; }
 </style>
 </head>
 <body>
 
-<header class="header">
+<div class="header">
   <div class="header-top">
     <div>
-      <h1>🏮 長沙 4 日 3 夜</h1>
-      <p class="subtitle">2026/5/22 (五) - 5/25 (一)｜家族 4 人</p>
+      <h1>🌶️ 長沙 4 日 3 夜</h1>
+      <div class="subtitle">智能行程 · 自動生成導航與小紅書連結</div>
     </div>
     <div class="header-btns">
-      <button class="h-btn" id="syncBtn" type="button">
-        <span>🔄</span><span>同步</span>
-      </button>
-      <button class="h-btn" id="editToggle" type="button">
-        <span id="editIcon">✏️</span><span id="editText">編輯</span>
-      </button>
+      <button class="h-btn" id="editBtn" onclick="toggleEdit()">✏️ 編輯</button>
     </div>
   </div>
-</header>
+</div>
 
-<main class="main">
+<div class="main">
+  <div class="alert-banner">
+    💡 <strong>小紅書連結</strong>：每個景點/餐廳已自動加入小紅書搜尋連結，行程更改後自動同步更新。
+  </div>
+  <div class="alert-banner info">
+    🗺️ <strong>百度地圖導航</strong>：起點自動帶入上一個行程地點，地鐵路線會列明轉乘車站。改動行程後自動重算。
+  </div>
 
-  <!-- ============ 行程頁 ============ -->
-  <section class="page active" id="page-itinerary">
-    <div class="alert-banner edit-only info">
-      ✨ <strong>火車卡編輯</strong>：直接點時間 / 車次 / 票價即可修改。「🔒 鎖定」防止自動覆蓋；「🔄 自動帶入」會用車站名重新查資料庫
-    </div>
-
-    <div class="day-tabs">
-      <button class="day-tab active" data-day="1" type="button">Day 1 · 5/22 (五)</button>
-      <button class="day-tab" data-day="2" type="button">Day 2 · 5/23 (六)</button>
-      <button class="day-tab" data-day="3" type="button">Day 3 · 5/24 (日)</button>
-      <button class="day-tab" data-day="4" type="button">Day 4 · 5/25 (一)</button>
-    </div>
-
-    <div class="day-summary" id="day-summary">
-      <div>🚇 地鐵<span id="sum-metro">¥0</span></div>
-      <div>🚕 專車<span id="sum-taxi">¥0</span></div>
-      <div>⏱ 通勤<span id="sum-time">0 分</span></div>
-    </div>
-
-    <!-- ===== Day 1 ===== -->
-    <div class="day-content" id="day-1">
-      <div class="day-header">
-        <h2><span class="editable">抵達長沙 + 橘子洲</span></h2>
-        <p><span class="editable">🚄 高鐵抵達 · 🌳 橘子洲日落 · 🍢 大排檔晚餐</span></p>
-      </div>
-
-      <div class="train-card" data-train-card data-locked="true">
-        <div>
-          <span class="train-no"><span class="editable t-no">G79</span></span>
-          <span class="train-direction"><span class="editable">去程 · 香港 → 長沙</span></span>
-        </div>
-        <div class="train-route">
-          <div class="station">
-            <div class="station-name"><span class="editable t-from">香港西九龍</span></div>
-            <div class="station-time"><span class="editable t-depart">08:05</span></div>
-            <div class="station-date"><span class="editable">5/22 (五)</span></div>
-          </div>
-          <div class="train-arrow">▶▶</div>
-          <div class="station">
-            <div class="station-name"><span class="editable t-to">長沙南</span></div>
-            <div class="station-time"><span class="editable t-arrive">11:34</span></div>
-            <div class="station-date"><span class="editable">5/22 (五)</span></div>
-          </div>
-        </div>
-        <div class="train-info">
-          <span>⏱ <span class="editable t-duration">3h29m</span></span>
-          <span>💺 <span class="editable t-fare">538</span> 元/人</span>
-        </div>
-        <div class="train-edit-bar">
-          <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定（不會自動覆蓋）</button>
-          <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
-        </div>
-      </div>
-
-      <div class="timeline" data-day="1">
-        <div class="event" data-place="長沙南站">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">11:34</span></div>
-          <div class="event-title">🚄 抵達 <span class="editable place">長沙南站</span></div>
-          <div class="event-desc"><span class="editable">取行李、出站，預留 30 分鐘</span></div>
-        </div>
-        <div class="event highlight" data-place="酒店">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">12:35 - 13:30</span></div>
-          <div class="event-title">🏨 <span class="editable place">酒店</span> Check-in</div>
-          <div class="event-desc"><span class="editable">五一廣場 · 世野SEYA高空酒店</span></div>
-        </div>
-        <div class="event" data-place="大師兄弟米粉">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">13:30 - 14:30</span></div>
-          <div class="event-title">🍜 午餐：<span class="editable place">大師兄弟米粉</span></div>
-          <div class="event-desc"><span class="editable">長沙必吃米粉，肉絲粉、酸辣粉</span></div>
-        </div>
-        <div class="event highlight" data-place="橘子洲">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">15:00 - 18:30</span></div>
-          <div class="event-title">🌳 <span class="editable place">橘子洲</span>（已訂票）</div>
-          <div class="event-desc"><span class="editable">毛澤東青年雕像、湘江景觀，傍晚日落最美</span></div>
-        </div>
-        <div class="event" data-place="北二樓大排檔">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">18:30 - 19:30</span></div>
-          <div class="event-title">🍢 晚餐：<span class="editable place">北二樓大排檔</span></div>
-          <div class="event-desc"><span class="editable">長沙在地大排檔，臭豆腐、口味蝦</span></div>
-        </div>
-        <div class="event" data-place="太平老街">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">19:30 - 21:30</span></div>
-          <div class="event-title">🌃 <span class="editable place">太平老街</span></div>
-          <div class="event-desc"><span class="editable">夜景燈光、文青小店、伴手禮</span></div>
-        </div>
-      </div>
-      <button class="add-event-btn edit-only" type="button" onclick="addEvent(1)">+ 新增 Day 1 行程</button>
-    </div>
-
-    <!-- ===== Day 2 ===== -->
-    <div class="day-content" id="day-2" style="display:none">
-      <div class="day-header">
-        <h2><span class="editable">岳麓山 + 杜甫江閣</span></h2>
-        <p><span class="editable">⛰ 名山書院 · 🏯 湘江日落 · 🍲 道地湘菜</span></p>
-      </div>
-      <div class="timeline" data-day="2">
-        <div class="event" data-place="酒店">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">08:00 - 09:00</span></div>
-          <div class="event-title">🥐 <span class="editable place">酒店</span>早餐</div>
-          <div class="event-desc"><span class="editable">於酒店餐廳享用</span></div>
-        </div>
-        <div class="event highlight" data-place="岳麓山">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">09:40 - 13:00</span></div>
-          <div class="event-title">⛰ <span class="editable place">岳麓山</span></div>
-          <div class="event-desc"><span class="editable">愛晚亭、麓山寺、岳麓書院；纜車 ¥30、觀光車 ¥20</span></div>
-        </div>
-        <div class="event" data-place="笨蘿蔔湘菜">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">13:30 - 14:30</span></div>
-          <div class="event-title">🍲 午餐：<span class="editable place">笨蘿蔔湘菜</span></div>
-          <div class="event-desc"><span class="editable">道地湘菜館，剁椒魚頭推薦</span></div>
-        </div>
-        <div class="event" data-place="酒店">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">14:30 - 15:30</span></div>
-          <div class="event-title">🛌 回 <span class="editable place">酒店</span> 午休</div>
-          <div class="event-desc"><span class="editable">短暫休息</span></div>
-        </div>
-        <div class="event highlight" data-place="杜甫江閣">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">16:00 - 18:00</span></div>
-          <div class="event-title">🏯 <span class="editable place">杜甫江閣</span></div>
-          <div class="event-desc"><span class="editable">湘江畔登閣看日落，門票 ¥20</span></div>
-        </div>
-        <div class="event" data-place="費大廚辣椒炒肉">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">18:00 - 19:30</span></div>
-          <div class="event-title">🌶️ 晚餐：<span class="editable place">費大廚辣椒炒肉</span></div>
-          <div class="event-desc"><span class="editable">招牌辣椒炒肉、必點</span></div>
-        </div>
-        <div class="event" data-place="黃興路步行街">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">19:30 - 21:30</span></div>
-          <div class="event-title">🌉 <span class="editable place">黃興路步行街</span></div>
-          <div class="event-desc"><span class="editable">週六晚最熱鬧、就在酒店附近</span></div>
-        </div>
-      </div>
-      <button class="add-event-btn edit-only" type="button" onclick="addEvent(2)">+ 新增 Day 2 行程</button>
-    </div>
-
-    <!-- ===== Day 3 ===== -->
-    <div class="day-content" id="day-3" style="display:none">
-      <div class="day-header">
-        <h2><span class="editable">老街 + 博物館 + 31 號公館</span></h2>
-        <p><span class="editable">🍜 火宮殿小吃 · 🏛 馬王堆漢墓 · 🍷 高級晚宴</span></p>
-      </div>
-      <div class="timeline" data-day="3">
-        <div class="event highlight" data-place="火宮殿">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">08:30 - 10:00</span></div>
-          <div class="event-title">🍜 早餐：<span class="editable place">火宮殿</span></div>
-          <div class="event-desc"><span class="editable">臭豆腐、糖油粑粑、米粉、小吃集合</span></div>
-        </div>
-        <div class="event" data-place="坡子街">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">10:00 - 12:00</span></div>
-          <div class="event-title">🛍 <span class="editable place">坡子街</span> + 黃興路步行街</div>
-          <div class="event-desc"><span class="editable">逛街購物、買伴手禮</span></div>
-        </div>
-        <div class="event" data-place="盛香亭">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">12:00 - 13:30</span></div>
-          <div class="event-title">🍱 午餐：<span class="editable place">盛香亭</span></div>
-          <div class="event-desc"><span class="editable">坡子街附近，輕便用餐</span></div>
-        </div>
-        <div class="event highlight" data-place="湖南博物院">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">14:00 - 17:30</span></div>
-          <div class="event-title">🏛 <span class="editable place">湖南博物院</span>（已訂票）</div>
-          <div class="event-desc"><span class="editable">必看：馬王堆漢墓、辛追夫人；免費入場</span></div>
-        </div>
-        <div class="event" data-place="酒店">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">17:30 - 18:30</span></div>
-          <div class="event-title">🛌 回 <span class="editable place">酒店</span> 換衣服</div>
-          <div class="event-desc"><span class="editable">準備晚上的高級晚餐</span></div>
-        </div>
-        <div class="event highlight" data-place="31號公館">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">19:00 - 21:30</span></div>
-          <div class="event-title">🍷 晚餐：<span class="editable place">31號公館</span>（已訂位）</div>
-          <div class="event-desc"><span class="editable">老長沙公館菜，氛圍優雅，慶祝晚宴</span></div>
-        </div>
-      </div>
-      <button class="add-event-btn edit-only" type="button" onclick="addEvent(3)">+ 新增 Day 3 行程</button>
-    </div>
-
-    <!-- ===== Day 4 ===== -->
-    <div class="day-content" id="day-4" style="display:none">
-      <div class="day-header">
-        <h2><span class="editable">悠閒早餐 + 回程（轉車）</span></h2>
-        <p><span class="editable">🥞 茶顏悅色 · 🛍 最後採購 · 🚄 G6011 + G6531 廣州南轉車返港</span></p>
-      </div>
-      <div class="alert-banner">
-        ⚠️ <strong>回程改為轉車</strong>：<span class="editable">G6011（長沙南 17:00 → 廣州南 19:00） + G6531（廣州南 19:37 → 西九龍 20:25）</span>
-      </div>
-
-      <div class="timeline" data-day="4">
-        <div class="event" data-place="酒店">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">07:30 - 08:30</span></div>
-          <div class="event-title">🥐 <span class="editable place">酒店</span>從容早餐</div>
-          <div class="event-desc"><span class="editable">酒店或附近粉店</span></div>
-        </div>
-        <div class="event" data-place="五一廣場">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">08:30 - 09:30</span></div>
-          <div class="event-title">🛍 <span class="editable place">五一廣場</span>採購茶顏悅色</div>
-          <div class="event-desc"><span class="editable">最後採購、買伴手禮</span></div>
-        </div>
-        <div class="event highlight" data-place="酒店">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">09:30 - 10:15</span></div>
-          <div class="event-title">🏨 回 <span class="editable place">酒店</span> 收行李 + 退房</div>
-          <div class="event-desc"><span class="editable">退房前確認所有東西、護照、回鄉證</span></div>
-        </div>
-        <div class="event highlight" data-place="長沙南站">
-          <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">15:30</span></div>
-          <div class="event-title">🚉 抵達 <span class="editable place">長沙南站</span></div>
-          <div class="event-desc"><span class="editable">提前約 1.5 小時，從容取票、安檢</span></div>
-        </div>
-      </div>
-      <button class="add-event-btn edit-only" type="button" onclick="addEvent(4)">+ 新增 Day 4 行程</button>
-
-      <div class="train-card return" data-train-card data-locked="true">
-        <div>
-          <span class="train-no"><span class="editable t-no">G6011</span></span>
-          <span class="train-direction"><span class="editable">回程 ① · 長沙南 → 廣州南</span></span>
-        </div>
-        <div class="train-route">
-          <div class="station">
-            <div class="station-name"><span class="editable t-from">長沙南</span></div>
-            <div class="station-time"><span class="editable t-depart">17:00</span></div>
-            <div class="station-date"><span class="editable">5/25 (一)</span></div>
-          </div>
-          <div class="train-arrow">▶▶</div>
-          <div class="station">
-            <div class="station-name"><span class="editable t-to">廣州南</span></div>
-            <div class="station-time"><span class="editable t-arrive">19:00</span></div>
-            <div class="station-date"><span class="editable">5/25 (一)</span></div>
-          </div>
-        </div>
-        <div class="train-info">
-          <span>⏱ <span class="editable t-duration">2h00m</span></span>
-          <span>💺 <span class="editable t-fare">314</span> 元/人</span>
-        </div>
-        <div class="train-edit-bar">
-          <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定（不會自動覆蓋）</button>
-          <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
-        </div>
-      </div>
-
-      <div class="alert-banner info" style="margin: -2px 0 10px;">
-        🔄 <strong>廣州南轉車</strong>：預留 <span class="editable">37 分鐘</span> 換乘（同站轉乘、無需出境）
-      </div>
-
-      <div class="train-card transfer" data-train-card data-locked="true">
-        <div>
-          <span class="train-no"><span class="editable t-no">G6531</span></span>
-          <span class="train-direction"><span class="editable">回程 ② · 廣州南 → 西九龍</span></span>
-        </div>
-        <div class="train-route">
-          <div class="station">
-            <div class="station-name"><span class="editable t-from">廣州南</span></div>
-            <div class="station-time"><span class="editable t-depart">19:37</span></div>
-            <div class="station-date"><span class="editable">5/25 (一)</span></div>
-          </div>
-          <div class="train-arrow">▶▶</div>
-          <div class="station">
-            <div class="station-name"><span class="editable t-to">香港西九龍</span></div>
-            <div class="station-time"><span class="editable t-arrive">20:25</span></div>
-            <div class="station-date"><span class="editable">5/25 (一)</span></div>
-          </div>
-        </div>
-        <div class="train-info">
-          <span>⏱ <span class="editable t-duration">48分鐘</span></span>
-          <span>💺 <span class="editable t-fare">215</span> 元/人</span>
-        </div>
-        <div class="train-edit-bar">
-          <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定（不會自動覆蓋）</button>
-          <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 火車頁 ============ -->
-  <section class="page" id="page-train">
-    <div class="alert-banner info">
-      ✏️ <strong>所有時間 / 車次 / 票價可直接點擊修改</strong>。預設「🔒 已鎖定」狀態，你嘅修改唔會被自動覆蓋。如果想重新查資料庫，按「🔄 自動帶入」。
-    </div>
-
-    <div class="train-card" data-train-card data-locked="true">
-      <div>
-        <span class="train-no"><span class="editable t-no">G79</span></span>
-        <span class="train-direction"><span class="editable">去程 · 5/22 (五)</span></span>
-      </div>
-      <div class="train-route">
-        <div class="station">
-          <div class="station-name"><span class="editable t-from">香港西九龍</span></div>
-          <div class="station-time"><span class="editable t-depart">08:05</span></div>
-        </div>
-        <div class="train-arrow">▶▶</div>
-        <div class="station">
-          <div class="station-name"><span class="editable t-to">長沙南</span></div>
-          <div class="station-time"><span class="editable t-arrive">11:34</span></div>
-        </div>
-      </div>
-      <div class="train-info">
-        <span>⏱ <span class="editable t-duration">3h29m</span></span>
-        <span>💺 二等 ¥<span class="editable t-fare">538</span></span>
-      </div>
-      <div class="train-edit-bar">
-        <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定</button>
-        <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
-      </div>
-    </div>
-
-    <h3 style="margin: 14px 0 8px; color: #2d8a5f; font-size: 14px;">🔄 <span class="editable">回程（廣州南轉車）</span></h3>
-
-    <div class="train-card return" data-train-card data-locked="true">
-      <div>
-        <span class="train-no"><span class="editable t-no">G6011</span></span>
-        <span class="train-direction"><span class="editable">第一段 · 5/25 (一)</span></span>
-      </div>
-      <div class="train-route">
-        <div class="station">
-          <div class="station-name"><span class="editable t-from">長沙南</span></div>
-          <div class="station-time"><span class="editable t-depart">17:00</span></div>
-        </div>
-        <div class="train-arrow">▶▶</div>
-        <div class="station">
-          <div class="station-name"><span class="editable t-to">廣州南</span></div>
-          <div class="station-time"><span class="editable t-arrive">19:00</span></div>
-        </div>
-      </div>
-      <div class="train-info">
-        <span>⏱ <span class="editable t-duration">2h00m</span></span>
-        <span>💺 二等 ¥<span class="editable t-fare">314</span></span>
-      </div>
-      <div class="train-edit-bar">
-        <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定</button>
-        <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
-      </div>
-    </div>
-
-    <div class="alert-banner info">🔄 <strong>廣州南轉車</strong>：<span class="editable">預留 37 分鐘換乘（同站轉乘、無需出境）</span></div>
-
-    <div class="train-card transfer" data-train-card data-locked="true">
-      <div>
-        <span class="train-no"><span class="editable t-no">G6531</span></span>
-        <span class="train-direction"><span class="editable">第二段 · 5/25 (一)</span></span>
-      </div>
-      <div class="train-route">
-        <div class="station">
-          <div class="station-name"><span class="editable t-from">廣州南</span></div>
-          <div class="station-time"><span class="editable t-depart">19:37</span></div>
-        </div>
-        <div class="train-arrow">▶▶</div>
-        <div class="station">
-          <div class="station-name"><span class="editable t-to">香港西九龍</span></div>
-          <div class="station-time"><span class="editable t-arrive">20:25</span></div>
-        </div>
-      </div>
-      <div class="train-info">
-        <span>⏱ <span class="editable t-duration">48分鐘</span></span>
-        <span>💺 二等 ¥<span class="editable t-fare">215</span></span>
-      </div>
-      <div class="train-edit-bar">
-        <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定</button>
-        <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📋 高鐵搭乘須知</h3>
-      <div class="hotel-row"><span class="label">證件</span><span class="value"><span class="editable">回鄉證 / 港澳通行證 / 護照</span></span></div>
-      <div class="hotel-row"><span class="label">取票</span><span class="value"><span class="editable">電子票免取，憑證件直接過閘</span></span></div>
-      <div class="hotel-row"><span class="label">行李</span><span class="value"><span class="editable">每人 20kg、長寬高 130cm 內</span></span></div>
-      <div class="hotel-row"><span class="label">禁帶</span><span class="value"><span class="editable">液體 > 100ml、行動電源 > 100Wh</span></span></div>
-    </div>
-  </section>
-
-  <!-- ============ 酒店頁 ============ -->
-  <section class="page" id="page-hotel">
-    <div class="alert-banner edit-only info">
-      ✏️ <strong>編輯模式</strong>：點任何文字直接修改
-    </div>
-
-    <div class="hotel-hero">
-      <span class="badge"><span class="editable">⭐ 五星級 · 高空酒店</span></span>
-      <h2><span class="editable">世野SEYA高空酒店（五一廣場店）</span></h2>
-      <div class="name-en"><span class="editable">SEYA Sky Hotel (Wuyi Square)</span></div>
-      <div class="stars"><span class="editable">★★★★★ 8.9 分（極好）</span></div>
-      <div class="floor">🏙 <span class="editable">高空樓層 · 五一廣場核心位置</span></div>
-    </div>
-
-    <div class="info-grid">
-      <div class="info-card">
-        <span class="icon">📅</span>
-        <div class="val"><span class="editable">3 晚</span></div>
-        <div class="lbl"><span class="editable">5/22 - 5/25</span></div>
-      </div>
-      <div class="info-card">
-        <span class="icon">🛏</span>
-        <div class="val"><span class="editable">2 房</span></div>
-        <div class="lbl"><span class="editable">家族 4 人</span></div>
-      </div>
-      <div class="info-card">
-        <span class="icon">💰</span>
-        <div class="val">¥<span class="editable b-num" data-budget="hotel">4500</span></div>
-        <div class="lbl"><span class="editable">3 晚總費用</span></div>
-      </div>
-      <div class="info-card">
-        <span class="icon">🏙</span>
-        <div class="val"><span class="editable">高空</span></div>
-        <div class="lbl"><span class="editable">五一廣場店</span></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📍 酒店資訊</h3>
-      <div class="hotel-row">
-        <span class="label">地址</span>
-        <span class="value"><span class="editable">長沙市芙蓉區五一廣場（黃興路步行街旁）</span></span>
-      </div>
-      <div class="hotel-row">
-        <span class="label">電話</span>
-        <span class="value"><span class="editable">+86 731 8888 9999</span></span>
-      </div>
-      <div class="hotel-row">
-        <span class="label">入住</span>
-        <span class="value"><span class="editable">5/22 (五) 14:00 之後</span></span>
-      </div>
-      <div class="hotel-row">
-        <span class="label">退房</span>
-        <span class="value"><span class="editable">5/25 (一) 12:00 之前</span></span>
-      </div>
-      <div class="hotel-row">
-        <span class="label">早餐</span>
-        <span class="value"><span class="editable">含早餐 · 高樓層自助餐廳</span></span>
-      </div>
-      <div class="hotel-row">
-        <span class="label">Wi-Fi</span>
-        <span class="value"><span class="editable">免費高速 Wi-Fi</span></span>
-      </div>
-      <div class="contact-btns">
-        <a class="contact-btn map" href="https://www.google.com/maps/search/?api=1&query=世野SEYA高空酒店+五一廣場+長沙" target="_blank">
-          📍 Google 地圖
-        </a>
-        <a class="contact-btn phone" href="tel:+8673188889999">
-          📞 致電酒店
-        </a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>🛏 房型配置</h3>
-      <div class="room-card">
-        <div class="room-title">
-          <span><span class="editable">高空景觀大床房</span></span>
-          <span style="color:#e67e22;">¥<span class="editable">780</span>/晚</span>
-        </div>
-        <div class="room-meta">
-          <strong>👥 入住人數：</strong><span class="editable">2 大人</span><br>
-          <strong>🛏 床型：</strong><span class="editable">1 張 King Size 大床</span><br>
-          <strong>📐 房間面積：</strong><span class="editable">約 42 m²</span><br>
-          <strong>🌆 景觀：</strong><span class="editable">五一廣場 + 城市夜景</span>
-        </div>
-      </div>
-      <div class="room-card">
-        <div class="room-title">
-          <span><span class="editable">高空景觀雙床房</span></span>
-          <span style="color:#e67e22;">¥<span class="editable">720</span>/晚</span>
-        </div>
-        <div class="room-meta">
-          <strong>👥 入住人數：</strong><span class="editable">2 大人</span><br>
-          <strong>🛏 床型：</strong><span class="editable">2 張 Single 單人床</span><br>
-          <strong>📐 房間面積：</strong><span class="editable">約 42 m²</span><br>
-          <strong>🌆 景觀：</strong><span class="editable">五一廣場 + 城市夜景</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>✨ 設施特色</h3>
-      <div class="feature-list">
-        <div class="feat">🍽 <span class="editable">行政酒廊</span></div>
-        <div class="feat">🏊 <span class="editable">室內泳池</span></div>
-        <div class="feat">💪 <span class="editable">健身中心</span></div>
-        <div class="feat">💆 <span class="editable">SPA 按摩</span></div>
-        <div class="feat">🍷 <span class="editable">高空酒吧</span></div>
-        <div class="feat">🚗 <span class="editable">免費停車</span></div>
-        <div class="feat">🧺 <span class="editable">24h 洗衣</span></div>
-        <div class="feat">🎮 <span class="editable">兒童樂園</span></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📍 周邊景點 / 餐廳</h3>
-      <div class="nearby-list">
-        <div class="nearby-item">
-          <div class="n-icon">🛍</div>
-          <div class="n-info">
-            <div class="n-name"><span class="editable">五一廣場 / 黃興路步行街</span></div>
-            <div class="n-detail"><span class="editable">最熱鬧商圈、夜市、購物</span></div>
-          </div>
-          <div class="n-dist"><span class="editable">步行 1 分</span></div>
-        </div>
-        <div class="nearby-item">
-          <div class="n-icon">🍜</div>
-          <div class="n-info">
-            <div class="n-name"><span class="editable">火宮殿（小吃集合）</span></div>
-            <div class="n-detail"><span class="editable">臭豆腐、糖油粑粑必吃</span></div>
-          </div>
-          <div class="n-dist"><span class="editable">步行 8 分</span></div>
-        </div>
-        <div class="nearby-item">
-          <div class="n-icon">🌳</div>
-          <div class="n-info">
-            <div class="n-name"><span class="editable">橘子洲</span></div>
-            <div class="n-detail"><span class="editable">毛澤東雕像、湘江景觀</span></div>
-          </div>
-          <div class="n-dist"><span class="editable">🚇 12 分</span></div>
-        </div>
-        <div class="nearby-item">
-          <div class="n-icon">🏯</div>
-          <div class="n-info">
-            <div class="n-name"><span class="editable">杜甫江閣</span></div>
-            <div class="n-detail"><span class="editable">湘江畔登閣看日落</span></div>
-          </div>
-          <div class="n-dist"><span class="editable">🚶 15 分</span></div>
-        </div>
-        <div class="nearby-item">
-          <div class="n-icon">⛰</div>
-          <div class="n-info">
-            <div class="n-name"><span class="editable">岳麓山</span></div>
-            <div class="n-detail"><span class="editable">愛晚亭、岳麓書院</span></div>
-          </div>
-          <div class="n-dist"><span class="editable">🚇 25 分</span></div>
-        </div>
-        <div class="nearby-item">
-          <div class="n-icon">🏛</div>
-          <div class="n-info">
-            <div class="n-name"><span class="editable">湖南博物院</span></div>
-            <div class="n-detail"><span class="editable">馬王堆漢墓、辛追夫人</span></div>
-          </div>
-          <div class="n-dist"><span class="editable">🚕 12 分</span></div>
-        </div>
-        <div class="nearby-item">
-          <div class="n-icon">🚄</div>
-          <div class="n-info">
-            <div class="n-name"><span class="editable">長沙南站(高鐵)</span></div>
-            <div class="n-detail"><span class="editable">地鐵 2 號線直達</span></div>
-          </div>
-          <div class="n-dist"><span class="editable">🚇 25 分</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📋 入住 / 退房須知</h3>
-      <div class="checkin-timeline">
-        <div class="ci-item">
-          <div class="ci-icon">🕑</div>
-          <div class="ci-text"><strong>入住時間：</strong><span class="editable">5/22 (五) 14:00 之後（11:34 抵達後可先寄存行李）</span></div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-icon">🛂</div>
-          <div class="ci-text"><strong>所需證件：</strong><span class="editable">4 人回鄉證 + 訂單確認單</span></div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-icon">💳</div>
-          <div class="ci-text"><strong>押金：</strong><span class="editable">¥1,000 / 房（信用卡預授權，退房後解凍）</span></div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-icon">🥐</div>
-          <div class="ci-text"><strong>早餐時間：</strong><span class="editable">06:30 - 10:30（高樓層自助餐廳）</span></div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-icon">🕛</div>
-          <div class="ci-text"><strong>退房時間：</strong><span class="editable">5/25 (一) 12:00 之前（可寄存行李至下午）</span></div>
-        </div>
-        <div class="ci-item">
-          <div class="ci-icon">📞</div>
-          <div class="ci-text"><strong>客房服務：</strong><span class="editable">撥打 0（24 小時）</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="alert-banner success">
-      ✅ <strong>訂單已確認</strong>：<span class="editable">訂單號 #SEYA20260522-4488 · 已支付</span>
-    </div>
-  </section>
-
-  <!-- ============ 預算 ============ -->
-  <section class="page" id="page-budget">
-    <div class="alert-banner edit-only info">
-      ✨ <strong>自動計算</strong>：高鐵費隨車卡票價自動更新；交通費隨行程地點自動計算
-    </div>
-
-    <div class="card">
-      <h3>💰 預算總覽（4 人）</h3>
-      <div class="hotel-row"><span class="label">🚄 高鐵</span><span class="value" id="b-train">¥0</span></div>
-      <div class="hotel-row"><span class="label">🏨 酒店 3 晚</span><span class="value">¥<span class="editable b-num" data-budget="hotel-budget">4500</span></span></div>
-      <div class="hotel-row"><span class="label">🍽 餐費</span><span class="value">¥<span class="editable b-num" data-budget="food">3500</span></span></div>
-      <div class="hotel-row"><span class="label">🚇 公共交通</span><span class="value" id="b-metro">¥0</span></div>
-      <div class="hotel-row"><span class="label">🚕 專車費</span><span class="value" id="b-taxi">¥0</span></div>
-      <div class="hotel-row"><span class="label">🎫 門票</span><span class="value">¥<span class="editable b-num" data-budget="ticket">500</span></span></div>
-      <div class="hotel-row"><span class="label">🛍 購物</span><span class="value">¥<span class="editable b-num" data-budget="shop">1500</span></span></div>
-      <div class="total-budget">
-        <div class="label">總計（4 人）</div>
-        <div class="num" id="totalAmount">¥0</div>
-        <div class="per" id="perPerson">人均約 ¥0</div>
-      </div>
-      <p class="sync-tip">高鐵 / 交通費自動加總</p>
-    </div>
-
-    <div class="card">
-      <h3>📊 各天交通明細</h3>
-      <div id="dayBreakdown"></div>
-    </div>
-
-    <div class="card">
-      <h3>📝 備註</h3>
-      <div style="font-size: 12px; color: #6b5b4d; line-height: 1.8;">
-        <span class="editable">• 預算僅供參考，實際費用以當地消費為準<br>
-        • 餐費按人均每餐 ¥80-150 估算<br>
-        • 購物預算包含茶顏悅色、伴手禮、零食<br>
-        • 建議現金備 ¥500、其餘用支付寶 / 微信支付</span>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<nav class="bottom-nav">
-  <button class="nav-item active" data-page="page-itinerary" type="button">
-    <span class="nav-icon">📅</span><span class="nav-label">行程</span>
-  </button>
-  <button class="nav-item" data-page="page-train" type="button">
-    <span class="nav-icon">🚄</span><span class="nav-label">火車</span>
-  </button>
-  <button class="nav-item" data-page="page-hotel" type="button">
-    <span class="nav-icon">🏨</span><span class="nav-label">酒店</span>
-  </button>
-  <button class="nav-item" data-page="page-budget" type="button">
-    <span class="nav-icon">💰</span><span class="nav-label">預算</span>
-  </button>
-</nav>
-
-<div class="toast" id="toast">已儲存修改</div>
+  <div class="day-tabs" id="dayTabs"></div>
+  <div id="itinerary"></div>
+</div>
 
 <script>
-const TRAIN_ROUTES = {
-  '香港西九龍-長沙南': { trainNo: 'G79',   depart: '08:05', arrive: '11:34', duration: '3h29m', fare: 538 },
-  '長沙南-香港西九龍': { trainNo: 'G80',   depart: '14:15', arrive: '17:44', duration: '3h29m', fare: 538 },
-  '西九龍-長沙南':     { trainNo: 'G79',   depart: '08:05', arrive: '11:34', duration: '3h29m', fare: 538 },
-  '長沙南-西九龍':     { trainNo: 'G80',   depart: '14:15', arrive: '17:44', duration: '3h29m', fare: 538 },
-  '長沙南-廣州南':     { trainNo: 'G6011', depart: '17:00', arrive: '19:00', duration: '2h00m', fare: 314 },
-  '廣州南-長沙南':     { trainNo: 'G6012', depart: '10:00', arrive: '12:00', duration: '2h00m', fare: 314 },
-  '廣州南-香港西九龍': { trainNo: 'G6531', depart: '19:37', arrive: '20:25', duration: '48分鐘', fare: 215 },
-  '香港西九龍-廣州南': { trainNo: 'G6532', depart: '08:00', arrive: '08:48', duration: '48分鐘', fare: 215 },
-  '廣州南-西九龍':     { trainNo: 'G6531', depart: '19:37', arrive: '20:25', duration: '48分鐘', fare: 215 },
-  '西九龍-廣州南':     { trainNo: 'G6532', depart: '08:00', arrive: '08:48', duration: '48分鐘', fare: 215 },
-  '長沙南-深圳北':     { trainNo: 'G6101', depart: '12:30', arrive: '15:45', duration: '3h15m', fare: 465 },
-  '深圳北-長沙南':     { trainNo: 'G6102', depart: '09:00', arrive: '12:15', duration: '3h15m', fare: 465 },
-  '深圳北-香港西九龍': { trainNo: 'G5601', depart: '16:30', arrive: '16:50', duration: '20分鐘', fare: 75 },
-  '香港西九龍-深圳北': { trainNo: 'G5602', depart: '07:30', arrive: '07:50', duration: '20分鐘', fare: 75 },
-  '深圳北-西九龍':     { trainNo: 'G5601', depart: '16:30', arrive: '16:50', duration: '20分鐘', fare: 75 },
-  '西九龍-深圳北':     { trainNo: 'G5602', depart: '07:30', arrive: '07:50', duration: '20分鐘', fare: 75 },
+/* ============ 行程資料 ============ */
+const itinerary = [
+  {
+    day: 1, date: "Day 1",
+    title: "抵達長沙｜老長沙夜遊",
+    desc: "黃花機場 → 入住酒店 → 太平街尋味",
+    events: [
+      { time: "14:00", type: "other", title: "抵達長沙黃花國際機場", desc: "搭乘磁浮列車或地鐵 6 號線進市區", noLinks: true },
+      { time: "15:30", type: "hotel", title: "華美達廣場酒店（五一廣場店）", desc: "市中心位置，鄰近地鐵 1/2 號線五一廣場站，逛街方便。" },
+      { time: "17:00", type: "attraction", title: "黃興路步行街", desc: "長沙最熱鬧的商業街，霓虹招牌＋網紅店打卡聖地。" },
+      { time: "18:30", type: "food", title: "文和友（海信廣場店）", desc: "復刻 80 年代老長沙街景，必試小龍蝦、臭豆腐。" },
+      { time: "20:30", type: "attraction", title: "太平街", desc: "古樸石板街，茶顏悅色總店所在地，夜景超美。" },
+      { time: "21:30", type: "food", title: "茶顏悅色（太平街店）", desc: "招牌幽蘭拿鐵、聲聲烏龍，必飲！" }
+    ]
+  },
+  {
+    day: 2, date: "Day 2",
+    title: "嶽麓山＋橘子洲",
+    desc: "登山賞楓 → 古書院 → 江心島",
+    events: [
+      { time: "08:00", type: "food", title: "肆姐粉店（坡子街店）", desc: "本地人推薦早餐，招牌肉絲粉、辣椒炒肉蓋碼。" },
+      { time: "09:30", type: "attraction", title: "嶽麓書院", desc: "千年學府，朱熹、張栻講學之地，門票 ¥50。" },
+      { time: "12:00", type: "food", title: "新華樓（嶽麓店）", desc: "湖南老字號，鹼水麵、刀削麵、包子皆出名。" },
+      { time: "13:30", type: "attraction", title: "嶽麓山", desc: "可乘索道上山，愛晚亭、麓山寺必到，秋季紅葉絕景。" },
+      { time: "16:30", type: "attraction", title: "橘子洲頭", desc: "毛主席青年雕像所在地，湘江中央島嶼，黃昏景色一流。" },
+      { time: "19:00", type: "food", title: "盛記一品（解放西路店）", desc: "本地連鎖湘菜館，剁椒魚頭、毛氏紅燒肉必點。" },
+      { time: "21:00", type: "attraction", title: "解放西路酒吧街", desc: "長沙夜生活地標，年輕人扎堆，氣氛熱鬧。" }
+    ]
+  },
+  {
+    day: 3, date: "Day 3",
+    title: "歷史文化＋商業購物",
+    desc: "湖南博物院 → 長沙 IFS → 坡子街",
+    events: [
+      { time: "08:30", type: "food", title: "楊裕興（五一廣場店）", desc: "百年老店，雞蛋面、酸辣面、滷味拼盤。" },
+      { time: "10:00", type: "attraction", title: "湖南博物院", desc: "馬王堆漢墓出土文物（辛追夫人）必看，需預約免費門票。" },
+      { time: "13:00", type: "food", title: "費大廚辣椒炒肉（IFS 店）", desc: "湘菜頂流，辣椒炒肉是招牌中的招牌。" },
+      { time: "15:00", type: "attraction", title: "長沙 IFS 國金中心", desc: "頂樓 KAWS 雕塑打卡點，內有奢華品牌、書店、米其林。" },
+      { time: "18:00", type: "food", title: "笨蘿蔔湘菜館（坡子街店）", desc: "性價比超高的湘菜館，臘味合蒸、口味蝦推薦。" },
+      { time: "20:00", type: "attraction", title: "坡子街", desc: "長沙小吃集中地，火宮殿就在這裡，夜市氣氛濃。" },
+      { time: "21:30", type: "food", title: "火宮殿（坡子街總店）", desc: "百年老店，臭豆腐、糖油粑粑、姊妹糰子必試。" }
+    ]
+  },
+  {
+    day: 4, date: "Day 4",
+    title: "悠閒早午餐｜返程",
+    desc: "酒店 Check-out → 機場",
+    events: [
+      { time: "09:00", type: "food", title: "墨茉點心局（IFS 店）", desc: "網紅中式點心，麻薯、芝士牛肉酥必買手信。" },
+      { time: "10:30", type: "attraction", title: "杜甫江閣", desc: "湘江畔仿古樓閣，緬懷詩聖杜甫，江景開揚。" },
+      { time: "12:00", type: "food", title: "炊煙時代小炒黃牛肉（五一廣場店）", desc: "招牌小炒黃牛肉，嫩滑帶鑊氣，臨走前最後一頓湘菜。" },
+      { time: "14:00", type: "other", title: "酒店 Check-out 取行李", desc: "整理行李，準備出發機場。", noLinks: true },
+      { time: "15:00", type: "other", title: "前往黃花機場", desc: "建議搭地鐵 6 號線或磁浮，1 小時前到達。", noLinks: true }
+    ]
+  }
+];
+
+/* ============ 連結自動生成 ============ */
+// 小紅書搜尋
+function xhsLink(name) {
+  return "https://www.xiaohongshu.com/search_result?keyword=" + encodeURIComponent("長沙 " + name) + "&type=51";
+}
+// 百度地圖：單點搜尋
+function baiduSearch(name) {
+  return "https://map.baidu.com/search/" + encodeURIComponent(name) + "/@12521000,3253000,12z?querytype=s&wd=" + encodeURIComponent("長沙 " + name);
+}
+// 百度地圖：路線導航（公交/地鐵優先）
+function baiduDir(from, to) {
+  return "https://map.baidu.com/dir/" +
+    encodeURIComponent(from) + "/" + encodeURIComponent(to) +
+    "/@12521000,3253000,12z?querytype=bt&c=長沙&sn=2$$$$$$" + encodeURIComponent(from) + "$$0$$$$&en=2$$$$$$" + encodeURIComponent(to) + "$$0$$$$&sc=158&ec=158&pn=0&rn=5";
+}
+
+/* ============ 模擬地鐵轉乘資料 ============ */
+// 簡化版：根據關鍵地點配對地鐵建議；實際以百度地圖即時計算為準
+const subwayHints = {
+  "華美達廣場酒店（五一廣場店）|文和友（海信廣場店）": { walk: "步行 5 分鐘", text: "步行可達" },
+  "文和友（海信廣場店）|太平街": { walk: "步行 8 分鐘", text: "步行可達，沿黃興南路向南" },
+  "太平街|茶顏悅色（太平街店）": { walk: "街內步行", text: "同一條街內" },
+  "華美達廣場酒店（五一廣場店）|嶽麓書院": {
+    text: "五一廣場站 <span class='line l1'>2號線</span> 西行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l4'>4號線</span> 南行 → 湖南大學站，步行 10 分鐘"
+  },
+  "嶽麓書院|嶽麓山": { walk: "步行 5 分鐘", text: "書院後門即可登山" },
+  "嶽麓山|橘子洲頭": {
+    text: "嶽麓山南站 <span class='line l4'>4號線</span> 北行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l2'>2號線</span> 東行 → 橘子洲站"
+  },
+  "橘子洲頭|盛記一品（解放西路店）": {
+    text: "橘子洲站 <span class='line l2'>2號線</span> 東行 → 五一廣場站，步行 5 分鐘"
+  },
+  "湖南博物院|費大廚辣椒炒肉（IFS 店）": {
+    text: "省政府站 <span class='line l3'>3號線</span> 南行 → 五一廣場站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l1'>1號線</span>，步行可達 IFS"
+  },
+  "費大廚辣椒炒肉（IFS 店）|長沙 IFS 國金中心": { walk: "同一商場", text: "費大廚位於 IFS 內" },
+  "長沙 IFS 國金中心|笨蘿蔔湘菜館（坡子街店）": { walk: "步行 8 分鐘", text: "沿黃興路向南即達坡子街" },
+  "墨茉點心局（IFS 店）|杜甫江閣": {
+    text: "五一廣場站 <span class='line l1'>1號線</span> → 步行 8 分鐘至湘江畔"
+  },
+  "杜甫江閣|炊煙時代小炒黃牛肉（五一廣場店）": { walk: "步行 12 分鐘", text: "沿解放西路向東" }
 };
 
-const PLACES = {
-  '香港西九龍': { lat: 22.304, lng: 114.166, hub: 'hk' },
-  '西九龍':    { lat: 22.304, lng: 114.166, hub: 'hk' },
-  '長沙南站':  { lat: 28.149, lng: 113.062, hub: 'south' },
-  '長沙南':    { lat: 28.149, lng: 113.062, hub: 'south' },
-  '長沙站':    { lat: 28.196, lng: 113.012, hub: 'east' },
-  '深圳北':    { lat: 22.610, lng: 114.029, hub: 'sz' },
-  '廣州南':    { lat: 22.991, lng: 113.266, hub: 'gz' },
-  '黃花機場':  { lat: 28.190, lng: 113.220, hub: 'airport' },
-  '長沙黃花機場': { lat: 28.190, lng: 113.220, hub: 'airport' },
-  '酒店':      { lat: 28.193, lng: 112.985, hub: 'wuyi' },
-  '世野SEYA高空酒店': { lat: 28.193, lng: 112.985, hub: 'wuyi' },
-  'SEYA':      { lat: 28.193, lng: 112.985, hub: 'wuyi' },
-  '世野':      { lat: 28.193, lng: 112.985, hub: 'wuyi' },
-  '五一廣場':  { lat: 28.196, lng: 112.984, hub: 'wuyi' },
-  '黃興路步行街': { lat: 28.194, lng: 112.982, hub: 'wuyi' },
-  '黃興路':    { lat: 28.194, lng: 112.982, hub: 'wuyi' },
-  '坡子街':    { lat: 28.194, lng: 112.978, hub: 'wuyi' },
-  '太平老街':  { lat: 28.193, lng: 112.978, hub: 'wuyi' },
-  '太平街':    { lat: 28.193, lng: 112.978, hub: 'wuyi' },
-  '火宮殿':    { lat: 28.193, lng: 112.979, hub: 'wuyi' },
-  '文和友':    { lat: 28.190, lng: 112.985, hub: 'wuyi' },
-  '超級文和友': { lat: 28.190, lng: 112.985, hub: 'wuyi' },
-  'IFS國金中心': { lat: 28.192, lng: 112.984, hub: 'wuyi' },
-  'IFS':       { lat: 28.192, lng: 112.984, hub: 'wuyi' },
-  '海信廣場':  { lat: 28.194, lng: 112.987, hub: 'wuyi' },
-  '盛香亭':    { lat: 28.195, lng: 112.981, hub: 'wuyi' },
-  '大師兄弟米粉': { lat: 28.196, lng: 112.984, hub: 'wuyi' },
-  '北二樓大排檔': { lat: 28.197, lng: 112.985, hub: 'wuyi' },
-  '費大廚辣椒炒肉': { lat: 28.198, lng: 112.984, hub: 'wuyi' },
-  '費大廚':    { lat: 28.198, lng: 112.984, hub: 'wuyi' },
-  '笨蘿蔔湘菜': { lat: 28.183, lng: 112.946, hub: 'yuelu' },
-  '笨蘿蔔':    { lat: 28.183, lng: 112.946, hub: 'yuelu' },
-  '茶顏悅色':  { lat: 28.196, lng: 112.984, hub: 'wuyi' },
-  '炊煙時代':  { lat: 28.196, lng: 112.985, hub: 'wuyi' },
-  '炊煙時代小炒黃牛肉': { lat: 28.196, lng: 112.985, hub: 'wuyi' },
-  '玉樓東':    { lat: 28.195, lng: 112.984, hub: 'wuyi' },
-  '徐記海鮮':  { lat: 28.198, lng: 112.985, hub: 'wuyi' },
-  '31號公館':  { lat: 28.205, lng: 112.998, hub: 'east' },
-  '橘子洲':    { lat: 28.186, lng: 112.964, hub: 'orange' },
-  '橘子洲頭':  { lat: 28.186, lng: 112.964, hub: 'orange' },
-  '岳麓山':    { lat: 28.183, lng: 112.943, hub: 'yuelu' },
-  '岳麓書院':  { lat: 28.182, lng: 112.945, hub: 'yuelu' },
-  '愛晚亭':    { lat: 28.184, lng: 112.940, hub: 'yuelu' },
-  '麓山寺':    { lat: 28.180, lng: 112.943, hub: 'yuelu' },
-  '杜甫江閣':  { lat: 28.184, lng: 112.973, hub: 'wuyi' },
-  '湖南博物院': { lat: 28.225, lng: 113.013, hub: 'museum' },
-  '湖南省博物館': { lat: 28.225, lng: 113.013, hub: 'museum' },
-  '天心閣':    { lat: 28.187, lng: 112.991, hub: 'wuyi' },
-  '簡牘博物館': { lat: 28.187, lng: 112.991, hub: 'wuyi' },
-};
-
-function makeAllEditable() {
-  document.querySelectorAll('.editable').forEach(el => {
-    el.setAttribute('contenteditable', 'true');
-    el.setAttribute('spellcheck', 'false');
-  });
+function getTransitHint(from, to) {
+  const key = from + "|" + to;
+  if (subwayHints[key]) return subwayHints[key];
+  // 預設：相近區域用打車/步行
+  return { text: "建議打車或叫滴滴，約 10–20 分鐘車程；亦可使用百度地圖查實時公交。" };
 }
 
-['pointerdown', 'touchstart', 'mousedown', 'focusin'].forEach(evt => {
-  document.addEventListener(evt, (e) => {
-    const ed = e.target && e.target.closest && e.target.closest('.editable');
-    if (ed && ed.getAttribute('contenteditable') !== 'true') {
-      ed.setAttribute('contenteditable', 'true');
-      ed.setAttribute('spellcheck', 'false');
-    }
-  }, true);
-});
+/* ============ 渲染 ============ */
+let currentDay = 0;
 
-// 鎖定切換
-function toggleLock(btn) {
-  const card = btn.closest('[data-train-card]');
-  const locked = card.dataset.locked === 'true';
-  card.dataset.locked = locked ? 'false' : 'true';
-  if (card.dataset.locked === 'true') {
-    btn.classList.add('active');
-    btn.textContent = '🔒 已鎖定';
-    showToast('🔒 已鎖定，改車站不會自動帶入');
-  } else {
-    btn.classList.remove('active');
-    btn.textContent = '🔓 未鎖定';
-    showToast('🔓 已解鎖，改車站會自動帶入');
-  }
-}
-
-// 手動觸發自動帶入
-function autoFillTrain(btn) {
-  const card = btn.closest('[data-train-card]');
-  const fromEl = card.querySelector('.t-from');
-  const toEl = card.querySelector('.t-to');
-  const from = fromEl.textContent.trim();
-  const to = toEl.textContent.trim();
-  const route = TRAIN_ROUTES[`${from}-${to}`];
-  if (!route) {
-    showToast('❌ 資料庫無此路線：' + from + '→' + to);
-    return;
-  }
-  const fields = [
-    ['.t-no', route.trainNo],
-    ['.t-depart', route.depart],
-    ['.t-arrive', route.arrive],
-    ['.t-duration', route.duration],
-    ['.t-fare', String(route.fare)]
-  ];
-  fields.forEach(([sel, val]) => {
-    const el = card.querySelector(sel);
-    if (el) {
-      el.textContent = val;
-      el.classList.remove('auto-updated');
-      void el.offsetWidth;
-      el.classList.add('auto-updated');
-    }
-  });
-  card.dataset.locked = 'true';
-  const lockBtn = card.querySelector('.train-edit-btn.lock');
-  if (lockBtn) {
-    lockBtn.classList.add('active');
-    lockBtn.textContent = '🔒 已鎖定';
-  }
-  showToast('🔄 已從資料庫帶入：' + route.trainNo);
-  recalculateBudgetOnly();
-}
-
-function getDistance(p1, p2) {
-  const a = PLACES[p1], b = PLACES[p2];
-  if (!a || !b) return null;
-  const R = 6371;
-  const dLat = (b.lat - a.lat) * Math.PI / 180;
-  const dLng = (b.lng - a.lng) * Math.PI / 180;
-  const lat1 = a.lat * Math.PI / 180;
-  const lat2 = b.lat * Math.PI / 180;
-  const x = Math.sin(dLat/2)**2 + Math.sin(dLng/2)**2 * Math.cos(lat1) * Math.cos(lat2);
-  return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
-}
-
-function calcTransit(from, to) {
-  const dist = getDistance(from, to);
-  if (dist === null) return { unknown: true, from, to };
-  const sameHub = PLACES[from].hub === PLACES[to].hub;
-
-  if (dist < 1 && sameHub) {
-    return {
-      walk: { time: Math.round(dist * 13), cost: 0, label: '步行' },
-      taxi: { time: Math.max(5, Math.round(dist * 3 + 5)), cost: Math.max(10, Math.round(dist * 2.5 + 10)), label: '滴滴' },
-      recommend: 'walk', dist
-    };
-  }
-
-  const metroTime = Math.round(dist / 28 * 60 + 12);
-  const metroCost = dist <= 6 ? 3 : dist <= 12 ? 4 : dist <= 20 ? 5 : 6;
-  const taxiTime = Math.round(dist / 25 * 60 + 5);
-  const taxiCost = Math.round(Math.max(13, 10 + Math.max(0, dist - 3) * 2.4) + 3);
-  const taxiCostMax = Math.round(taxiCost * 1.2);
-
-  let recommend = 'taxi';
-  if (dist > 5 && metroTime - taxiTime < 15) recommend = 'metro';
-  if (dist > 8) recommend = 'metro';
-  if (dist <= 3) recommend = 'taxi';
-
-  return {
-    metro: { time: metroTime, cost: metroCost, label: '地鐵' },
-    taxi:  { time: taxiTime, cost: taxiCost, costMax: taxiCostMax, label: '滴滴' },
-    recommend, dist
+function tagInfo(type) {
+  const map = {
+    attraction: { cls: "tag-attraction", text: "景點" },
+    food: { cls: "tag-food", text: "餐廳" },
+    hotel: { cls: "tag-hotel", text: "住宿" },
+    other: { cls: "tag-other", text: "交通" }
   };
+  return map[type] || map.other;
 }
 
-function renderTransitCards() {
-  document.querySelectorAll('.transit').forEach(el => el.remove());
-  let totalMetroCost = 0, totalTaxiCost = 0, totalTime = 0;
-  const dayBreakdown = {};
+function render() {
+  // Tabs
+  const tabs = document.getElementById("dayTabs");
+  tabs.innerHTML = itinerary.map((d, i) =>
+    `<div class="day-tab ${i === currentDay ? 'active' : ''}" onclick="switchDay(${i})">${d.date}<br><span style="font-size:9px;opacity:0.85">${d.title.split('｜')[0]}</span></div>`
+  ).join('');
 
-  for (let day = 1; day <= 4; day++) {
-    const timeline = document.querySelector(`.timeline[data-day="${day}"]`);
-    if (!timeline) continue;
-    const events = Array.from(timeline.querySelectorAll('.event'));
-    let dayMetro = 0, dayTaxi = 0, dayTime = 0;
+  // Itinerary
+  const day = itinerary[currentDay];
+  const cont = document.getElementById("itinerary");
 
-    for (let i = 0; i < events.length - 1; i++) {
-      const fromEvent = events[i];
-      const toEvent = events[i + 1];
-      const fromName = (fromEvent.querySelector('.place')?.textContent.trim() || fromEvent.dataset.place || '').trim();
-      const toName = (toEvent.querySelector('.place')?.textContent.trim() || toEvent.dataset.place || '').trim();
-      if (!fromName || !toName || fromName === toName) continue;
-
-      const t = calcTransit(fromName, toName);
-      const card = document.createElement('div');
-      card.className = 'transit';
-
-      if (t.unknown) {
-        card.innerHTML = `
-          <div class="transit-route">📍 <strong>${fromName}</strong> <span class="arrow">→</span> <strong>${toName}</strong></div>
-          <div class="transit-options">
-            <div class="t-opt unknown">
-              <span class="t-icon">❓</span>
-              <div class="t-info">
-                <div class="t-mode" style="color:#f39c12">未知地點</div>
-                <div class="t-detail" style="font-size:10px">無法估算車程</div>
-              </div>
-            </div>
-          </div>`;
-        timeline.insertBefore(card, toEvent);
-        continue;
-      }
-
-      let html = `<div class="transit-route">📍 <strong>${fromName}</strong> <span class="arrow">→</span> <strong>${toName}</strong> <span style="color:#888;font-size:10px">(約 ${t.dist.toFixed(1)} km)</span></div>`;
-      html += `<div class="transit-options">`;
-      if (t.walk) {
-        html += `<div class="t-opt walk recommend">
-          <span class="t-icon">🚶</span>
-          <div class="t-info">
-            <div class="t-mode">${t.walk.label}${t.recommend==='walk'?' <span class="t-badge">推薦</span>':''}</div>
-            <div class="t-detail">${t.walk.time} 分</div>
-            <div class="t-cost">免費</div>
-          </div>
-        </div>`;
-      }
-      if (t.metro) {
-        const isRec = t.recommend === 'metro';
-        html += `<div class="t-opt metro ${isRec?'recommend':''}">
-          <span class="t-icon">🚇</span>
-          <div class="t-info">
-            <div class="t-mode">${t.metro.label}${isRec?' <span class="t-badge">推薦</span>':''}</div>
-            <div class="t-detail">${t.metro.time} 分</div>
-            <div class="t-cost">¥${t.metro.cost}/人</div>
-          </div>
-        </div>`;
-      }
-      const taxiRec = t.recommend === 'taxi';
-      const taxiCostStr = t.taxi.costMax ? `¥${t.taxi.cost}-${t.taxi.costMax}` : `¥${t.taxi.cost}`;
-      html += `<div class="t-opt taxi ${taxiRec?'recommend':''}">
-        <span class="t-icon">🚕</span>
-        <div class="t-info">
-          <div class="t-mode">${t.taxi.label}${taxiRec?' <span class="t-badge">推薦</span>':''}</div>
-          <div class="t-detail">${t.taxi.time} 分</div>
-          <div class="t-cost">${taxiCostStr}</div>
-        </div>
-      </div>`;
-      html += `</div>`;
-      card.innerHTML = html;
-      timeline.insertBefore(card, toEvent);
-
-      if (t.recommend === 'metro') {
-        dayMetro += t.metro.cost * 4;
-        dayTime += t.metro.time;
-      } else if (t.recommend === 'taxi') {
-        dayTaxi += t.taxi.costMax || t.taxi.cost;
-        dayTime += t.taxi.time;
-      } else {
-        dayTime += t.walk.time;
-      }
-    }
-    dayBreakdown[day] = { metro: dayMetro, taxi: dayTaxi, time: dayTime };
-    totalMetroCost += dayMetro;
-    totalTaxiCost += dayTaxi;
-    totalTime += dayTime;
-  }
-  return { totalMetroCost, totalTaxiCost, totalTime, dayBreakdown };
-}
-
-function updateMapLinks() {
-  document.querySelectorAll('.event').forEach(event => {
-    const placeEl = event.querySelector('.place');
-    if (!placeEl) return;
-    const placeName = placeEl.textContent.trim();
-    if (!placeName) return;
-    const oldBtn = event.querySelector('.map-btn');
-    if (oldBtn) oldBtn.remove();
-    if (event.classList.contains('highlight') || /景|館|院|店|閣|山|洲|街|站/.test(placeName)) {
-      const btn = document.createElement('a');
-      btn.className = 'map-btn';
-      btn.target = '_blank';
-      btn.contentEditable = 'false';
-      btn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(placeName + ' 长沙')}`;
-      btn.innerHTML = `📍 ${placeName} 導航`;
-      event.appendChild(btn);
-    }
-    event.dataset.place = placeName;
-  });
-}
-
-function calcTotalTrainCost() {
-  let total = 0;
-  const cards = document.querySelectorAll('#page-itinerary [data-train-card]');
-  cards.forEach(card => {
-    const fareEl = card.querySelector('.t-fare');
-    if (!fareEl) return;
-    const fare = parseFloat(fareEl.textContent.replace(/[^\d.]/g, ''));
-    if (!isNaN(fare)) total += fare * 4;
-  });
-  return total;
-}
-
-function recalculateBudgetOnly() {
-  const transitData = renderTransitCards();
-  recalculateBudget(transitData);
-}
-
-function recalculateBudget(transitData) {
-  const trainCost = calcTotalTrainCost();
-  document.getElementById('b-train').textContent = `¥${trainCost.toLocaleString()}`;
-  document.getElementById('b-metro').textContent = `¥${transitData.totalMetroCost.toLocaleString()}`;
-  const stationTaxi = 110;
-  const totalTaxi = transitData.totalTaxiCost + stationTaxi;
-  document.getElementById('b-taxi').textContent = `¥${totalTaxi.toLocaleString()}`;
-
-  let other = 0;
-  document.querySelectorAll('#page-budget .b-num').forEach(el => {
-    const n = parseFloat(el.textContent.replace(/[^\d.]/g, ''));
-    if (!isNaN(n)) other += n;
-  });
-
-  const total = trainCost + transitData.totalMetroCost + totalTaxi + other;
-  document.getElementById('totalAmount').textContent = '¥' + total.toLocaleString();
-  document.getElementById('perPerson').textContent = '人均約 ¥' + Math.round(total / 4).toLocaleString();
-
-  const dayNames = { 1: 'Day 1 · 5/22 抵達 + 橘子洲', 2: 'Day 2 · 5/23 岳麓山', 3: 'Day 3 · 5/24 老街博物館', 4: 'Day 4 · 5/25 回程' };
-  let breakdownHTML = '';
-  for (const day in transitData.dayBreakdown) {
-    const d = transitData.dayBreakdown[day];
-    breakdownHTML += `
-      <div style="padding: 8px 0; border-bottom: 1px dashed #f0d9c8;">
-        <div style="font-weight: 600; color: #c0392b; font-size: 12px; margin-bottom: 4px;">${dayNames[day]}</div>
-        <div style="display: flex; justify-content: space-around; font-size: 11px; color: #6b5b4d;">
-          <span>🚇 ¥${d.metro}</span>
-          <span>🚕 ¥${d.taxi}</span>
-          <span>⏱ ${d.time} 分</span>
-        </div>
-      </div>`;
-  }
-  document.getElementById('dayBreakdown').innerHTML = breakdownHTML;
-
-  const activeDay = document.querySelector('.day-tab.active')?.dataset.day || 1;
-  const todayData = transitData.dayBreakdown[activeDay] || { metro: 0, taxi: 0, time: 0 };
-  document.getElementById('sum-metro').textContent = `¥${todayData.metro}`;
-  document.getElementById('sum-taxi').textContent = `¥${todayData.taxi}`;
-  document.getElementById('sum-time').textContent = `${todayData.time} 分`;
-}
-
-// 同步：只更新地圖連結 + 行程通勤 + 預算（不會碰火車卡內容！）
-function syncAll(silent) {
-  updateMapLinks();
-  const transitData = renderTransitCards();
-  recalculateBudget(transitData);
-  makeAllEditable();
-  if (!silent) showToast('✅ 已同步行程資料（火車卡保持不變）');
-}
-
-// 編輯火車卡欄位 → 唔會自動覆蓋，只更新預算
-document.addEventListener('focusout', (e) => {
-  const el = e.target;
-  if (!el.classList || !el.classList.contains('editable')) return;
-
-  const trainCard = el.closest('[data-train-card]');
-  if (trainCard) {
-    const isStation = el.classList.contains('t-from') || el.classList.contains('t-to');
-    const isLocked = trainCard.dataset.locked === 'true';
-
-    // 改車站名 + 未鎖定 → 自動帶入
-    if (isStation && !isLocked) {
-      const fromEl = trainCard.querySelector('.t-from');
-      const toEl = trainCard.querySelector('.t-to');
-      const from = fromEl.textContent.trim();
-      const to = toEl.textContent.trim();
-      const route = TRAIN_ROUTES[`${from}-${to}`];
-      if (route) {
-        const fields = [
-          ['.t-no', route.trainNo],
-          ['.t-depart', route.depart],
-          ['.t-arrive', route.arrive],
-          ['.t-duration', route.duration],
-          ['.t-fare', String(route.fare)]
-        ];
-        fields.forEach(([sel, val]) => {
-          const fel = trainCard.querySelector(sel);
-          if (fel && fel !== el) {
-            fel.textContent = val;
-            fel.classList.remove('auto-updated');
-            void fel.offsetWidth;
-            fel.classList.add('auto-updated');
-          }
-        });
-        showToast('🔄 已自動帶入：' + route.trainNo);
-      }
-    }
-    // 改其他欄位 → 只更新預算，唔覆蓋
-    setTimeout(() => recalculateBudgetOnly(), 50);
-    return;
-  }
-
-  if (el.classList.contains('place')) {
-    setTimeout(() => {
-      syncAll(true);
-      showToast('🗺 已重新計算車程');
-    }, 100);
-    return;
-  }
-
-  if (el.classList.contains('b-num')) {
-    setTimeout(() => recalculateBudgetOnly(), 50);
-    return;
-  }
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.target.classList && e.target.classList.contains('editable') && e.key === 'Enter') {
-    e.preventDefault();
-    e.target.blur();
-  }
-});
-
-const editToggle = document.getElementById('editToggle');
-const editIcon = document.getElementById('editIcon');
-const editText = document.getElementById('editText');
-let editMode = false;
-
-editToggle.addEventListener('click', (e) => {
-  e.preventDefault();
-  editMode = !editMode;
-  document.body.classList.toggle('edit-mode', editMode);
-  if (editMode) {
-    editToggle.classList.add('active');
-    editIcon.textContent = '✓';
-    editText.textContent = '完成';
-    showToast('✏️ 編輯模式：點任何文字直接修改');
-  } else {
-    editToggle.classList.remove('active');
-    editIcon.textContent = '✏️';
-    editText.textContent = '編輯';
-    syncAll();
-  }
-});
-
-document.getElementById('syncBtn').addEventListener('click', () => syncAll());
-
-document.querySelectorAll('.nav-item').forEach(item => {
-  item.addEventListener('click', () => {
-    const target = item.dataset.page;
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    item.classList.add('active');
-    document.getElementById(target).classList.add('active');
-    window.scrollTo({top: 0, behavior: 'smooth'});
-    makeAllEditable();
-    setTimeout(makeAllEditable, 50);
-    setTimeout(makeAllEditable, 300);
-  });
-});
-
-document.querySelectorAll('.day-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    const day = tab.dataset.day;
-    document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    document.querySelectorAll('.day-content').forEach(c => c.style.display = 'none');
-    document.getElementById('day-' + day).style.display = 'block';
-    syncAll(true);
-  });
-});
-
-function addEvent(day) {
-  const timeline = document.querySelector(`.timeline[data-day="${day}"]`);
-  const newEvent = document.createElement('div');
-  newEvent.className = 'event';
-  newEvent.dataset.place = '新地點';
-  newEvent.innerHTML = `
-    <button class="delete-btn edit-only" type="button" style="display:inline-flex" onclick="deleteEvent(this)">×</button>
-    <div class="event-time"><span class="editable" contenteditable="true">HH:MM</span></div>
-    <div class="event-title">📌 <span class="editable place" contenteditable="true">新地點</span></div>
-    <div class="event-desc"><span class="editable" contenteditable="true">點此修改描述</span></div>
+  let html = `
+    <div class="day-header">
+      <h2><span class="editable" data-path="day.${currentDay}.title">${day.title}</span></h2>
+      <p><span class="editable" data-path="day.${currentDay}.desc">${day.desc}</span></p>
+    </div>
+    <div class="timeline">
   `;
-  timeline.appendChild(newEvent);
-  setTimeout(() => {
-    newEvent.scrollIntoView({behavior:'smooth', block:'center'});
-    const placeEl = newEvent.querySelector('.place');
-    if (placeEl) {
-      placeEl.focus();
-      const range = document.createRange();
-      range.selectNodeContents(placeEl);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
+
+  day.events.forEach((ev, i) => {
+    const tag = tagInfo(ev.type);
+    const showLinks = ev.type === "attraction" || ev.type === "food" || ev.type === "hotel";
+
+    // 上一個有實體地點的行程作為導航起點
+    let prevPlace = null;
+    for (let k = i - 1; k >= 0; k--) {
+      const p = day.events[k];
+      if (p.type === "attraction" || p.type === "food" || p.type === "hotel") {
+        prevPlace = p.title; break;
+      }
     }
-  }, 100);
-  showToast('✓ 請輸入地名');
+    // 如果今日第一個地點，找前一日最後一個地點
+    if (!prevPlace && i > 0 && currentDay > 0) {
+      const prevDay = itinerary[currentDay - 1];
+      for (let k = prevDay.events.length - 1; k >= 0; k--) {
+        const p = prevDay.events[k];
+        if (p.type === "attraction" || p.type === "food" || p.type === "hotel") {
+          prevPlace = p.title; break;
+        }
+      }
+    }
+
+    // 交通卡（顯示在行程之前，除了第一個）
+    if (prevPlace && showLinks) {
+      const hint = getTransitHint(prevPlace, ev.title);
+      html += `
+        <div class="transit">
+          <div class="transit-route">
+            🚇 <span class="from">${prevPlace}</span><span class="arrow">→</span><span class="to">${ev.title}</span>
+          </div>
+          <div class="transit-detail">${hint.walk ? '🚶 ' + hint.walk + '：' : ''}${hint.text}</div>
+          <a class="transit-baidu" href="${baiduDir(prevPlace, ev.title)}" target="_blank">
+            🗺️ 百度地圖導航
+          </a>
+        </div>
+      `;
+    }
+
+    html += `
+      <div class="event" data-day="${currentDay}" data-idx="${i}">
+        <button class="delete-btn edit-only" onclick="deleteEvent(${currentDay}, ${i})">×</button>
+        <div class="event-time"><span class="editable" data-path="ev.${currentDay}.${i}.time">${ev.time}</span></div>
+        <div class="event-title">
+          <span class="event-tag ${tag.cls}">${tag.text}</span>
+          <span class="editable" data-path="ev.${currentDay}.${i}.title">${ev.title}</span>
+        </div>
+        <div class="event-desc"><span class="editable" data-path="ev.${currentDay}.${i}.desc">${ev.desc}</span></div>
+        ${showLinks ? `
+          <div class="event-links">
+            <a class="map-btn" href="${baiduSearch(ev.title)}" target="_blank">📍 百度地圖</a>
+            <a class="xhs-btn" href="${xhsLink(ev.title)}" target="_blank">📕 小紅書介紹</a>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  });
+
+  html += `
+    </div>
+    <button class="add-event-btn edit-only" onclick="addEvent(${currentDay})">＋ 新增行程</button>
+  `;
+
+  cont.innerHTML = html;
+  bindEditables();
 }
 
-function deleteEvent(btn) {
-  if (confirm('確定刪除這個行程？')) {
-    btn.closest('.event').remove();
-    syncAll();
-    showToast('🗑 已刪除');
-  }
+function switchDay(i) {
+  currentDay = i;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-let toastTimer;
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+/* ============ 編輯模式 ============ */
+function toggleEdit() {
+  document.body.classList.toggle("edit-mode");
+  document.getElementById("editBtn").classList.toggle("active");
+  const txt = document.body.classList.contains("edit-mode") ? "✅ 完成" : "✏️ 編輯";
+  document.getElementById("editBtn").textContent = txt;
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  makeAllEditable();
-  setTimeout(() => syncAll(true), 100);
-});
-
-if (document.readyState !== 'loading') {
-  makeAllEditable();
-  setTimeout(() => syncAll(true), 100);
+function bindEditables() {
+  document.querySelectorAll(".editable").forEach(el => {
+    el.addEventListener("blur", function() {
+      const path = this.dataset.path.split('.');
+      const newVal = this.textContent.trim();
+      if (path[0] === "day") {
+        itinerary[+path[1]][path[2] === "title" ? "title" : "desc"] = newVal;
+      } else if (path[0] === "ev") {
+        const field = path[3];
+        itinerary[+path[1]].events[+path[2]][field] = newVal;
+      }
+      // 重新渲染以同步連結
+      render();
+      // 動畫提示
+      setTimeout(() => {
+        document.querySelectorAll(".event-links a, .transit-baidu").forEach(a => {
+          a.classList.add("auto-updated");
+          setTimeout(() => a.classList.remove("auto-updated"), 1100);
+        });
+      }, 50);
+    });
+    el.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") { e.preventDefault(); this.blur(); }
+    });
+  });
 }
+
+function deleteEvent(dIdx, eIdx) {
+  itinerary[dIdx].events.splice(eIdx, 1);
+  render();
+}
+
+function addEvent(dIdx) {
+  itinerary[dIdx].events.push({
+    time: "12:00",
+    type: "attraction",
+    title: "新景點",
+    desc: "點擊編輯描述"
+  });
+  render();
+}
+
+render();
 </script>
 
 </body>
