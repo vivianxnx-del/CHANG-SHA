@@ -3,42 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>長沙4日3夜之旅</title>
+    <title>長沙4日3夜私人導遊</title>
     <style>
-        body { font-family: sans-serif; margin: 0; padding-bottom: 70px; background: #fdfaf6; }
-        header { background: #d2b48c; color: white; padding: 20px; text-align: center; }
-        section { display: none; padding: 20px; }
-        section.active { display: block; }
-        .btn { display: block; width: 100%; padding: 15px; margin: 10px 0; background: #8b4513; color: white; text-align: center; border-radius: 8px; text-decoration: none; font-weight: bold; }
-        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #ddd; }
-        .nav-item { cursor: pointer; color: #8b4513; font-weight: bold; }
+        body { font-family: 'Helvetica Neue', sans-serif; background: #fdfaf6; margin: 0; padding-bottom: 80px; color: #333; }
+        header { background: #8b4513; color: white; padding: 20px; text-align: center; }
+        .card { background: white; margin: 15px; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn { display: block; background: #d2b48c; color: white; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; margin-top: 10px; font-weight: bold; }
+        .link-btn { display: block; color: #8b4513; margin-top: 5px; font-size: 0.9em; text-decoration: underline; }
+        img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 2px solid #8b4513; }
+        .tab { display: none; }
+        .active { display: block; }
     </style>
 </head>
 <body>
-    <header><h1>長沙行程</h1></header>
+    <header><h1>長沙深度行</h1></header>
 
-    <section id="day" class="active">
-        <h3>每日行程概覽</h3>
-        <p><strong>5/22:</strong> 橘子洲 (下午) → 五一廣場</p>
-        <p><strong>5/23:</strong> 火宮殿(早) → 岳麓山 → 杜甫江閣</p>
-        <p><strong>5/24:</strong> 湖南博物院(下午) → 31號公館(晚)</p>
-        <a class="btn" href="https://maps.app.goo.gl/u3F3T7T9H3Y3G7m58" target="_blank">開啟 Google Map</a>
-    </section>
+    <div id="itinerary" class="tab active">
+        <!-- 5/22 -->
+        <div class="card">
+            <h3>5/22 橘子洲</h3>
+            <img src="https://images.unsplash.com/photo-1628153351989-1384e5658e0a?w=800" alt="橘子洲">
+            <p><strong>活動：</strong>毛澤東青年雕像，湘江中心綠洲。<br>費用：觀光車20元/人。</p>
+            <a class="btn" href="https://maps.app.goo.gl/u3F3T7T9H3Y3G7m58">📍 導航橘子洲</a>
+            <a class="link-btn" href="https://baike.baidu.com/item/橘子洲">了解景點介紹</a>
+        </div>
+        <!-- 5/23 -->
+        <div class="card">
+            <h3>5/23 火宮殿至杜甫江閣</h3>
+            <img src="https://images.unsplash.com/photo-1596434440051-249591395568?w=800" alt="長沙美食">
+            <p><strong>美食：</strong>火宮殿早餐、大師兄午餐。<br><strong>觀光：</strong>岳麓山纜車、杜甫江閣夜景。</p>
+            <a class="btn" href="https://maps.app.goo.gl/M4z6HkQZ9yW2SjS98">📍 導航火宮殿</a>
+            <a class="link-btn" href="https://www.trip.com/travel-guide/attraction/changsha-104-dofu-jiangge-10777508/">杜甫江閣介紹</a>
+        </div>
+        <!-- 5/24 -->
+        <div class="card">
+            <h3>5/24 博物館與31號公館</h3>
+            <img src="https://images.unsplash.com/photo-1590487988256-9ed221330366?w=800" alt="湖南博物館">
+            <p><strong>行程：</strong>笨蘿蔔午餐、湖南博物院、31號公館晚餐。</p>
+            <a class="btn" href="https://maps.app.goo.gl/w5vFz8K6n9C7x2v19">📍 導航至博物院</a>
+            <a class="link-btn" href="https://www.hnmuseum.com/">湖南博物院官網</a>
+        </div>
+    </div>
 
-    <section id="info">
-        <h3>實用資訊</h3>
-        <p><strong>住宿:</strong> 長沙世野酒店 (70F)</p>
-        <p><strong>交通:</strong> 建議善用滴滴出行</p>
-    </section>
+    <div id="info" class="tab">
+        <div class="card">
+            <h3>實用資訊</h3>
+            <p>• <strong>北二樓大排檔：</strong>適合宵夜，體驗地道長沙味。<br>• <strong>交通：</strong>推薦滴滴出行，免去長輩步行之苦。<br>• <strong>預算：</strong>預留 3000-5000 RMB 輕鬆遊玩。</p>
+        </div>
+    </div>
 
     <nav>
-        <div class="nav-item" onclick="show('day')">行程</div>
-        <div class="nav-item" onclick="show('info')">資訊</div>
+        <div onclick="show('itinerary')">📅 行程</div>
+        <div onclick="show('info')">ℹ️ 資訊</div>
     </nav>
 
     <script>
         function show(id) {
-            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         }
     </script>
