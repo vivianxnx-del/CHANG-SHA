@@ -99,10 +99,11 @@
     transform: translateX(-50%);
     background: linear-gradient(135deg, #2d8a5f, #1a8e3a);
     color: white; padding: 10px 18px; border-radius: 24px;
-    font-size: 13px; font-weight: 600; z-index: 1000;
+    font-size: 13px; font-weight: 600; z-index: 1500;
     box-shadow: 0 4px 16px rgba(45, 138, 95, 0.4);
     animation: slideInToast 0.3s ease;
     pointer-events: none;
+    max-width: 90%; text-align: center;
   }
 
   .delete-btn {
@@ -197,15 +198,9 @@
     font-size: 11px; font-weight: 600; text-decoration: none;
     color: white; border: none; cursor: pointer;
   }
-  .event-links .map-btn {
-    background: linear-gradient(135deg, #4285f4, #1a73e8);
-  }
-  .event-links .gmap-btn {
-    background: linear-gradient(135deg, #34a853, #1a8e3a);
-  }
-  .event-links .xhs-btn {
-    background: linear-gradient(135deg, #ff2e4d, #ff5277);
-  }
+  .event-links .map-btn { background: linear-gradient(135deg, #4285f4, #1a73e8); }
+  .event-links .gmap-btn { background: linear-gradient(135deg, #34a853, #1a8e3a); }
+  .event-links .xhs-btn { background: linear-gradient(135deg, #ff2e4d, #ff5277); }
 
   .transit {
     margin: -2px 0 8px 22px;
@@ -279,7 +274,6 @@
   .transit-gmap { background: linear-gradient(135deg, #34a853, #1a8e3a); }
   .transit-didi { background: linear-gradient(135deg, #ff8a00, #e67e22); }
 
-  /* ============ 火車頁 ============ */
   .info-card {
     background: white; border-radius: 14px; padding: 14px;
     margin-bottom: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -308,9 +302,7 @@
     display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 8px;
   }
-  .train-station {
-    text-align: center; flex: 1;
-  }
+  .train-station { text-align: center; flex: 1; }
   .train-station .city { font-size: 13px; font-weight: 700; color: #2c1810; }
   .train-station .time { font-size: 18px; font-weight: 700; color: #c0392b; margin: 2px 0; }
   .train-station .date { font-size: 10px; color: #6b5b4d; }
@@ -350,7 +342,6 @@
     color: #c0392b; font-weight: 600; font-size: 12px; cursor: pointer;
   }
 
-  /* ============ 預算頁 ============ */
   .budget-summary {
     background: linear-gradient(135deg, #c0392b, #e67e22);
     color: white; border-radius: 14px; padding: 16px;
@@ -389,7 +380,6 @@
   }
   .budget-bar-seg { height: 100%; }
 
-  /* 酒店頁 */
   .hotel-image-placeholder {
     width: 100%; height: 140px;
     background: linear-gradient(135deg, #1a4d8f, #4285f4);
@@ -417,6 +407,129 @@
   .hotel-feature .icon { margin-right: 4px; }
   .hotel-feature .label { color: #6b5b4d; font-size: 10px; }
   .hotel-feature .value { font-weight: 600; color: #2c1810; display: block; }
+
+  /* ============ AI Page ============ */
+  .ai-hero {
+    background: linear-gradient(135deg, #9b59b6 0%, #c0392b 100%);
+    color: white; border-radius: 14px; padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
+  }
+  .ai-hero h2 { font-size: 17px; margin-bottom: 4px; }
+  .ai-hero p { font-size: 12px; opacity: 0.95; }
+
+  .ai-textarea {
+    width: 100%; min-height: 88px;
+    border: 2px solid #f0d9c8; border-radius: 10px;
+    padding: 10px 12px; font-size: 13px; line-height: 1.6;
+    font-family: inherit; color: #2c1810;
+    resize: vertical;
+    background: #fffbf7;
+  }
+  .ai-textarea:focus { outline: none; border-color: #9b59b6; }
+
+  .ai-examples {
+    display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px;
+  }
+  .ai-example {
+    background: #f3e5f5; color: #6a1b9a;
+    padding: 4px 8px; border-radius: 12px;
+    font-size: 11px; cursor: pointer;
+    border: 1px solid #e1bee7;
+  }
+  .ai-example:hover { background: #e1bee7; }
+
+  .ai-fields {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;
+  }
+  .ai-field {
+    background: #f9f4ef; padding: 8px 10px; border-radius: 8px;
+  }
+  .ai-field .label { font-size: 10px; color: #6b5b4d; margin-bottom: 3px; }
+  .ai-field input, .ai-field select {
+    width: 100%; border: 1px solid #f0d9c8; border-radius: 6px;
+    padding: 5px 8px; font-size: 12px; font-family: inherit;
+    background: white; color: #2c1810;
+  }
+  .ai-field.full { grid-column: 1 / -1; }
+
+  .ai-btn-primary {
+    width: 100%; padding: 12px;
+    background: linear-gradient(135deg, #9b59b6, #c0392b);
+    color: white; border: none; border-radius: 10px;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
+  }
+  .ai-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .ai-preview {
+    background: linear-gradient(135deg, #fff8e1, #fffbef);
+    border: 2px solid #e67e22;
+    border-radius: 12px; padding: 12px;
+    margin-top: 12px;
+  }
+  .ai-preview .preview-title {
+    font-size: 13px; font-weight: 700; color: #c0392b; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .ai-preview-item {
+    background: white; border-radius: 8px; padding: 8px 10px;
+    margin-bottom: 6px; font-size: 12px;
+  }
+  .ai-preview-item .meta { color: #6b5b4d; font-size: 11px; }
+
+  .changes-list {
+    background: #e8f5e9; border-radius: 8px; padding: 8px 10px;
+    margin-top: 6px; font-size: 11px; color: #155724;
+  }
+  .changes-list .change-row {
+    margin: 2px 0;
+  }
+  .conflict-box {
+    background: #ffe4e4; border: 2px solid #ff2e4d;
+    border-radius: 8px; padding: 10px;
+    margin-top: 8px;
+    color: #b00020; font-size: 12px;
+  }
+  .conflict-box .title { font-weight: 700; margin-bottom: 4px; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    display: none; align-items: center; justify-content: center;
+    z-index: 2000; padding: 16px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: white; border-radius: 16px; padding: 18px;
+    max-width: 360px; width: 100%;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .modal-title {
+    font-size: 15px; font-weight: 700; color: #c0392b;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .modal-body {
+    font-size: 13px; color: #2c1810; line-height: 1.6;
+    margin-bottom: 14px;
+    max-height: 50vh; overflow-y: auto;
+  }
+  .modal-body .item {
+    background: #fef0e6; border-radius: 8px; padding: 8px 10px;
+    margin: 6px 0; font-size: 12px;
+  }
+  .modal-actions {
+    display: flex; gap: 8px; justify-content: flex-end;
+  }
+  .modal-btn {
+    padding: 8px 14px; border: none; border-radius: 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .modal-btn.cancel { background: #f0f0f0; color: #555; }
+  .modal-btn.confirm { background: linear-gradient(135deg, #c0392b, #e67e22); color: white; }
+  .modal-btn.danger { background: linear-gradient(135deg, #b00020, #ff2e4d); color: white; }
 </style>
 </head>
 <body>
@@ -433,6 +546,7 @@
   </div>
   <div class="nav-tabs">
     <div class="nav-tab active" data-page="itinerary" onclick="switchPage('itinerary')">📅 行程</div>
+    <div class="nav-tab" data-page="ai" onclick="switchPage('ai')">🤖 AI 助手</div>
     <div class="nav-tab" data-page="train" onclick="switchPage('train')">🚄 火車</div>
     <div class="nav-tab" data-page="hotel" onclick="switchPage('hotel')">🏨 酒店</div>
     <div class="nav-tab" data-page="budget" onclick="switchPage('budget')">💰 預算</div>
@@ -444,13 +558,80 @@
 <!-- ============ 行程頁 ============ -->
 <div class="page active" id="page-itinerary">
   <div class="alert-banner success">
-    ✨ <strong>自動更新已開啟</strong>：改任何景點/餐廳名稱，路線、時間、費用、地圖、小紅書連結會即時重新計算。
+    ✨ <strong>自動更新</strong>：改名稱→路線/連結自動更新；改時間或新增行程→後續時間自動排程（已預訂時段保留）。
   </div>
   <div class="alert-banner booked">
-    📌 <strong>已預訂行程（不可改時間）</strong>：5/22（五）下午橘子洲、5/24（日）下午湖南博物院、5/24（日）晚上 31 號公館。
+    📌 <strong>已預訂時段（時間不可改）</strong>：5/22 下午橘子洲、5/24 下午湖南博物院、5/24 晚上 31 號公館。
   </div>
   <div class="day-tabs" id="dayTabs"></div>
   <div id="itinerary-content"></div>
+</div>
+
+<!-- ============ AI 頁 ============ -->
+<div class="page" id="page-ai">
+  <div class="ai-hero">
+    <h2>🤖 AI 行程助手</h2>
+    <p>用自然語言描述想加嘅行程，系統自動安插到合適位置並重排時間。</p>
+  </div>
+
+  <div class="info-card">
+    <h3>💬 描述新行程</h3>
+    <textarea id="aiInput" class="ai-textarea" placeholder="例如：想加去茶顏悅色嗰度打卡，5/23 下午&#10;或：第3日想食墨茉點心局，早上&#10;或：晚上加個夜遊湘江"></textarea>
+
+    <div class="ai-examples">
+      <span class="ai-example" onclick="useExample('5/23 下午想去茶顏悅色打卡')">5/23 下午想去茶顏悅色打卡</span>
+      <span class="ai-example" onclick="useExample('第二日早上加個墨茉點心局做早餐')">第二日早上加墨茉點心局</span>
+      <span class="ai-example" onclick="useExample('5/22 晚上想去文和友夜遊')">5/22 晚上去文和友</span>
+      <span class="ai-example" onclick="useExample('第三日下午加IFS購物')">第三日下午加 IFS 購物</span>
+    </div>
+
+    <div class="ai-fields">
+      <div class="ai-field full">
+        <div class="label">🏷️ 行程名稱（必填）</div>
+        <input type="text" id="aiName" placeholder="例如：茶顏悅色">
+      </div>
+      <div class="ai-field">
+        <div class="label">📅 日期</div>
+        <select id="aiDay">
+          <option value="0">5/22 五（Day 1）</option>
+          <option value="1">5/23 六（Day 2）</option>
+          <option value="2">5/24 日（Day 3）</option>
+          <option value="3">5/25 一（Day 4）</option>
+        </select>
+      </div>
+      <div class="ai-field">
+        <div class="label">⏰ 時段</div>
+        <select id="aiTimeSlot">
+          <option value="morning">早上 (09:30)</option>
+          <option value="noon">中午 (12:00)</option>
+          <option value="afternoon" selected>下午 (15:00)</option>
+          <option value="evening">晚上 (18:30)</option>
+          <option value="night">夜晚 (20:30)</option>
+        </select>
+      </div>
+      <div class="ai-field">
+        <div class="label">🎯 類型</div>
+        <select id="aiType">
+          <option value="attraction">景點</option>
+          <option value="food">餐廳</option>
+          <option value="hotel">住宿</option>
+          <option value="station">車站</option>
+        </select>
+      </div>
+      <div class="ai-field">
+        <div class="label">⏱️ 預計停留（分鐘）</div>
+        <input type="number" id="aiDuration" value="60" min="15" max="480">
+      </div>
+      <div class="ai-field full">
+        <div class="label">📝 備註描述（可選）</div>
+        <input type="text" id="aiDesc" placeholder="例如：網紅奶茶必試招牌幽蘭拿鐵">
+      </div>
+    </div>
+
+    <button class="ai-btn-primary" onclick="aiAnalyze()">🤖 智能分析並預覽</button>
+  </div>
+
+  <div id="aiPreviewBox"></div>
 </div>
 
 <!-- ============ 火車頁 ============ -->
@@ -604,6 +785,15 @@
 
 </div>
 
+<!-- ============ Modal ============ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle">⚠️ 提示</div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+
 <script>
 /* ============ 行程資料 ============ */
 const itinerary = [
@@ -659,262 +849,202 @@ const itinerary = [
   }
 ];
 
-/* ============ 火車資料（去程 1 班，回程 2 班轉乘）============ */
+/* ============ 火車資料 ============ */
 const trainData = {
   outbound: [
-    {
-      fromCity: "深圳北", fromTime: "10:30", fromDate: "5月22日（五）",
-      toCity: "長沙南", toTime: "13:55", toDate: "5月22日（五）",
-      duration: "3h 25m", trainNo: "G6044", seat: "二等座", price: "389", pax: "2"
-    }
+    { fromCity: "深圳北", fromTime: "10:30", fromDate: "5月22日（五）", toCity: "長沙南", toTime: "13:55", toDate: "5月22日（五）", duration: "3h 25m", trainNo: "G6044", seat: "二等座", price: "389", pax: "2" }
   ],
   return: [
-    {
-      fromCity: "長沙南", fromTime: "17:00", fromDate: "5月25日（一）",
-      toCity: "廣州南", toTime: "19:00", toDate: "5月25日（一）",
-      duration: "2h 00m", trainNo: "G6011", seat: "二等座", price: "314", pax: "2"
-    },
-    {
-      fromCity: "廣州南", fromTime: "19:37", fromDate: "5月25日（一）",
-      toCity: "香港西九龍", toTime: "20:25", toDate: "5月25日（一）",
-      duration: "0h 48m", trainNo: "G6531", seat: "二等座", price: "215", pax: "2"
-    }
+    { fromCity: "長沙南", fromTime: "17:00", fromDate: "5月25日（一）", toCity: "廣州南", toTime: "19:00", toDate: "5月25日（一）", duration: "2h 00m", trainNo: "G6011", seat: "二等座", price: "314", pax: "2" },
+    { fromCity: "廣州南", fromTime: "19:37", fromDate: "5月25日（一）", toCity: "香港西九龍", toTime: "20:25", toDate: "5月25日（一）", duration: "0h 48m", trainNo: "G6531", seat: "二等座", price: "215", pax: "2" }
   ]
 };
 
-/* ============ 酒店資料 ============ */
 const hotelData = {
   name: "世野 SEYA 高空酒店 五一廣場店",
   desc: "坐擁長沙市中心五一廣場高空景觀，地鐵 1/2 號線 5 分鐘可達，步行至黃興路步行街、坡子街、太平老街。",
   addr: "芙蓉區黃興中路",
-  checkin: "5月22日（五）",
-  checkout: "5月25日（一）",
-  nights: "3",
-  pricePerNight: "580"
+  checkin: "5月22日（五）", checkout: "5月25日（一）",
+  nights: "3", pricePerNight: "580"
 };
 
-/* ============ 預算資料 ============ */
-const budgetData = {
-  foodPerDay: "200",
-  tickets: "120",
-  transport: "200",
-  shopping: "300"
-};
+const budgetData = { foodPerDay: "200", tickets: "120", transport: "200", shopping: "300" };
 
-/* ============ 真實連結生成 ============ */
-function xhsLink(name) {
-  return "xhsdiscover://search/result?keyword=" +
-         encodeURIComponent("长沙 " + name);
+/* ============ 通用工具 ============ */
+function xhsLink(name) { return "xhsdiscover://search/result?keyword=" + encodeURIComponent("长沙 " + name); }
+function baiduSearch(name) { return "https://map.baidu.com/search/" + encodeURIComponent("长沙" + name); }
+function gmapSearch(name) { return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("长沙 " + name); }
+function baiduDir(from, to) { return "https://api.map.baidu.com/direction?origin=" + encodeURIComponent(from) + "&destination=" + encodeURIComponent(to) + "&mode=transit&region=" + encodeURIComponent("长沙") + "&output=html&src=webapp"; }
+function gmapDir(from, to) { return "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent("长沙 " + from) + "&destination=" + encodeURIComponent("长沙 " + to) + "&travelmode=transit"; }
+function didiLink() { return "https://common.diditaxi.com.cn/general/webEntry"; }
+
+/* ============ 時間工具 ============ */
+function parseTime(t) {
+  if (!t) return null;
+  const m = String(t).match(/(\d{1,2}):(\d{2})/);
+  if (!m) return null;
+  return parseInt(m[1]) * 60 + parseInt(m[2]);
 }
-function baiduSearch(name) {
-  return "https://map.baidu.com/search/" +
-         encodeURIComponent("长沙" + name);
+function formatTime(mins) {
+  if (mins == null) return "00:00";
+  let m = Math.round(mins);
+  m = ((m % (24 * 60)) + 24 * 60) % (24 * 60);
+  return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
 }
-function gmapSearch(name) {
-  return "https://www.google.com/maps/search/?api=1&query=" +
-         encodeURIComponent("长沙 " + name);
+function estimateDuration(ev) {
+  const t = ev.type;
+  const title = ev.title || '';
+  if (t === 'food') {
+    if (/早餐|早/.test(title)) return 60;
+    if (/晚餐|宵夜|大排檔|公館/.test(title)) return 90;
+    return 75;
+  }
+  if (t === 'attraction' || t === 'booked') {
+    if (/嶽麓|岳麓|麓山/.test(title)) return 210;
+    if (/博物|館/.test(title)) return 150;
+    if (/橘子洲/.test(title)) return 150;
+    if (/江閣|杜甫/.test(title)) return 60;
+    if (/步行街|老街|坡子街|太平|黃興/.test(title)) return 60;
+    if (/廣場/.test(title)) return 30;
+    if (/茶顏|奶茶|咖啡/.test(title)) return 30;
+    return 90;
+  }
+  if (t === 'hotel') return 30;
+  if (t === 'station') return 60;
+  return 60;
 }
-function baiduDir(from, to) {
-  return "https://api.map.baidu.com/direction?origin=" +
-         encodeURIComponent(from) +
-         "&destination=" + encodeURIComponent(to) +
-         "&mode=transit&region=" + encodeURIComponent("长沙") +
-         "&output=html&src=webapp";
-}
-function gmapDir(from, to) {
-  return "https://www.google.com/maps/dir/?api=1&origin=" +
-         encodeURIComponent("长沙 " + from) +
-         "&destination=" + encodeURIComponent("长沙 " + to) +
-         "&travelmode=transit";
-}
-function didiLink() {
-  return "https://common.diditaxi.com.cn/general/webEntry";
+function estimateTravel(from, to) {
+  if (!from || !to || from === to) return 0;
+  const route = inferRoute(from, to);
+  const rec = route.recommend;
+  const obj = route[rec] || route.walk || route.subway || route.taxi;
+  if (!obj || !obj.time) return 15;
+  const nums = String(obj.time).match(/\d+/g);
+  if (!nums) return 15;
+  if (nums.length >= 2) return Math.round((parseInt(nums[0]) + parseInt(nums[1])) / 2);
+  return parseInt(nums[0]) || 15;
 }
 
 /* ============ 路線資料庫 ============ */
 const routes = {
-  "長沙火車南站|世野 SEYA 高空酒店 五一廣場店": {
-    subway: { time: "約 25 分鐘", fare: "￥4", detail: "南站 <span class='line l2'>2號線</span> 西行 8 站 → 五一廣場站，2 號出口步行 3 分鐘。", transfers: "無需轉乘" },
-    taxi: { time: "約 30–40 分鐘", fare: "￥45–60", detail: "繁忙時段易塞車，行李多時較舒適。" },
-    recommend: "subway", reason: "便宜直達，免轉乘"
-  },
-  "世野 SEYA 高空酒店 五一廣場店|橘子洲景區": {
-    subway: { time: "約 12 分鐘", fare: "￥2", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 1 站 → 橘子洲站，2 號出口步行 5 分鐘入園。", transfers: "無需轉乘" },
-    taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "週末橘子洲大橋常塞車，地鐵反而快。" },
-    recommend: "subway", reason: "1 站直達，免塞車"
-  },
-  "橘子洲景區|五一廣場": {
-    subway: { time: "約 12 分鐘", fare: "￥2", detail: "橘子洲站 <span class='line l2'>2號線</span> 東行 1 站 → 五一廣場站。", transfers: "無需轉乘" },
-    taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "晚上週末易塞車。" },
-    recommend: "subway", reason: "1 站直達快捷"
-  },
-  "五一廣場|黃興路步行街": {
-    walk: { time: "2 分鐘", detail: "緊鄰五一廣場，南端入口即是。" },
-    recommend: "walk"
-  },
-  "黃興路步行街|北二樓大排檔": {
-    walk: { time: "10 分鐘", detail: "黃興路口附近，沿途夜景熱鬧。" },
-    taxi: { time: "5 分鐘", fare: "￥10", detail: "夜晚走累可叫車，起步價搞定。" },
-    recommend: "walk", reason: "順路逛夜景"
-  },
-  "北二樓大排檔|火宮殿 坡子街總店": {
-    walk: { time: "8–12 分鐘", detail: "次日早上由酒店出發較順路；兩地相距黃興路步行街與坡子街。" },
-    taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價搞定。" },
-    recommend: "walk", reason: "由酒店步行直達坡子街"
-  },
-  "火宮殿 坡子街總店|坡子街": {
-    walk: { time: "原地", detail: "火宮殿即位於坡子街上。" },
-    recommend: "walk"
-  },
-  "坡子街|太平老街": {
-    walk: { time: "5 分鐘", detail: "兩街相連，沿途古色古香，必走。" },
-    recommend: "walk"
-  },
-  "太平老街|大師兄牛肉麵": {
-    walk: { time: "5–8 分鐘", detail: "太平街附近多分店，沿黃興南路即可。" },
-    recommend: "walk"
-  },
-  "大師兄牛肉麵|杜甫江閣": {
-    walk: { time: "10–12 分鐘", detail: "由太平街向西穿過湘江中路即達江閣，沿江景觀好，飯後散步消食。" },
-    taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，散步更佳。" },
-    recommend: "walk", reason: "沿江散步消食"
-  },
-  "酒店早餐|嶽麓山": {
-    subway: { time: "約 35 分鐘", fare: "￥5", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l4'>4號線</span> 南行 → 嶽麓山南站，步行 8 分鐘。", transfers: "1 次轉乘（溁灣鎮）" },
-    taxi: { time: "約 25–35 分鐘", fare: "￥35–50", detail: "可直達南門入口，免行走，較舒適。" },
-    recommend: "taxi", reason: "免轉乘 + 直達山門"
-  },
-  "嶽麓山|笨蘿蔔湘菜館": {
-    walk: { time: "—", detail: "—" },
-    subway: { time: "約 25 分鐘", fare: "￥4", detail: "嶽麓山南站 <span class='line l4'>4號線</span> 北行 → 河西分店附近。", transfers: "無需轉乘" },
-    taxi: { time: "約 15 分鐘", fare: "￥18–25", detail: "登山後較攰，打車舒適直達。" },
-    recommend: "taxi", reason: "登山後體力消耗大，河西分店最近"
-  },
-  "笨蘿蔔湘菜館|湖南博物院": {
-    subway: { time: "約 45 分鐘", fare: "￥5", detail: "<span class='line l4'>4號線</span> → 湘雅路站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l6'>6號線</span> → 博物院站。", transfers: "1 次轉乘" },
-    taxi: { time: "約 25–35 分鐘", fare: "￥40–55", detail: "跨江北上，預訂時段建議打車免轉乘耽誤。" },
-    recommend: "taxi", reason: "預訂時段勿遲到"
-  },
-  "湖南博物院|31號公館": {
-    subway: { time: "約 30 分鐘", fare: "￥4", detail: "博物院站 <span class='line l6'>6號線</span> 西行 → 開福寺站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l1'>1號線</span> 南行 → 五一廣場站，步行至 31 號公館。", transfers: "1 次轉乘（開福寺）" },
-    taxi: { time: "約 15–20 分鐘", fare: "￥22–30", detail: "晚餐預訂時間固定，打車更可靠。" },
-    recommend: "taxi", reason: "預訂時間勿遲到"
-  },
-  "31號公館|長沙火車南站": {
-    subway: { time: "約 30 分鐘", fare: "￥4", detail: "五一廣場站 <span class='line l2'>2號線</span> 東行 8 站 → 長沙火車南站，3 號出口直達高鐵候車廳。", transfers: "無需轉乘" },
-    taxi: { time: "約 25–40 分鐘", fare: "￥45–65", detail: "趕高鐵建議提早 1.5 小時出發，避開晚高峰塞車。" },
-    recommend: "subway", reason: "趕高鐵免塞車風險"
-  }
+  "長沙火車南站|世野 SEYA 高空酒店 五一廣場店": { subway: { time: "約 25 分鐘", fare: "￥4", detail: "南站 <span class='line l2'>2號線</span> 西行 8 站 → 五一廣場站，2 號出口步行 3 分鐘。", transfers: "無需轉乘" }, taxi: { time: "約 30–40 分鐘", fare: "￥45–60", detail: "繁忙時段易塞車，行李多時較舒適。" }, recommend: "subway", reason: "便宜直達，免轉乘" },
+  "世野 SEYA 高空酒店 五一廣場店|橘子洲景區": { subway: { time: "約 12 分鐘", fare: "￥2", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 1 站 → 橘子洲站，2 號出口步行 5 分鐘入園。", transfers: "無需轉乘" }, taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "週末橘子洲大橋常塞車，地鐵反而快。" }, recommend: "subway", reason: "1 站直達，免塞車" },
+  "橘子洲景區|五一廣場": { subway: { time: "約 12 分鐘", fare: "￥2", detail: "橘子洲站 <span class='line l2'>2號線</span> 東行 1 站 → 五一廣場站。", transfers: "無需轉乘" }, taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "晚上週末易塞車。" }, recommend: "subway", reason: "1 站直達快捷" },
+  "五一廣場|黃興路步行街": { walk: { time: "2 分鐘", detail: "緊鄰五一廣場，南端入口即是。" }, recommend: "walk" },
+  "黃興路步行街|北二樓大排檔": { walk: { time: "10 分鐘", detail: "黃興路口附近，沿途夜景熱鬧。" }, taxi: { time: "5 分鐘", fare: "￥10", detail: "夜晚走累可叫車。" }, recommend: "walk", reason: "順路逛夜景" },
+  "北二樓大排檔|火宮殿 坡子街總店": { walk: { time: "8–12 分鐘", detail: "次日早上由酒店出發較順路。" }, taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價搞定。" }, recommend: "walk", reason: "由酒店步行直達坡子街" },
+  "火宮殿 坡子街總店|坡子街": { walk: { time: "原地", detail: "火宮殿即位於坡子街上。" }, recommend: "walk" },
+  "坡子街|太平老街": { walk: { time: "5 分鐘", detail: "兩街相連，沿途古色古香。" }, recommend: "walk" },
+  "太平老街|大師兄牛肉麵": { walk: { time: "5–8 分鐘", detail: "太平街附近多分店，沿黃興南路即可。" }, recommend: "walk" },
+  "大師兄牛肉麵|杜甫江閣": { walk: { time: "10–12 分鐘", detail: "由太平街向西穿過湘江中路即達。" }, taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，散步更佳。" }, recommend: "walk", reason: "沿江散步消食" },
+  "酒店早餐|嶽麓山": { subway: { time: "約 35 分鐘", fare: "￥5", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l4'>4號線</span> 南行 → 嶽麓山南站。", transfers: "1 次轉乘" }, taxi: { time: "約 25–35 分鐘", fare: "￥35–50", detail: "可直達南門入口，免行走，較舒適。" }, recommend: "taxi", reason: "免轉乘 + 直達山門" },
+  "嶽麓山|笨蘿蔔湘菜館": { subway: { time: "約 25 分鐘", fare: "￥4", detail: "嶽麓山南站 <span class='line l4'>4號線</span> 北行 → 河西分店附近。", transfers: "無需轉乘" }, taxi: { time: "約 15 分鐘", fare: "￥18–25", detail: "登山後較攰，打車舒適直達。" }, recommend: "taxi", reason: "登山後體力消耗大" },
+  "笨蘿蔔湘菜館|湖南博物院": { subway: { time: "約 45 分鐘", fare: "￥5", detail: "<span class='line l4'>4號線</span> → 湘雅路站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l6'>6號線</span> → 博物院站。", transfers: "1 次轉乘" }, taxi: { time: "約 25–35 分鐘", fare: "￥40–55", detail: "跨江北上，預訂時段建議打車。" }, recommend: "taxi", reason: "預訂時段勿遲到" },
+  "湖南博物院|31號公館": { subway: { time: "約 30 分鐘", fare: "￥4", detail: "博物院站 <span class='line l6'>6號線</span> → 開福寺站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l1'>1號線</span> → 五一廣場站。", transfers: "1 次轉乘" }, taxi: { time: "約 15–20 分鐘", fare: "￥22–30", detail: "晚餐預訂時間固定，打車更可靠。" }, recommend: "taxi", reason: "預訂時間勿遲到" },
+  "31號公館|長沙火車南站": { subway: { time: "約 30 分鐘", fare: "￥4", detail: "五一廣場站 <span class='line l2'>2號線</span> 東行 8 站 → 長沙火車南站。", transfers: "無需轉乘" }, taxi: { time: "約 25–40 分鐘", fare: "￥45–65", detail: "趕高鐵建議提早 1.5 小時出發。" }, recommend: "subway", reason: "趕高鐵免塞車風險" }
 };
 
-/* ============ 智能路線推算 ============ */
 function inferRoute(from, to) {
   const exact = routes[from + "|" + to];
   if (exact) return exact;
+  const f = String(from || '').toLowerCase();
+  const t = String(to || '').toLowerCase();
+  const has = (s, kws) => kws.some(k => s.includes(k));
+  const isStation = (s) => has(s, ["火車", "高鐵", "長沙南", "車站", "南站"]);
+  const isAirport = (s) => has(s, ["機場", "黃花"]);
+  const isWuyi = (s) => has(s, ["五一", "黃興", "酒店", "seya", "世野", "ifs", "茶顏", "墨茉"]);
+  const isOld = (s) => has(s, ["坡子", "太平", "火宮殿", "文和友", "大師兄"]);
+  const isHexi = (s) => has(s, ["嶽麓", "岳麓", "麓山", "愛晚", "笨蘿蔔", "梅溪湖"]);
+  const isJuzi = (s) => has(s, ["橘子洲", "毛主席"]);
+  const isJiang = (s) => has(s, ["杜甫", "湘江", "江閣"]);
+  const isMuseum = (s) => has(s, ["博物院", "博物館", "馬王堆"]);
+  const is31 = (s) => has(s, ["31", "公館"]);
+  const isBei2 = (s) => has(s, ["北二樓", "大排檔"]);
 
-  const f = from.toLowerCase();
-  const t = to.toLowerCase();
-  const sameTitle = (s, kws) => kws.some(k => s.includes(k));
+  if (isStation(f) || isStation(t)) return { subway: { time: "約 25–35 分鐘", fare: "￥4–5", detail: "<span class='line l2'>2號線</span> 直達或 <span class='line l1'>1號線</span> 轉乘至市區。", transfers: "0–1 次轉乘" }, taxi: { time: "約 30–45 分鐘", fare: "￥45–65", detail: "繁忙時段易塞車。" }, recommend: "subway", reason: "便宜可靠免塞車" };
+  if (isAirport(f) || isAirport(t)) return { subway: { time: "約 50 分鐘", fare: "￥24", detail: "磁浮快線 + 地鐵 2 號線轉乘。", transfers: "1 次轉乘" }, taxi: { time: "約 40 分鐘", fare: "￥120–160", detail: "高速直達，行李多較舒適。" }, recommend: "subway", reason: "磁浮免塞車" };
+  if ((isWuyi(f) && isWuyi(t)) || (isOld(f) && isOld(t)) || from === to) return { walk: { time: "3–8 分鐘", detail: "同屬五一/老街核心區，步行可達。" }, recommend: "walk" };
+  if ((isWuyi(f) && isOld(t)) || (isOld(f) && isWuyi(t))) return { walk: { time: "8–12 分鐘", detail: "由五一廣場沿黃興南路即達坡子街/太平老街。" }, taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價。" }, recommend: "walk", reason: "順路邊走邊逛" };
+  if ((isJuzi(f) || isJuzi(t)) && (isWuyi(f) || isOld(f) || isWuyi(t) || isOld(t))) return { subway: { time: "約 15 分鐘", fare: "￥2", detail: "<span class='line l2'>2號線</span> 五一廣場站 ↔ 橘子洲站，1 站直達。", transfers: "無需轉乘" }, taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "週末橘子洲大橋常塞車。" }, recommend: "subway", reason: "1 站直達免塞車" };
+  if ((isHexi(f) || isHexi(t)) && (isWuyi(f) || isOld(f) || isWuyi(t) || isOld(t))) return { subway: { time: "約 30–35 分鐘", fare: "￥5", detail: "<span class='line l2'>2號線</span> → 溁灣鎮站 <span class='transfer-icon'>⇄</span> <span class='line l4'>4號線</span>。", transfers: "1 次轉乘" }, taxi: { time: "約 25–35 分鐘", fare: "￥35–50", detail: "過橘子洲大橋直達。" }, recommend: "taxi", reason: "免轉乘 + 直達山門" };
+  if ((isHexi(f) && isJiang(t)) || (isJiang(f) && isHexi(t))) return { taxi: { time: "約 20–30 分鐘", fare: "￥30–40", detail: "過湘江大橋直達。" }, subway: { time: "約 35 分鐘", fare: "￥5", detail: "需經溁灣鎮轉乘。", transfers: "1 次轉乘" }, recommend: "taxi", reason: "過橋直達省時" };
+  if ((isOld(f) && isJiang(t)) || (isJiang(f) && isOld(t))) return { walk: { time: "10–15 分鐘", detail: "沿湘江中路步行，江景開揚。" }, taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價。" }, recommend: "walk", reason: "沿江散步好風景" };
+  if ((isJiang(f) && isWuyi(t)) || (isWuyi(f) && isJiang(t))) return { walk: { time: "12–18 分鐘", detail: "由江邊向東步行返五一廣場/黃興路。" }, taxi: { time: "5–8 分鐘", fare: "￥10–15", detail: "起步價即可。" }, recommend: "walk", reason: "夜景順路" };
+  if ((isMuseum(f) || isMuseum(t)) && (isWuyi(f) || isOld(f) || isWuyi(t) || isOld(t))) return { subway: { time: "約 30 分鐘", fare: "￥4", detail: "<span class='line l1'>1號線</span> → 開福寺站 <span class='transfer-icon'>⇄</span> <span class='line l6'>6號線</span> 至博物院站。", transfers: "1 次轉乘" }, taxi: { time: "約 15–20 分鐘", fare: "￥20–28", detail: "直達省心。" }, recommend: "taxi", reason: "直達節省看展時間" };
+  if ((isMuseum(f) && (is31(t) || isWuyi(t))) || (isMuseum(t) && (is31(f) || isWuyi(f)))) return { subway: { time: "約 30 分鐘", fare: "￥4", detail: "<span class='line l6'>6號線</span> → 開福寺站 <span class='transfer-icon'>⇄</span> <span class='line l1'>1號線</span> 至五一廣場。", transfers: "1 次轉乘" }, taxi: { time: "約 15–20 分鐘", fare: "￥22–30", detail: "預訂晚餐建議打車。" }, recommend: "taxi", reason: "晚餐勿遲到" };
+  if (isBei2(f) || isBei2(t)) return { walk: { time: "8–12 分鐘", detail: "黃興路口附近，夜晚邊走邊逛。" }, taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價搞定。" }, recommend: "walk", reason: "夜景順路" };
+  return { subway: { time: "約 25–35 分鐘", fare: "￥3–5", detail: "建議查百度地圖實時路線。", transfers: "可能需 1 次轉乘" }, taxi: { time: "約 15–25 分鐘", fare: "￥20–35", detail: "市內中等距離。" }, recommend: "taxi", reason: "中等距離打車較快" };
+}
 
-  const isStation = (s) => sameTitle(s, ["火車", "高鐵", "長沙南", "車站", "南站", "站"]);
-  const isAirport = (s) => sameTitle(s, ["機場", "黃花"]);
-  const isWuyiZone = (s) => sameTitle(s, ["五一", "黃興", "酒店", "seya", "世野", "ifs", "茶顏"]);
-  const isOldStreet = (s) => sameTitle(s, ["坡子", "太平", "火宮殿", "文和友", "大師兄"]);
-  const isHexi = (s) => sameTitle(s, ["嶽麓", "岳麓", "麓山", "愛晚", "笨蘿蔔", "梅溪湖"]);
-  const isJuzi = (s) => sameTitle(s, ["橘子洲", "毛主席"]);
-  const isJiang = (s) => sameTitle(s, ["杜甫", "湘江", "江閣"]);
-  const isMuseum = (s) => sameTitle(s, ["博物院", "博物館", "馬王堆"]);
-  const is31 = (s) => sameTitle(s, ["31", "公館"]);
-  const isBei2 = (s) => sameTitle(s, ["北二樓", "大排檔"]);
+/* ============ 智能排程：核心 ============ */
+// 模擬級聯：根據前一事件結束 + 交通時間，計算每個事件最早可開始時間
+// booked 事件保留固定時間（不變），但會檢查是否來得及（衝突）
+// 其他事件：若 earliest > 原時間則需要延後，記錄變更
+function cascadeAndCheck(eventsList) {
+  const simulated = eventsList.map(e => ({...e}));
+  const conflicts = [];
+  const changed = [];
 
-  if (isStation(f) || isStation(t)) {
-    return {
-      subway: { time: "約 25–35 分鐘", fare: "￥4–5", detail: "<span class='line l2'>2號線</span> 直達或 <span class='line l1'>1號線</span> 轉乘至市區。", transfers: "0–1 次轉乘" },
-      taxi: { time: "約 30–45 分鐘", fare: "￥45–65", detail: "繁忙時段易塞車，建議提早出門。" },
-      recommend: "subway", reason: "便宜可靠免塞車"
-    };
+  for (let i = 1; i < simulated.length; i++) {
+    const prev = simulated[i - 1];
+    const cur = simulated[i];
+    const travel = estimateTravel(prev.title, cur.title);
+    const earliest = parseTime(prev.time) + estimateDuration(prev) + travel;
+    const curStart = parseTime(cur.time);
+
+    if (cur.type === 'booked') {
+      if (earliest > curStart) {
+        conflicts.push({
+          idx: i,
+          name: cur.title,
+          bookedTime: cur.time,
+          earliestPossible: formatTime(earliest),
+          overByMins: earliest - curStart
+        });
+      }
+      // booked 時間保持不變
+    } else {
+      if (earliest > curStart) {
+        const oldTime = cur.time;
+        simulated[i].time = formatTime(earliest);
+        changed.push({ idx: i, name: cur.title, from: oldTime, to: simulated[i].time });
+      }
+    }
   }
-  if (isAirport(f) || isAirport(t)) {
-    return {
-      subway: { time: "約 50 分鐘", fare: "￥24", detail: "磁浮快線 + 地鐵 2 號線轉乘。", transfers: "1 次轉乘" },
-      taxi: { time: "約 40 分鐘", fare: "￥120–160", detail: "高速直達，行李多較舒適。" },
-      recommend: "subway", reason: "磁浮免塞車"
-    };
+
+  return { simulated, conflicts, changed };
+}
+
+// 套用排程結果到實際資料
+function applyCascade(dayIdx, simulated) {
+  for (let i = 0; i < simulated.length; i++) {
+    if (itinerary[dayIdx].events[i]) {
+      itinerary[dayIdx].events[i].time = simulated[i].time;
+    }
   }
-  if ((isWuyiZone(f) && isWuyiZone(t)) || (isOldStreet(f) && isOldStreet(t)) || from === to) {
-    return {
-      walk: { time: "3–8 分鐘", detail: "同屬五一/老街核心區，步行可達。" },
-      recommend: "walk"
+}
+
+/* ============ Modal ============ */
+function showModal({ title, body, buttons }) {
+  const overlay = document.getElementById('modal');
+  document.getElementById('modalTitle').innerHTML = title;
+  document.getElementById('modalBody').innerHTML = body;
+  const actions = document.getElementById('modalActions');
+  actions.innerHTML = '';
+  buttons.forEach(b => {
+    const btn = document.createElement('button');
+    btn.className = 'modal-btn ' + (b.style || 'cancel');
+    btn.textContent = b.text;
+    btn.onclick = () => {
+      overlay.classList.remove('show');
+      if (b.onclick) b.onclick();
     };
-  }
-  if ((isWuyiZone(f) && isOldStreet(t)) || (isOldStreet(f) && isWuyiZone(t))) {
-    return {
-      walk: { time: "8–12 分鐘", detail: "由五一廣場沿黃興南路即達坡子街/太平老街，沿途熱鬧。" },
-      taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，繞路反而慢。" },
-      recommend: "walk", reason: "順路邊走邊逛"
-    };
-  }
-  if ((isJuzi(f) || isJuzi(t)) && (isWuyiZone(f) || isOldStreet(f) || isWuyiZone(t) || isOldStreet(t))) {
-    return {
-      subway: { time: "約 15 分鐘", fare: "￥2", detail: "<span class='line l2'>2號線</span> 五一廣場站 ↔ 橘子洲站，1 站直達。", transfers: "無需轉乘" },
-      taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "週末橘子洲大橋常塞車。" },
-      recommend: "subway", reason: "1 站直達免塞車"
-    };
-  }
-  if ((isHexi(f) || isHexi(t)) && (isWuyiZone(f) || isOldStreet(f) || isWuyiZone(t) || isOldStreet(t))) {
-    return {
-      subway: { time: "約 30–35 分鐘", fare: "￥5", detail: "<span class='line l2'>2號線</span> → 溁灣鎮站 <span class='transfer-icon'>⇄</span> <span class='line l4'>4號線</span> 南行至嶽麓山南。", transfers: "1 次轉乘（溁灣鎮）" },
-      taxi: { time: "約 25–35 分鐘", fare: "￥35–50", detail: "過橘子洲大橋直達，行李多較舒適。" },
-      recommend: "taxi", reason: "免轉乘 + 直達山門"
-    };
-  }
-  if ((isHexi(f) && isJiang(t)) || (isJiang(f) && isHexi(t))) {
-    return {
-      taxi: { time: "約 20–30 分鐘", fare: "￥30–40", detail: "過湘江大橋直達。" },
-      subway: { time: "約 35 分鐘", fare: "￥5", detail: "需經溁灣鎮轉 <span class='line l2'>2號線</span> 至五一廣場再步行。", transfers: "1 次轉乘" },
-      recommend: "taxi", reason: "過橋直達省時"
-    };
-  }
-  if ((isOldStreet(f) && isJiang(t)) || (isJiang(f) && isOldStreet(t))) {
-    return {
-      walk: { time: "10–15 分鐘", detail: "沿湘江中路步行，江景開揚。" },
-      taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價。" },
-      recommend: "walk", reason: "沿江散步好風景"
-    };
-  }
-  if ((isJiang(f) && isWuyiZone(t)) || (isWuyiZone(f) && isJiang(t))) {
-    return {
-      walk: { time: "12–18 分鐘", detail: "由江邊向東步行返五一廣場/黃興路。" },
-      taxi: { time: "5–8 分鐘", fare: "￥10–15", detail: "起步價即可。" },
-      recommend: "walk", reason: "夜景順路"
-    };
-  }
-  if ((isMuseum(f) || isMuseum(t)) && (isWuyiZone(f) || isOldStreet(f) || isWuyiZone(t) || isOldStreet(t))) {
-    return {
-      subway: { time: "約 30 分鐘", fare: "￥4", detail: "<span class='line l1'>1號線</span> → 開福寺站 <span class='transfer-icon'>⇄</span> <span class='line l6'>6號線</span> 至博物院站。", transfers: "1 次轉乘（開福寺）" },
-      taxi: { time: "約 15–20 分鐘", fare: "￥20–28", detail: "直達省心。" },
-      recommend: "taxi", reason: "直達節省看展時間"
-    };
-  }
-  if ((isMuseum(f) && (is31(t) || isWuyiZone(t))) || (isMuseum(t) && (is31(f) || isWuyiZone(f)))) {
-    return {
-      subway: { time: "約 30 分鐘", fare: "￥4", detail: "<span class='line l6'>6號線</span> → 開福寺站 <span class='transfer-icon'>⇄</span> <span class='line l1'>1號線</span> 至五一廣場。", transfers: "1 次轉乘（開福寺）" },
-      taxi: { time: "約 15–20 分鐘", fare: "￥22–30", detail: "預訂晚餐建議打車免遲到。" },
-      recommend: "taxi", reason: "晚餐勿遲到"
-    };
-  }
-  if (isBei2(f) || isBei2(t)) {
-    return {
-      walk: { time: "8–12 分鐘", detail: "黃興路口附近，夜晚邊走邊逛夜景。" },
-      taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價搞定。" },
-      recommend: "walk", reason: "夜景順路"
-    };
-  }
-  return {
-    subway: { time: "約 25–35 分鐘", fare: "￥3–5", detail: "建議查百度地圖實時路線。", transfers: "可能需 1 次轉乘" },
-    taxi: { time: "約 15–25 分鐘", fare: "￥20–35", detail: "市內中等距離。" },
-    recommend: "taxi", reason: "中等距離打車較快"
-  };
+    actions.appendChild(btn);
+  });
+  overlay.classList.add('show');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
 }
 
 /* ============ 行程頁渲染 ============ */
@@ -947,13 +1077,7 @@ function renderCompareTable(route) {
     const isRec = rec === "taxi";
     rows += `<tr><td class="mode-cell mode-taxi"><span class="icon">🚖</span>打車</td><td><span class="pill">${route.taxi.fare}</span><span class="pill fast">${route.taxi.time}</span>${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td><td>${route.taxi.detail}</td></tr>`;
   }
-  return `
-    <table class="compare-table">
-      <thead><tr><th class="col-mode">方式</th><th>時間 / 費用</th><th>說明</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-    ${route.reason ? `<div style="background:#fff8e1;color:#92400e;font-size:11px;padding:6px 8px;border-radius:6px;margin-bottom:6px;">💡 推薦原因：${route.reason}</div>` : ''}
-  `;
+  return `<table class="compare-table"><thead><tr><th class="col-mode">方式</th><th>時間 / 費用</th><th>說明</th></tr></thead><tbody>${rows}</tbody></table>${route.reason ? `<div style="background:#fff8e1;color:#92400e;font-size:11px;padding:6px 8px;border-radius:6px;margin-bottom:6px;">💡 推薦原因：${route.reason}</div>` : ''}`;
 }
 
 function showableType(t) {
@@ -998,9 +1122,7 @@ function renderItinerary() {
       const route = inferRoute(prevPlace, ev.title);
       html += `
         <div class="transit auto-target">
-          <div class="transit-route">
-            🛣️ <span class="from">${prevPlace}</span><span class="arrow">→</span><span class="to">${ev.title}</span>
-          </div>
+          <div class="transit-route">🛣️ <span class="from">${prevPlace}</span><span class="arrow">→</span><span class="to">${ev.title}</span></div>
           ${renderCompareTable(route)}
           <div class="transit-actions">
             <a class="transit-amap" href="${baiduDir(prevPlace, ev.title)}" target="_blank" rel="noopener">🗺️ 百度導航</a>
@@ -1012,13 +1134,7 @@ function renderItinerary() {
     }
 
     const bookedClass = ev.type === "booked" ? " booked-item" : "";
-    const typeButtons = `
-      <span class="type-selector edit-only">
-        ${["attraction","food","hotel","booked","station"].map(tp =>
-          `<button class="type-btn ${ev.type===tp?'active':''}" onclick="changeType(${currentDay},${i},'${tp}')">${tagInfo(tp).text}</button>`
-        ).join('')}
-      </span>
-    `;
+    const typeButtons = `<span class="type-selector edit-only">${["attraction","food","hotel","booked","station"].map(tp => `<button class="type-btn ${ev.type===tp?'active':''}" onclick="changeType(${currentDay},${i},'${tp}')">${tagInfo(tp).text}</button>`).join('')}</span>`;
 
     html += `
       <div class="event${bookedClass}" data-day="${currentDay}" data-idx="${i}">
@@ -1030,21 +1146,16 @@ function renderItinerary() {
           ${typeButtons}
         </div>
         <div class="event-desc"><span class="editable" data-path="ev.${currentDay}.${i}.desc">${ev.desc}</span></div>
-        ${showLinks ? `
-          <div class="event-links">
+        ${showLinks ? `<div class="event-links">
             <a class="map-btn" href="${baiduSearch(ev.title)}" target="_blank" rel="noopener">🗺️ 百度地圖</a>
             <a class="gmap-btn" href="${gmapSearch(ev.title)}" target="_blank" rel="noopener">🌐 Google Maps</a>
             <a class="xhs-btn" href="${xhsLink(ev.title)}">📕 小紅書</a>
-          </div>
-        ` : ''}
+          </div>` : ''}
       </div>
     `;
   });
 
-  html += `
-    </div>
-    <button class="add-event-btn edit-only" onclick="addEvent(${currentDay})">＋ 新增行程</button>
-  `;
+  html += `</div><button class="add-event-btn edit-only" onclick="addEvent(${currentDay})">＋ 新增行程</button>`;
 
   cont.innerHTML = html;
   bindEditables();
@@ -1063,45 +1174,121 @@ function switchDay(i) {
 }
 
 function switchPage(name) {
-  document.querySelectorAll(".nav-tab").forEach(t =>
-    t.classList.toggle("active", t.dataset.page === name)
-  );
-  document.querySelectorAll(".page").forEach(p =>
-    p.classList.toggle("active", p.id === "page-" + name)
-  );
+  document.querySelectorAll(".nav-tab").forEach(t => t.classList.toggle("active", t.dataset.page === name));
+  document.querySelectorAll(".page").forEach(p => p.classList.toggle("active", p.id === "page-" + name));
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+/* ============ 編輯模式：完成時強制儲存 ============ */
 function toggleEdit() {
-  document.body.classList.toggle("edit-mode");
-  document.getElementById("editBtn").classList.toggle("active");
-  const txt = document.body.classList.contains("edit-mode") ? "✅ 完成" : "✏️ 編輯";
-  document.getElementById("editBtn").textContent = txt;
+  const wasEditing = document.body.classList.contains("edit-mode");
+  if (wasEditing) {
+    // 完成編輯：先強制 blur 任何聚焦中的 editable
+    if (document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('editable')) {
+      document.activeElement.blur();
+    }
+    // 然後掃描全部 editable，將仍未提交的變更寫入資料模型
+    const anyChanged = commitAllEditables();
+    document.body.classList.remove("edit-mode");
+    document.getElementById("editBtn").classList.remove("active");
+    document.getElementById("editBtn").textContent = "✏️ 編輯";
+    if (anyChanged) {
+      renderItinerary();
+      renderTrain();
+      renderHotelCalc();
+      renderBudget();
+      flashUpdates();
+      showToast("💾 已儲存所有變更");
+    } else {
+      showToast("✅ 已完成編輯");
+    }
+  } else {
+    document.body.classList.add("edit-mode");
+    document.getElementById("editBtn").classList.add("active");
+    document.getElementById("editBtn").textContent = "✅ 完成";
+  }
 }
 
-/* ============ Toast & flash ============ */
-function showToast(msg) {
-  const old = document.querySelector(".update-toast");
-  if (old) old.remove();
-  const toast = document.createElement("div");
-  toast.className = "update-toast";
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 1800);
+function commitEditable(el) {
+  const path = el.dataset.path;
+  const tpath = el.dataset.train;
+  const hpath = el.dataset.hotel;
+  const bpath = el.dataset.budget;
+  const newVal = el.textContent.trim();
+  let changed = false;
+
+  if (path) {
+    const parts = path.split('.');
+    if (parts[0] === "day") {
+      const key = parts[2];
+      if (itinerary[+parts[1]][key] !== newVal) {
+        itinerary[+parts[1]][key] = newVal;
+        changed = true;
+      }
+    } else if (parts[0] === "ev") {
+      const dIdx = +parts[1], eIdx = +parts[2], field = parts[3];
+      const cur = itinerary[dIdx].events[eIdx];
+      if (cur && cur[field] !== newVal) {
+        cur[field] = newVal;
+        changed = true;
+        // 若改的是時間，觸發級聯重新計算
+        if (field === 'time') {
+          handleTimeChange(dIdx, eIdx);
+        }
+      }
+    }
+  } else if (tpath) {
+    const [s, i, k] = tpath.split('.');
+    if (trainData[s] && trainData[s][+i] && trainData[s][+i][k] !== newVal) {
+      trainData[s][+i][k] = newVal;
+      changed = true;
+    }
+  } else if (hpath) {
+    if (hotelData[hpath] !== newVal) {
+      hotelData[hpath] = newVal;
+      changed = true;
+    }
+  } else if (bpath) {
+    if (budgetData[bpath] !== newVal) {
+      budgetData[bpath] = newVal;
+      changed = true;
+    }
+  }
+  return changed;
 }
-function flashUpdates() {
-  setTimeout(() => {
-    document.querySelectorAll(
-      ".event-links a, .transit-amap, .transit-gmap, .transit-didi, .auto-target, .compare-table"
-    ).forEach(el => {
-      el.classList.remove("auto-updated");
-      void el.offsetWidth;
-      el.classList.add("auto-updated");
+
+function commitAllEditables() {
+  let any = false;
+  document.querySelectorAll(".editable").forEach(el => {
+    if (commitEditable(el)) any = true;
+  });
+  return any;
+}
+
+// 處理時間變更：級聯後續事件
+function handleTimeChange(dayIdx, eventIdx) {
+  const day = itinerary[dayIdx];
+  const result = cascadeAndCheck(day.events);
+  if (result.conflicts.length > 0) {
+    const conflictHtml = result.conflicts.map(c => 
+      `<div class="item">⏰ <strong>${c.name}</strong>（預約時間 ${c.bookedTime}）<br>最早只能 ${c.earliestPossible} 到，<strong style="color:#b00020">遲到 ${c.overByMins} 分鐘</strong></div>`
+    ).join('');
+    showModal({
+      title: '⚠️ 時間衝突警告',
+      body: `<div>修改時間後，以下<strong>已預訂行程</strong>會來不及：</div>${conflictHtml}<div style="margin-top:8px;font-size:12px;color:#6b5b4d;">是否仍要儲存此變更？</div>`,
+      buttons: [
+        { text: '取消變更', style: 'cancel', onclick: () => { renderItinerary(); showToast("❎ 已取消變更"); } },
+        { text: '確定儲存', style: 'danger', onclick: () => { applyCascade(dayIdx, result.simulated); renderItinerary(); flashUpdates(); showToast(`⚠️ 已儲存（${result.conflicts.length} 個衝突）`); } }
+      ]
     });
-  }, 50);
+  } else {
+    applyCascade(dayIdx, result.simulated);
+    if (result.changed.length > 0) {
+      showToast(`🔄 已自動調整 ${result.changed.length} 個後續行程時間`);
+    }
+  }
 }
 
-/* ============ 編輯綁定 ============ */
 function bindEditables() {
   document.querySelectorAll(".editable").forEach(el => {
     if (el.dataset.bound) return;
@@ -1112,33 +1299,22 @@ function bindEditables() {
       const tpath = this.dataset.train;
       const hpath = this.dataset.hotel;
       const bpath = this.dataset.budget;
-      const newVal = this.textContent.trim();
+      const changed = commitEditable(this);
+      if (!changed) return;
 
       if (path) {
-        const parts = path.split('.');
-        if (parts[0] === "day") {
-          itinerary[+parts[1]][parts[2] === "title" ? "title" : "desc"] = newVal;
-        } else if (parts[0] === "ev") {
-          itinerary[+parts[1]].events[+parts[2]][parts[3]] = newVal;
-        }
         renderItinerary();
         flashUpdates();
-        showToast("🔄 路線、時間、連結已自動更新");
+        showToast("🔄 已更新行程");
       } else if (tpath) {
-        const [section, idx, key] = tpath.split('.');
-        if (trainData[section] && trainData[section][+idx]) {
-          trainData[section][+idx][key] = newVal;
-          renderTrain();
-          renderBudget();
-          showToast("🔄 火車與預算已更新");
-        }
+        renderTrain();
+        renderBudget();
+        showToast("🔄 火車與預算已更新");
       } else if (hpath) {
-        hotelData[hpath] = newVal;
         renderHotelCalc();
         renderBudget();
         showToast("🔄 酒店與預算已更新");
       } else if (bpath) {
-        budgetData[bpath] = newVal;
         renderBudget();
         showToast("🔄 預算已重新計算");
       }
@@ -1149,6 +1325,26 @@ function bindEditables() {
   });
 }
 
+/* ============ Toast & flash ============ */
+function showToast(msg) {
+  const old = document.querySelector(".update-toast");
+  if (old) old.remove();
+  const toast = document.createElement("div");
+  toast.className = "update-toast";
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2200);
+}
+function flashUpdates() {
+  setTimeout(() => {
+    document.querySelectorAll(".event-links a, .transit-amap, .transit-gmap, .transit-didi, .auto-target, .compare-table").forEach(el => {
+      el.classList.remove("auto-updated");
+      void el.offsetWidth;
+      el.classList.add("auto-updated");
+    });
+  }, 50);
+}
+
 /* ============ 行程操作 ============ */
 function deleteEvent(dIdx, eIdx) {
   itinerary[dIdx].events.splice(eIdx, 1);
@@ -1156,16 +1352,231 @@ function deleteEvent(dIdx, eIdx) {
   flashUpdates();
   showToast("🔄 行程已刪除，路線重新計算");
 }
+
 function addEvent(dIdx) {
-  itinerary[dIdx].events.push({
-    time: "12:00",
-    type: "attraction",
-    title: "新景點",
-    desc: "點擊編輯描述"
-  });
+  // 預設加在尾部，時間根據前一事件自動算
+  const day = itinerary[dIdx];
+  const newEv = { time: "12:00", type: "attraction", title: "新景點", desc: "點擊編輯描述" };
+  if (day.events.length > 0) {
+    const prev = day.events[day.events.length - 1];
+    const start = parseTime(prev.time) + estimateDuration(prev) + estimateTravel(prev.title, newEv.title);
+    newEv.time = formatTime(start);
+  }
+  day.events.push(newEv);
   renderItinerary();
   flashUpdates();
-  showToast("✅ 已新增，路線自動連接");
+  showToast("✅ 已新增，時間自動排程");
+}
+
+/* ============ AI 助手 ============ */
+function useExample(text) {
+  document.getElementById('aiInput').value = text;
+  parseFromText(text);
+}
+
+function parseFromText(text) {
+  if (!text) return;
+  // 日期
+  const dayKw = [
+    { re: /第\s*一\s*[天日]|day\s*1|5\s*[\/月]\s*22/i, day: 0 },
+    { re: /第\s*二\s*[天日]|day\s*2|5\s*[\/月]\s*23/i, day: 1 },
+    { re: /第\s*三\s*[天日]|day\s*3|5\s*[\/月]\s*24/i, day: 2 },
+    { re: /第\s*四\s*[天日]|day\s*4|5\s*[\/月]\s*25/i, day: 3 }
+  ];
+  for (const k of dayKw) {
+    if (k.re.test(text)) { document.getElementById('aiDay').value = k.day; break; }
+  }
+  // 時段
+  if (/早餐|早上|上午|早晨|清晨/.test(text)) document.getElementById('aiTimeSlot').value = 'morning';
+  else if (/中午|午餐|正午/.test(text)) document.getElementById('aiTimeSlot').value = 'noon';
+  else if (/下午|午後/.test(text)) document.getElementById('aiTimeSlot').value = 'afternoon';
+  else if (/夜晚|夜遊|宵夜|深夜/.test(text)) document.getElementById('aiTimeSlot').value = 'night';
+  else if (/晚餐|晚上|傍晚/.test(text)) document.getElementById('aiTimeSlot').value = 'evening';
+  // 類型
+  if (/餐|食|吃|飲|喝|奶茶|咖啡|麵|飯|火鍋|宵夜|點心/.test(text)) document.getElementById('aiType').value = 'food';
+  else if (/購物|逛街|商場|店|ifs|手信/i.test(text)) document.getElementById('aiType').value = 'attraction';
+  // 名稱
+  const knownNames = ['茶顏悅色', '墨茉點心局', '墨茉', '文和友', 'IFS', 'ifs', '愛晚亭', '嶽麓書院', '黃興', '楊裕興', '解放西', '湘江', '橘子洲', '南門口', '潮宗街', '都正街', '德園包子', '夜遊湘江'];
+  for (const n of knownNames) {
+    if (text.includes(n)) {
+      document.getElementById('aiName').value = n;
+      break;
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const ai = document.getElementById('aiInput');
+  if (ai) ai.addEventListener('input', (e) => parseFromText(e.target.value));
+});
+
+const SLOT_TARGET = {
+  morning: 9 * 60 + 30,
+  noon: 12 * 60,
+  afternoon: 15 * 60,
+  evening: 18 * 60 + 30,
+  night: 20 * 60 + 30
+};
+
+function aiAnalyze() {
+  const name = document.getElementById('aiName').value.trim();
+  const aiInput = document.getElementById('aiInput').value.trim();
+  if (!name) {
+    // 嘗試自動解析
+    parseFromText(aiInput);
+    const n2 = document.getElementById('aiName').value.trim();
+    if (!n2) {
+      showModal({
+        title: '⚠️ 請填寫名稱',
+        body: '請在「行程名稱」欄填寫想新增嘅地點或行程名稱，例如「茶顏悅色」、「文和友」等。',
+        buttons: [{ text: '知道了', style: 'confirm', onclick: () => {} }]
+      });
+      return;
+    }
+  }
+  const finalName = document.getElementById('aiName').value.trim();
+  const dayIdx = parseInt(document.getElementById('aiDay').value);
+  const slot = document.getElementById('aiTimeSlot').value;
+  const type = document.getElementById('aiType').value;
+  const duration = parseInt(document.getElementById('aiDuration').value) || 60;
+  const desc = document.getElementById('aiDesc').value.trim() || aiInput || `用戶新增：${finalName}`;
+  const targetMins = SLOT_TARGET[slot];
+
+  // 計算插入位置
+  const day = itinerary[dayIdx];
+  let insertIdx = day.events.length;
+  for (let i = 0; i < day.events.length; i++) {
+    const t = parseTime(day.events[i].time);
+    if (t !== null && t > targetMins) { insertIdx = i; break; }
+  }
+
+  // 新事件
+  const newEv = { time: formatTime(targetMins), type, title: finalName, desc, __aiDuration: duration };
+
+  // 計算其開始時間：取「目標時段時間」與「前一事件結束 + 交通」最大值
+  let startMins = targetMins;
+  if (insertIdx > 0) {
+    const prev = day.events[insertIdx - 1];
+    const earliest = parseTime(prev.time) + estimateDuration(prev) + estimateTravel(prev.title, finalName);
+    startMins = Math.max(targetMins, earliest);
+  }
+  newEv.time = formatTime(startMins);
+
+  // 模擬插入後的級聯（用 __aiDuration 覆蓋預設 duration）
+  const tempList = day.events.slice();
+  tempList.splice(insertIdx, 0, {...newEv});
+  // 自定義 cascade（考慮 __aiDuration）
+  const simulated = tempList.map(e => ({...e}));
+  const conflicts = [];
+  const changed = [];
+  for (let i = 1; i < simulated.length; i++) {
+    const prev = simulated[i - 1];
+    const cur = simulated[i];
+    const prevDur = prev.__aiDuration || estimateDuration(prev);
+    const travel = estimateTravel(prev.title, cur.title);
+    const earliest = parseTime(prev.time) + prevDur + travel;
+    const curStart = parseTime(cur.time);
+    if (cur.type === 'booked') {
+      if (earliest > curStart) {
+        conflicts.push({ idx: i, name: cur.title, bookedTime: cur.time, earliestPossible: formatTime(earliest), overByMins: earliest - curStart });
+      }
+    } else {
+      if (earliest > curStart) {
+        const oldTime = simulated[i].time;
+        simulated[i].time = formatTime(earliest);
+        if (i !== insertIdx) changed.push({ idx: i, name: cur.title, from: oldTime, to: simulated[i].time });
+      }
+    }
+  }
+
+  // 渲染預覽
+  const previewBox = document.getElementById('aiPreviewBox');
+  const slotLabel = { morning: '早上', noon: '中午', afternoon: '下午', evening: '晚上', night: '夜晚' }[slot];
+
+  let changesHtml = '';
+  if (changed.length > 0) {
+    changesHtml = `<div class="changes-list">
+      <strong>🔄 自動調整 ${changed.length} 個後續行程：</strong>
+      ${changed.map(c => `<div class="change-row">• <strong>${c.name}</strong>: ${c.from} → <strong style="color:#c0392b">${c.to}</strong></div>`).join('')}
+    </div>`;
+  }
+
+  let conflictHtml = '';
+  if (conflicts.length > 0) {
+    conflictHtml = `<div class="conflict-box">
+      <div class="title">⚠️ 時間衝突（已預訂行程）</div>
+      ${conflicts.map(c => `• <strong>${c.name}</strong> 預約 ${c.bookedTime}，但最早 ${c.earliestPossible} 才到，<strong>遲到 ${c.overByMins} 分鐘</strong><br>`).join('')}
+      <div style="margin-top:6px;font-size:11px;">系統會詢問是否仍要加入。</div>
+    </div>`;
+  }
+
+  previewBox.innerHTML = `
+    <div class="ai-preview">
+      <div class="preview-title">🎯 AI 排程預覽</div>
+      <div class="ai-preview-item">
+        <div><strong>${finalName}</strong> <span class="event-tag ${tagInfo(type).cls}" style="font-size:9px;">${tagInfo(type).text}</span></div>
+        <div class="meta">📅 ${day.date} · ⏰ ${newEv.time}（${slotLabel}） · 停留 ${duration} 分鐘</div>
+        <div class="meta">📝 ${desc}</div>
+        <div class="meta" style="color:#1a73e8;">📍 將插入到第 ${insertIdx + 1} 個位置${insertIdx < day.events.length ? `（在「${day.events[insertIdx].title}」之前）` : '（最後）'}</div>
+      </div>
+      ${changesHtml}
+      ${conflictHtml}
+      <button class="ai-btn-primary" onclick="aiConfirmInsert(${dayIdx}, ${insertIdx}, ${conflicts.length})">
+        ${conflicts.length > 0 ? '⚠️ 仍要加入（會有衝突）' : '✅ 確定加入行程'}
+      </button>
+      <button class="ai-btn-primary" style="background:#888;margin-top:6px;" onclick="document.getElementById('aiPreviewBox').innerHTML='';">取消</button>
+    </div>
+  `;
+
+  // 暫存等待確認
+  window.__pendingAI = { dayIdx, insertIdx, newEv, simulated, conflicts, changed };
+}
+
+function aiConfirmInsert(dayIdx, insertIdx, conflictCount) {
+  const pending = window.__pendingAI;
+  if (!pending) return;
+
+  const doInsert = () => {
+    const day = itinerary[dayIdx];
+    // 插入新事件（先用 simulated[insertIdx] 嘅時間）
+    const newEv = { ...pending.newEv };
+    newEv.time = pending.simulated[insertIdx].time;
+    delete newEv.__aiDuration;
+    day.events.splice(insertIdx, 0, newEv);
+    // 套用 simulated 中其他事件嘅新時間（跳過 booked）
+    for (let i = 0; i < pending.simulated.length; i++) {
+      if (i === insertIdx) continue;
+      const ev = day.events[i];
+      if (ev && ev.type !== 'booked') {
+        ev.time = pending.simulated[i].time;
+      }
+    }
+    currentDay = dayIdx;
+    renderItinerary();
+    switchPage('itinerary');
+    flashUpdates();
+    showToast(`✨ 已加入「${pending.newEv.title}」並重排時間`);
+    document.getElementById('aiPreviewBox').innerHTML = '';
+    document.getElementById('aiInput').value = '';
+    document.getElementById('aiName').value = '';
+    window.__pendingAI = null;
+  };
+
+  if (conflictCount > 0) {
+    const conflictHtml = pending.conflicts.map(c => 
+      `<div class="item">⏰ <strong>${c.name}</strong>（預約 ${c.bookedTime}）<br>最早 ${c.earliestPossible} 才能到 — <strong style="color:#b00020">遲到 ${c.overByMins} 分鐘</strong></div>`
+    ).join('');
+    showModal({
+      title: '⚠️ 確認時間衝突',
+      body: `<div>加入此行程會令以下<strong>已預訂時段</strong>遲到：</div>${conflictHtml}<div style="margin-top:8px;font-size:12px;color:#6b5b4d;">確定要強制加入？建議改其他時段。</div>`,
+      buttons: [
+        { text: '取消', style: 'cancel', onclick: () => {} },
+        { text: '確定強制加入', style: 'danger', onclick: doInsert }
+      ]
+    });
+  } else {
+    doInsert();
+  }
 }
 
 /* ============ 火車頁渲染 ============ */
@@ -1176,20 +1587,14 @@ function renderTrainLeg(section, idx, leg, totalLegs) {
   return `
     <div class="train-route">
       ${totalLegs > 1 ? `<button class="train-del edit-only" onclick="removeTrainLeg('${section}', ${idx})">×</button>` : ''}
-      <div class="leg-label">
-        <span>${labelText} · ${dayLabel}</span>
-        ${legBadge}
-      </div>
+      <div class="leg-label"><span>${labelText} · ${dayLabel}</span>${legBadge}</div>
       <div class="train-flow">
         <div class="train-station">
           <div class="city"><span class="editable" data-train="${section}.${idx}.fromCity">${leg.fromCity}</span></div>
           <div class="time"><span class="editable" data-train="${section}.${idx}.fromTime">${leg.fromTime}</span></div>
           <div class="date"><span class="editable" data-train="${section}.${idx}.fromDate">${leg.fromDate}</span></div>
         </div>
-        <div class="train-arrow">
-          🚄→
-          <span class="duration"><span class="editable" data-train="${section}.${idx}.duration">${leg.duration}</span></span>
-        </div>
+        <div class="train-arrow">🚄→<span class="duration"><span class="editable" data-train="${section}.${idx}.duration">${leg.duration}</span></span></div>
         <div class="train-station">
           <div class="city"><span class="editable" data-train="${section}.${idx}.toCity">${leg.toCity}</span></div>
           <div class="time"><span class="editable" data-train="${section}.${idx}.toTime">${leg.toTime}</span></div>
@@ -1197,34 +1602,17 @@ function renderTrainLeg(section, idx, leg, totalLegs) {
         </div>
       </div>
       <div class="train-meta">
-        <div class="train-meta-item">
-          <div class="label">車次</div>
-          <div class="value"><span class="editable" data-train="${section}.${idx}.trainNo">${leg.trainNo}</span></div>
-        </div>
-        <div class="train-meta-item">
-          <div class="label">座位</div>
-          <div class="value"><span class="editable" data-train="${section}.${idx}.seat">${leg.seat}</span></div>
-        </div>
-        <div class="train-meta-item">
-          <div class="label">票價</div>
-          <div class="value">¥ <span class="editable" data-train="${section}.${idx}.price">${leg.price}</span> /人</div>
-        </div>
-        <div class="train-meta-item">
-          <div class="label">人數</div>
-          <div class="value"><span class="editable" data-train="${section}.${idx}.pax">${leg.pax}</span> 人</div>
-        </div>
+        <div class="train-meta-item"><div class="label">車次</div><div class="value"><span class="editable" data-train="${section}.${idx}.trainNo">${leg.trainNo}</span></div></div>
+        <div class="train-meta-item"><div class="label">座位</div><div class="value"><span class="editable" data-train="${section}.${idx}.seat">${leg.seat}</span></div></div>
+        <div class="train-meta-item"><div class="label">票價</div><div class="value">¥ <span class="editable" data-train="${section}.${idx}.price">${leg.price}</span> /人</div></div>
+        <div class="train-meta-item"><div class="label">人數</div><div class="value"><span class="editable" data-train="${section}.${idx}.pax">${leg.pax}</span> 人</div></div>
       </div>
     </div>
   `;
 }
 
 function calcLayover(arrTime, depTime) {
-  const parse = (t) => {
-    const m = t.match(/(\d{1,2}):(\d{2})/);
-    if (!m) return null;
-    return parseInt(m[1]) * 60 + parseInt(m[2]);
-  };
-  const a = parse(arrTime), d = parse(depTime);
+  const a = parseTime(arrTime), d = parseTime(depTime);
   if (a === null || d === null) return null;
   let diff = d - a;
   if (diff < 0) diff += 24 * 60;
@@ -1240,13 +1628,8 @@ function renderTrainSection(section) {
     if (idx < list.length - 1) {
       const next = list[idx + 1];
       const mins = calcLayover(leg.toTime, next.fromTime);
-      const station = leg.toCity;
       if (mins !== null) {
-        html += `
-          <div class="layover">
-            ⏱️ <strong>${station} 轉乘等待</strong>：${mins} 分鐘 ${mins < 30 ? '⚠️ 時間較緊' : '（充足）'}
-          </div>
-        `;
+        html += `<div class="layover">⏱️ <strong>${leg.toCity} 轉乘等待</strong>：${mins} 分鐘 ${mins < 30 ? '⚠️ 時間較緊' : '（充足）'}</div>`;
       }
     }
   });
@@ -1262,11 +1645,7 @@ function renderTrain() {
 }
 
 function addTrainLeg(section) {
-  trainData[section].push({
-    fromCity: "起點", fromTime: "00:00", fromDate: "日期",
-    toCity: "終點", toTime: "00:00", toDate: "日期",
-    duration: "0h 00m", trainNo: "車次", seat: "二等座", price: "0", pax: "2"
-  });
+  trainData[section].push({ fromCity: "起點", fromTime: "00:00", fromDate: "日期", toCity: "終點", toTime: "00:00", toDate: "日期", duration: "0h 00m", trainNo: "車次", seat: "二等座", price: "0", pax: "2" });
   renderTrain();
   renderBudget();
   showToast("✅ 已新增班次");
@@ -1279,12 +1658,10 @@ function removeTrainLeg(section, idx) {
   showToast("🔄 已刪除班次，預算重算");
 }
 
-/* ============ 酒店自動計算 ============ */
 function renderHotelCalc() {
   const total = (parseInt(hotelData.nights) || 0) * (parseInt(hotelData.pricePerNight) || 0);
   const el = document.getElementById("hotelTotal");
   if (el) el.textContent = "¥ " + total.toLocaleString();
-
   const baidu = document.getElementById("hotelBaiduLink");
   const gmap = document.getElementById("hotelGmapLink");
   const xhs = document.getElementById("hotelXhsLink");
@@ -1293,50 +1670,34 @@ function renderHotelCalc() {
   if (xhs) xhs.href = xhsLink(hotelData.name);
 }
 
-/* ============ 預算自動計算 ============ */
 function renderBudget() {
   const allLegs = [...trainData.outbound, ...trainData.return];
-  const trainTotal = allLegs.reduce((sum, t) =>
-    sum + (parseInt(t.price) || 0) * (parseInt(t.pax) || 0), 0
-  );
+  const trainTotal = allLegs.reduce((sum, t) => sum + (parseInt(t.price) || 0) * (parseInt(t.pax) || 0), 0);
   const trainDetail = `去程 ${trainData.outbound.length} 班 + 回程 ${trainData.return.length} 班 × ${trainData.outbound[0]?.pax || 2} 人`;
-
   const hotelTotal = (parseInt(hotelData.nights) || 0) * (parseInt(hotelData.pricePerNight) || 0);
   const foodTotal = (parseInt(budgetData.foodPerDay) || 0) * 2 * 4;
   const tickets = parseInt(budgetData.tickets) || 0;
   const transport = parseInt(budgetData.transport) || 0;
   const shopping = parseInt(budgetData.shopping) || 0;
-
   const total = trainTotal + hotelTotal + foodTotal + tickets + transport + shopping;
-
-  const set = (id, val) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val;
-  };
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
   set("budget-train", "¥ " + trainTotal.toLocaleString());
   set("budget-train-detail", trainDetail);
   set("budget-hotel", "¥ " + hotelTotal.toLocaleString());
   set("budget-food", "¥ " + foodTotal.toLocaleString());
   set("budgetTotal", total.toLocaleString());
   set("budgetPerPerson", Math.round(total / 2).toLocaleString());
-
   const bar = document.getElementById("budgetBar");
   if (bar && total > 0) {
     const segs = [
-      { val: trainTotal, color: "#fef0e6" },
-      { val: hotelTotal, color: "#ffd9b8" },
-      { val: foodTotal, color: "#ffb88a" },
-      { val: tickets, color: "#ff9966" },
-      { val: transport, color: "#ff7a4a" },
-      { val: shopping, color: "#e67e22" }
+      { val: trainTotal, color: "#fef0e6" }, { val: hotelTotal, color: "#ffd9b8" },
+      { val: foodTotal, color: "#ffb88a" }, { val: tickets, color: "#ff9966" },
+      { val: transport, color: "#ff7a4a" }, { val: shopping, color: "#e67e22" }
     ];
-    bar.innerHTML = segs.map(s =>
-      `<div class="budget-bar-seg" style="width:${(s.val/total*100).toFixed(1)}%;background:${s.color};"></div>`
-    ).join('');
+    bar.innerHTML = segs.map(s => `<div class="budget-bar-seg" style="width:${(s.val/total*100).toFixed(1)}%;background:${s.color};"></div>`).join('');
   }
 }
 
-/* ============ 啟動 ============ */
 renderItinerary();
 renderTrain();
 renderHotelCalc();
