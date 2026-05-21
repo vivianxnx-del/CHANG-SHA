@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>長沙4日3夜之旅</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; padding-bottom: 70px; background: #fdfaf6; }
+        header { background: #d2b48c; color: white; padding: 20px; text-align: center; }
+        section { display: none; padding: 20px; }
+        section.active { display: block; }
+        .btn { display: block; width: 100%; padding: 15px; margin: 10px 0; background: #8b4513; color: white; text-align: center; border-radius: 8px; text-decoration: none; font-weight: bold; }
+        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #ddd; }
+        .nav-item { cursor: pointer; color: #8b4513; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header><h1>長沙行程</h1></header>
+
+    <section id="day" class="active">
+        <h3>每日行程概覽</h3>
+        <p><strong>5/22:</strong> 橘子洲 (下午) → 五一廣場</p>
+        <p><strong>5/23:</strong> 火宮殿(早) → 岳麓山 → 杜甫江閣</p>
+        <p><strong>5/24:</strong> 湖南博物院(下午) → 31號公館(晚)</p>
+        <a class="btn" href="https://maps.app.goo.gl/u3F3T7T9H3Y3G7m58" target="_blank">開啟 Google Map</a>
+    </section>
+
+    <section id="info">
+        <h3>實用資訊</h3>
+        <p><strong>住宿:</strong> 長沙世野酒店 (70F)</p>
+        <p><strong>交通:</strong> 建議善用滴滴出行</p>
+    </section>
+
+    <nav>
+        <div class="nav-item" onclick="show('day')">行程</div>
+        <div class="nav-item" onclick="show('info')">資訊</div>
+    </nav>
+
+    <script>
+        function show(id) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>
