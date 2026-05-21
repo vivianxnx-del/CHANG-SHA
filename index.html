@@ -68,7 +68,6 @@
   .edit-only { display: none !important; }
   body.edit-mode .event { padding-right: 32px; position: relative; }
 
-  /* 自動更新提示動畫 */
   @keyframes flashUpdate {
     0% { background: #fff3cd; }
     50% { background: #ffe066; }
@@ -1050,53 +1049,30 @@
 <div class="toast" id="toast">已儲存修改</div>
 
 <script>
-/* =========================================================
-   🚄 高鐵班次資料庫（雙向）
-   key 格式: "出發站-到達站"
-   ========================================================= */
 const TRAIN_ROUTES = {
-  // 香港 ↔ 長沙
   '香港西九龍-長沙南': { trainNo: 'G79',   depart: '08:05', arrive: '11:34', duration: '3h29m', fare: 538 },
   '長沙南-香港西九龍': { trainNo: 'G80',   depart: '14:15', arrive: '17:44', duration: '3h29m', fare: 538 },
   '西九龍-長沙南':     { trainNo: 'G79',   depart: '08:05', arrive: '11:34', duration: '3h29m', fare: 538 },
   '長沙南-西九龍':     { trainNo: 'G80',   depart: '14:15', arrive: '17:44', duration: '3h29m', fare: 538 },
-
-  // 長沙 ↔ 深圳
   '長沙南-深圳北':     { trainNo: 'G6011', depart: '12:30', arrive: '15:45', duration: '3h15m', fare: 465 },
   '深圳北-長沙南':     { trainNo: 'G6012', depart: '09:00', arrive: '12:15', duration: '3h15m', fare: 465 },
-
-  // 深圳 ↔ 香港
   '深圳北-香港西九龍': { trainNo: 'G6531', depart: '16:30', arrive: '16:50', duration: '20分鐘', fare: 75 },
   '香港西九龍-深圳北': { trainNo: 'G5602', depart: '07:30', arrive: '07:50', duration: '20分鐘', fare: 75 },
   '深圳北-西九龍':     { trainNo: 'G6531', depart: '16:30', arrive: '16:50', duration: '20分鐘', fare: 75 },
   '西九龍-深圳北':     { trainNo: 'G5602', depart: '07:30', arrive: '07:50', duration: '20分鐘', fare: 75 },
-
-  // 廣州 ↔ 長沙
   '長沙南-廣州南':     { trainNo: 'G837',  depart: '13:00', arrive: '15:18', duration: '2h18m', fare: 314 },
   '廣州南-長沙南':     { trainNo: 'G838',  depart: '10:00', arrive: '12:18', duration: '2h18m', fare: 314 },
-
-  // 武漢 ↔ 長沙
   '長沙南-武漢':       { trainNo: 'G556',  depart: '10:00', arrive: '11:30', duration: '1h30m', fare: 165 },
   '武漢-長沙南':       { trainNo: 'G555',  depart: '08:00', arrive: '09:30', duration: '1h30m', fare: 165 },
-
-  // 香港 ↔ 廣州
   '香港西九龍-廣州南': { trainNo: 'G6502', depart: '08:00', arrive: '08:48', duration: '48分鐘', fare: 215 },
   '廣州南-香港西九龍': { trainNo: 'G6501', depart: '15:00', arrive: '15:48', duration: '48分鐘', fare: 215 },
-
-  // 北京 ↔ 長沙
   '長沙南-北京西':     { trainNo: 'G502',  depart: '09:00', arrive: '14:30', duration: '5h30m', fare: 869 },
   '北京西-長沙南':     { trainNo: 'G501',  depart: '07:00', arrive: '12:30', duration: '5h30m', fare: 869 },
-
-  // 上海 ↔ 長沙
   '長沙南-上海虹橋':   { trainNo: 'G1372', depart: '11:00', arrive: '15:30', duration: '4h30m', fare: 678 },
   '上海虹橋-長沙南':   { trainNo: 'G1371', depart: '08:00', arrive: '12:30', duration: '4h30m', fare: 678 },
 };
 
-/* =========================================================
-   📍 地點資料庫（用於計算車程距離）
-   ========================================================= */
 const PLACES = {
-  // 站點
   '香港西九龍': { lat: 22.304, lng: 114.166, hub: 'hk' },
   '西九龍':    { lat: 22.304, lng: 114.166, hub: 'hk' },
   '長沙南站':  { lat: 28.149, lng: 113.062, hub: 'south' },
@@ -1105,8 +1081,6 @@ const PLACES = {
   '深圳北':    { lat: 22.610, lng: 114.029, hub: 'sz' },
   '黃花機場':  { lat: 28.190, lng: 113.220, hub: 'airport' },
   '長沙黃花機場': { lat: 28.190, lng: 113.220, hub: 'airport' },
-
-  // 五一商圈（酒店附近）
   '酒店':      { lat: 28.193, lng: 112.985, hub: 'wuyi' },
   '希爾頓':    { lat: 28.193, lng: 112.985, hub: 'wuyi' },
   '世茂希爾頓': { lat: 28.193, lng: 112.985, hub: 'wuyi' },
@@ -1122,8 +1096,6 @@ const PLACES = {
   'IFS國金中心': { lat: 28.192, lng: 112.984, hub: 'wuyi' },
   'IFS':       { lat: 28.192, lng: 112.984, hub: 'wuyi' },
   '海信廣場':  { lat: 28.194, lng: 112.987, hub: 'wuyi' },
-
-  // 餐廳
   '盛香亭':    { lat: 28.195, lng: 112.981, hub: 'wuyi' },
   '大師兄弟米粉': { lat: 28.196, lng: 112.984, hub: 'wuyi' },
   '北二樓大排檔': { lat: 28.197, lng: 112.985, hub: 'wuyi' },
@@ -1137,8 +1109,6 @@ const PLACES = {
   '玉樓東':    { lat: 28.195, lng: 112.984, hub: 'wuyi' },
   '徐記海鮮':  { lat: 28.198, lng: 112.985, hub: 'wuyi' },
   '31號公館':  { lat: 28.205, lng: 112.998, hub: 'east' },
-
-  // 景點
   '橘子洲':    { lat: 28.186, lng: 112.964, hub: 'orange' },
   '橘子洲頭':  { lat: 28.186, lng: 112.964, hub: 'orange' },
   '岳麓山':    { lat: 28.183, lng: 112.943, hub: 'yuelu' },
@@ -1154,22 +1124,28 @@ const PLACES = {
   '海底世界':  { lat: 28.250, lng: 113.080, hub: 'east' },
   '生態動物園': { lat: 28.270, lng: 113.330, hub: 'far' },
   '靖港古鎮':  { lat: 28.470, lng: 112.760, hub: 'far' },
-
-  // 其他
   '萬家麗廣場': { lat: 28.205, lng: 113.020, hub: 'east' },
   '德思勤':    { lat: 28.155, lng: 112.985, hub: 'south' },
   '德思勤城市廣場': { lat: 28.155, lng: 112.985, hub: 'south' },
 };
 
-/* =========================================================
-   工具函數
-   ========================================================= */
 function makeAllEditable() {
   document.querySelectorAll('.editable').forEach(el => {
     el.setAttribute('contenteditable', 'true');
     el.setAttribute('spellcheck', 'false');
   });
 }
+
+/* ★★★ 修正：確保任何時候 tap/click 任何 editable 都即時可改 ★★★ */
+['pointerdown', 'touchstart', 'mousedown', 'focusin'].forEach(evt => {
+  document.addEventListener(evt, (e) => {
+    const ed = e.target && e.target.closest && e.target.closest('.editable');
+    if (ed && ed.getAttribute('contenteditable') !== 'true') {
+      ed.setAttribute('contenteditable', 'true');
+      ed.setAttribute('spellcheck', 'false');
+    }
+  }, true);
+});
 
 function getDistance(p1, p2) {
   const a = PLACES[p1], b = PLACES[p2];
@@ -1216,9 +1192,6 @@ function calcTransit(from, to) {
   };
 }
 
-/* =========================================================
-   🚄 火車卡片自動更新
-   ========================================================= */
 function updateTrainCard(card, triggerEl) {
   const fromEl = card.querySelector('.t-from');
   const toEl = card.querySelector('.t-to');
@@ -1245,7 +1218,7 @@ function updateTrainCard(card, triggerEl) {
     if (el && el !== triggerEl && el.textContent.trim() !== val) {
       el.textContent = val;
       el.classList.remove('auto-updated');
-      void el.offsetWidth; // 重啟動畫
+      void el.offsetWidth;
       el.classList.add('auto-updated');
       anyUpdated = true;
     }
@@ -1261,9 +1234,6 @@ function updateAllTrainCards() {
   return updatedCount;
 }
 
-/* =========================================================
-   🗺 行程交通自動更新
-   ========================================================= */
 function renderTransitCards() {
   document.querySelectorAll('.transit').forEach(el => el.remove());
   let totalMetroCost = 0, totalTaxiCost = 0, totalTime = 0;
@@ -1378,19 +1348,14 @@ function updateMapLinks() {
   });
 }
 
-/* =========================================================
-   💰 預算計算（高鐵自動加總）
-   ========================================================= */
 function calcTotalTrainCost() {
   let total = 0;
-  // 只用第一個 tab 的火車卡計算（避免行程頁 + 火車頁重複加）
-  // 我們用 page-itinerary 內的火車卡
   const cards = document.querySelectorAll('#page-itinerary [data-train-card]');
   cards.forEach(card => {
     const fareEl = card.querySelector('.t-fare');
     if (!fareEl) return;
     const fare = parseFloat(fareEl.textContent.replace(/[^\d.]/g, ''));
-    if (!isNaN(fare)) total += fare * 4; // 4 人
+    if (!isNaN(fare)) total += fare * 4;
   });
   return total;
 }
@@ -1436,9 +1401,6 @@ function recalculateBudget(transitData) {
   document.getElementById('sum-time').textContent = `${todayData.time} 分`;
 }
 
-/* =========================================================
-   主同步函數
-   ========================================================= */
 function syncAll(silent) {
   updateMapLinks();
   updateAllTrainCards();
@@ -1448,14 +1410,10 @@ function syncAll(silent) {
   if (!silent) showToast('✅ 已同步所有資料');
 }
 
-/* =========================================================
-   即時編輯偵測
-   ========================================================= */
 document.addEventListener('focusout', (e) => {
   const el = e.target;
   if (!el.classList || !el.classList.contains('editable')) return;
 
-  // 火車站名 / 票價變更 → 即時更新整張車票
   const trainCard = el.closest('[data-train-card]');
   if (trainCard) {
     const isStation = el.classList.contains('t-from') || el.classList.contains('t-to');
@@ -1465,12 +1423,10 @@ document.addEventListener('focusout', (e) => {
         showToast('🚄 已自動帶出車次資料');
       }
     }
-    // 無論如何都重算預算
     setTimeout(() => syncAll(true), 100);
     return;
   }
 
-  // 行程地點變更 → 重算車程
   if (el.classList.contains('place')) {
     setTimeout(() => {
       syncAll(true);
@@ -1479,7 +1435,6 @@ document.addEventListener('focusout', (e) => {
     return;
   }
 
-  // 預算金額變更
   if (el.classList.contains('b-num')) {
     setTimeout(() => syncAll(true), 100);
     return;
@@ -1493,9 +1448,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* =========================================================
-   UI 控制
-   ========================================================= */
 const editToggle = document.getElementById('editToggle');
 const editIcon = document.getElementById('editIcon');
 const editText = document.getElementById('editText');
@@ -1528,7 +1480,10 @@ document.querySelectorAll('.nav-item').forEach(item => {
     item.classList.add('active');
     document.getElementById(target).classList.add('active');
     window.scrollTo({top: 0, behavior: 'smooth'});
+    /* ★★★ 修正：切頁後立即 + 延遲都重新啟用編輯 ★★★ */
+    makeAllEditable();
     setTimeout(makeAllEditable, 50);
+    setTimeout(makeAllEditable, 300);
   });
 });
 
