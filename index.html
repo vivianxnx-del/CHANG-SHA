@@ -38,6 +38,10 @@
     background: linear-gradient(135deg, #e3f2fd, #d1e7f7);
     border-color: #1a73e8; color: #1a4d8f;
   }
+  .alert-banner.booked {
+    background: linear-gradient(135deg, #fff3cd, #ffe69c);
+    border-color: #d97706; color: #92400e;
+  }
 
   .editable {
     -webkit-user-modify: read-write-plaintext-only;
@@ -109,12 +113,17 @@
     padding: 11px 13px; margin-bottom: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   }
+  .event.booked-item {
+    border: 2px solid #d97706;
+    background: linear-gradient(135deg, #fffbeb, #ffffff);
+  }
   .event::before {
     content: ''; position: absolute; left: -19px; top: 14px;
     width: 10px; height: 10px; background: white;
     border: 3px solid #c0392b; border-radius: 50%;
     box-shadow: 0 0 0 3px #fdf6f0;
   }
+  .event.booked-item::before { border-color: #d97706; }
   .event-time { font-size: 11px; color: #c0392b; font-weight: 700; margin-bottom: 2px; }
   .event-title { font-size: 13px; font-weight: 600; color: #2c1810; margin-bottom: 2px; }
   .event-desc { font-size: 12px; color: #6b5b4d; }
@@ -128,6 +137,8 @@
   .tag-food { background: #ffe5d9; color: #c0392b; }
   .tag-hotel { background: #e3f2fd; color: #1a4d8f; }
   .tag-other { background: #f0f0f0; color: #666; }
+  .tag-booked { background: #fff3cd; color: #d97706; border: 1px solid #d97706; }
+  .tag-station { background: #e0e7ff; color: #3730a3; }
 
   .event-links {
     display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px;
@@ -159,12 +170,42 @@
   .transit-route .from { color: #666; }
   .transit-route .arrow { color: #888; margin: 0 4px; }
   .transit-route .to { color: #c0392b; }
-  .transit-detail {
-    background: white; padding: 7px 9px; border-radius: 7px;
-    color: #333; font-size: 11px; line-height: 1.5;
+
+  /* 比較表 */
+  .compare-table {
+    width: 100%;
+    border-collapse: separate; border-spacing: 0;
+    background: white; border-radius: 8px; overflow: hidden;
     margin-bottom: 6px;
+    font-size: 11px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
-  .transit-detail .line {
+  .compare-table th {
+    background: linear-gradient(135deg, #fef0e6, #fff8e1);
+    padding: 6px 8px; font-size: 10px; font-weight: 700;
+    color: #8b4513; text-align: left; border-bottom: 1px solid #f0d9c8;
+  }
+  .compare-table th.col-mode { width: 26%; }
+  .compare-table td {
+    padding: 6px 8px; border-bottom: 1px solid #f5ece2;
+    vertical-align: top; line-height: 1.45;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .mode-cell { font-weight: 700; white-space: nowrap; }
+  .mode-cell .icon { font-size: 13px; margin-right: 2px; }
+  .mode-subway { color: #1a73e8; }
+  .mode-taxi { color: #e67e22; }
+  .mode-walk { color: #2d8a5f; }
+  .pill {
+    display: inline-block;
+    background: #f0f0f0; padding: 1px 5px; border-radius: 3px;
+    font-size: 10px; color: #555; margin-right: 3px;
+  }
+  .pill.fast { background: #d4edda; color: #155724; }
+  .pill.cheap { background: #d1e7f7; color: #1a4d8f; }
+  .pill.best { background: #fff3cd; color: #92400e; font-weight: 700; }
+
+  .line {
     display: inline-block; padding: 1px 6px; border-radius: 3px;
     color: white; font-weight: 600; margin: 0 2px; font-size: 10px;
   }
@@ -174,21 +215,22 @@
   .l4 { background: #1a73e8; }
   .l5 { background: #9b59b6; }
   .l6 { background: #16a085; }
+  .lmag { background: #444; }
   .transfer-icon { color: #ff2e4d; font-weight: 700; }
-  .transit-baidu {
+
+  .transit-actions { display: flex; gap: 5px; flex-wrap: wrap; }
+  .transit-baidu, .transit-didi {
     display: inline-flex; align-items: center; gap: 3px;
     padding: 5px 10px; border-radius: 6px;
-    background: linear-gradient(135deg, #4285f4, #1a73e8);
     color: white; font-size: 11px; font-weight: 600;
     text-decoration: none;
   }
-
-  .info-box {
-    background: white; border-radius: 12px; padding: 14px;
-    margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  .transit-baidu {
+    background: linear-gradient(135deg, #4285f4, #1a73e8);
   }
-  .info-box h3 { font-size: 14px; color: #c0392b; margin-bottom: 8px; }
-  .info-box p { font-size: 12px; color: #6b5b4d; margin-bottom: 4px; }
+  .transit-didi {
+    background: linear-gradient(135deg, #ff8a00, #e67e22);
+  }
 </style>
 </head>
 <body>
@@ -197,7 +239,7 @@
   <div class="header-top">
     <div>
       <h1>🌶️ 長沙 4 日 3 夜</h1>
-      <div class="subtitle">智能行程 · 自動生成導航與小紅書連結</div>
+      <div class="subtitle">智能行程 · 自動導航 · 地鐵 vs 打車比較</div>
     </div>
     <div class="header-btns">
       <button class="h-btn" id="editBtn" onclick="toggleEdit()">✏️ 編輯</button>
@@ -210,7 +252,10 @@
     💡 <strong>小紅書連結</strong>：每個景點/餐廳已自動加入小紅書搜尋連結，行程更改後自動同步更新。
   </div>
   <div class="alert-banner info">
-    🗺️ <strong>百度地圖導航</strong>：起點自動帶入上一個行程地點，地鐵路線會列明轉乘車站。改動行程後自動重算。
+    🗺️ <strong>地鐵 vs 打車比較表</strong>：每段路線都列出兩種方式的時間、車費、轉乘提示，並有 ⭐ 推薦標示。
+  </div>
+  <div class="alert-banner booked">
+    📌 <strong>已預訂行程（不可改時間）</strong>：5/22 下晝橘子洲園區、5/24 下晝湖南博物院、5/24 夜晚 31 號公館。
   </div>
 
   <div class="day-tabs" id="dayTabs"></div>
@@ -219,111 +264,177 @@
 
 <script>
 /* ============ 行程資料 ============ */
+/* 抵達/離開地點：長沙火車南站（高鐵站） */
 const itinerary = [
   {
-    day: 1, date: "Day 1",
-    title: "抵達長沙｜老長沙夜遊",
-    desc: "黃花機場 → 入住酒店 → 太平街尋味",
+    day: 1, date: "5/21 Day 1",
+    title: "抵達長沙｜五一廣場夜遊",
+    desc: "長沙南站 → 世野 SEYA 酒店 → 五一商圈",
     events: [
-      { time: "14:00", type: "other", title: "抵達長沙黃花國際機場", desc: "搭乘磁浮列車或地鐵 6 號線進市區", noLinks: true },
-      { time: "15:30", type: "hotel", title: "華美達廣場酒店（五一廣場店）", desc: "市中心位置，鄰近地鐵 1/2 號線五一廣場站，逛街方便。" },
-      { time: "17:00", type: "attraction", title: "黃興路步行街", desc: "長沙最熱鬧的商業街，霓虹招牌＋網紅店打卡聖地。" },
-      { time: "18:30", type: "food", title: "文和友（海信廣場店）", desc: "復刻 80 年代老長沙街景，必試小龍蝦、臭豆腐。" },
-      { time: "20:30", type: "attraction", title: "太平街", desc: "古樸石板街，茶顏悅色總店所在地，夜景超美。" },
-      { time: "21:30", type: "food", title: "茶顏悅色（太平街店）", desc: "招牌幽蘭拿鐵、聲聲烏龍，必飲！" }
+      { time: "14:00", type: "station", title: "長沙火車南站（抵達）", desc: "高鐵抵達長沙南站，地鐵 2 號線、4 號線、磁浮快線交匯。" },
+      { time: "15:30", type: "hotel", title: "世野 SEYA 高空酒店（五一廣場店）", desc: "高空景觀酒店，位於市中心五一廣場，地鐵 1/2 號線 5 分鐘可達。" },
+      { time: "17:00", type: "attraction", title: "五一廣場", desc: "長沙最核心商圈，地鐵 1/2 號線交匯，逛街必到。" },
+      { time: "18:00", type: "attraction", title: "黃興路步行街", desc: "霓虹招牌與網紅店密集，長沙最熱鬧步行街。" },
+      { time: "22:00", type: "food", title: "北二樓大排檔", desc: "深夜食堂級湘菜大排檔，蒜蓉粉絲蝦、牛蛙煲必試，氣氛超本地。" }
     ]
   },
   {
-    day: 2, date: "Day 2",
-    title: "嶽麓山＋橘子洲",
-    desc: "登山賞楓 → 古書院 → 江心島",
+    day: 2, date: "5/22 Day 2",
+    title: "老長沙＋橘子洲（已訂）",
+    desc: "坡子街早餐 → 太平老街 → 橘子洲園區",
     events: [
-      { time: "08:00", type: "food", title: "肆姐粉店（坡子街店）", desc: "本地人推薦早餐，招牌肉絲粉、辣椒炒肉蓋碼。" },
-      { time: "09:30", type: "attraction", title: "嶽麓書院", desc: "千年學府，朱熹、張栻講學之地，門票 ¥50。" },
-      { time: "12:00", type: "food", title: "新華樓（嶽麓店）", desc: "湖南老字號，鹼水麵、刀削麵、包子皆出名。" },
-      { time: "13:30", type: "attraction", title: "嶽麓山", desc: "可乘索道上山，愛晚亭、麓山寺必到，秋季紅葉絕景。" },
-      { time: "16:30", type: "attraction", title: "橘子洲頭", desc: "毛主席青年雕像所在地，湘江中央島嶼，黃昏景色一流。" },
-      { time: "19:00", type: "food", title: "盛記一品（解放西路店）", desc: "本地連鎖湘菜館，剁椒魚頭、毛氏紅燒肉必點。" },
-      { time: "21:00", type: "attraction", title: "解放西路酒吧街", desc: "長沙夜生活地標，年輕人扎堆，氣氛熱鬧。" }
+      { time: "09:00", type: "food", title: "火宮殿（坡子街總店）", desc: "百年老店早餐，臭豆腐、糖油粑粑、姊妹糰子、米粉一次過。" },
+      { time: "10:30", type: "attraction", title: "坡子街", desc: "火宮殿所在地，老長沙美食街區，緊接太平街。" },
+      { time: "11:30", type: "attraction", title: "太平老街", desc: "古樸石板街，茶顏悅色、文和友周邊店林立，慢逛拍照。" },
+      { time: "13:00", type: "food", title: "大師兄（午餐）", desc: "招牌大師兄水餃、刀削麵、小炒肉，份量足又抵食。" },
+      { time: "14:30", type: "booked", title: "橘子洲園區（已訂下午票）", desc: "毛主席青年雕像、湘江中央島嶼，建議搭小火車環島。下午票已預訂，準時入園。" },
+      { time: "18:30", type: "food", title: "晚餐（自由發揮）", desc: "建議返五一商圈或河東品嚐湘菜館，可改為任何餐廳。" }
     ]
   },
   {
-    day: 3, date: "Day 3",
-    title: "歷史文化＋商業購物",
-    desc: "湖南博物院 → 長沙 IFS → 坡子街",
+    day: 3, date: "5/23 Day 3",
+    title: "嶽麓山＋湘江景",
+    desc: "登山賞景 → 笨蘿蔔午餐 → 杜甫江閣",
     events: [
-      { time: "08:30", type: "food", title: "楊裕興（五一廣場店）", desc: "百年老店，雞蛋面、酸辣面、滷味拼盤。" },
-      { time: "10:00", type: "attraction", title: "湖南博物院", desc: "馬王堆漢墓出土文物（辛追夫人）必看，需預約免費門票。" },
-      { time: "13:00", type: "food", title: "費大廚辣椒炒肉（IFS 店）", desc: "湘菜頂流，辣椒炒肉是招牌中的招牌。" },
-      { time: "15:00", type: "attraction", title: "長沙 IFS 國金中心", desc: "頂樓 KAWS 雕塑打卡點，內有奢華品牌、書店、米其林。" },
-      { time: "18:00", type: "food", title: "笨蘿蔔湘菜館（坡子街店）", desc: "性價比超高的湘菜館，臘味合蒸、口味蝦推薦。" },
-      { time: "20:00", type: "attraction", title: "坡子街", desc: "長沙小吃集中地，火宮殿就在這裡，夜市氣氛濃。" },
-      { time: "21:30", type: "food", title: "火宮殿（坡子街總店）", desc: "百年老店，臭豆腐、糖油粑粑、姊妹糰子必試。" }
+      { time: "09:00", type: "food", title: "酒店早餐 / 街邊米粉", desc: "輕食出發，準備上嶽麓山。" },
+      { time: "10:00", type: "attraction", title: "嶽麓山", desc: "千年名山，含嶽麓書院、愛晚亭、麓山寺，可乘索道上山。建議走南門入口。" },
+      { time: "13:30", type: "food", title: "笨蘿蔔湘菜館（午餐）", desc: "性價比超高湘菜館，臘味合蒸、口味蝦、剁椒魚頭必點。" },
+      { time: "15:30", type: "attraction", title: "杜甫江閣", desc: "湘江畔仿古樓閣，紀念詩聖杜甫，江景開揚，下午光線最美。" },
+      { time: "18:00", type: "food", title: "晚餐（自由發揮）", desc: "可於五一廣場附近選湘菜或茶顏悅色補一杯。" }
     ]
   },
   {
-    day: 4, date: "Day 4",
-    title: "悠閒早午餐｜返程",
-    desc: "酒店 Check-out → 機場",
+    day: 4, date: "5/24 Day 4",
+    title: "湖南博物院＋31 號公館（已訂）",
+    desc: "上午自由 → 博物院（已訂下午）→ 31 號公館晚餐（已訂）→ 長沙南站離開",
     events: [
-      { time: "09:00", type: "food", title: "墨茉點心局（IFS 店）", desc: "網紅中式點心，麻薯、芝士牛肉酥必買手信。" },
-      { time: "10:30", type: "attraction", title: "杜甫江閣", desc: "湘江畔仿古樓閣，緬懷詩聖杜甫，江景開揚。" },
-      { time: "12:00", type: "food", title: "炊煙時代小炒黃牛肉（五一廣場店）", desc: "招牌小炒黃牛肉，嫩滑帶鑊氣，臨走前最後一頓湘菜。" },
-      { time: "14:00", type: "other", title: "酒店 Check-out 取行李", desc: "整理行李，準備出發機場。", noLinks: true },
-      { time: "15:00", type: "other", title: "前往黃花機場", desc: "建議搭地鐵 6 號線或磁浮，1 小時前到達。", noLinks: true }
+      { time: "09:30", type: "food", title: "酒店早餐 / 茶顏悅色", desc: "悠閒早餐，準備出發。" },
+      { time: "11:00", type: "attraction", title: "黃興路步行街（補逛 / 手信）", desc: "黃興路或 IFS 補手信，墨茉點心局、文和友零食。" },
+      { time: "12:30", type: "food", title: "午餐（自由發揮）", desc: "建議博物院附近輕食，準備下午看展。" },
+      { time: "14:00", type: "booked", title: "湖南博物院（已訂下午票）", desc: "馬王堆漢墓辛追夫人必看。下午票已預訂，地鐵 6 號線博物院站直達。" },
+      { time: "18:30", type: "booked", title: "31 號公館（已訂晚餐）", desc: "長沙頂級湘菜地標，民國風裝潢。已預訂晚餐，準時到場。" },
+      { time: "21:30", type: "station", title: "長沙火車南站（離開）", desc: "由 31 號公館返酒店取行李後前往長沙南站搭高鐵離開。建議預留 1 小時。" }
     ]
   }
 ];
 
-/* ============ 連結自動生成 ============ */
-// 小紅書搜尋
+/* ============ 連結生成 ============ */
 function xhsLink(name) {
   return "https://www.xiaohongshu.com/search_result?keyword=" + encodeURIComponent("長沙 " + name) + "&type=51";
 }
-// 百度地圖：單點搜尋
 function baiduSearch(name) {
-  return "https://map.baidu.com/search/" + encodeURIComponent(name) + "/@12521000,3253000,12z?querytype=s&wd=" + encodeURIComponent("長沙 " + name);
+  return "https://map.baidu.com/search/" + encodeURIComponent("長沙 " + name);
 }
-// 百度地圖：路線導航（公交/地鐵優先）
 function baiduDir(from, to) {
-  return "https://map.baidu.com/dir/" +
-    encodeURIComponent(from) + "/" + encodeURIComponent(to) +
-    "/@12521000,3253000,12z?querytype=bt&c=長沙&sn=2$$$$$$" + encodeURIComponent(from) + "$$0$$$$&en=2$$$$$$" + encodeURIComponent(to) + "$$0$$$$&sc=158&ec=158&pn=0&rn=5";
+  return "https://map.baidu.com/dir/" + encodeURIComponent(from) + "/" + encodeURIComponent(to) + "/@12521000,3253000,12z?querytype=bt";
+}
+function didiLink() {
+  return "https://common.diditaxi.com.cn/general/webEntry";
 }
 
-/* ============ 模擬地鐵轉乘資料 ============ */
-// 簡化版：根據關鍵地點配對地鐵建議；實際以百度地圖即時計算為準
-const subwayHints = {
-  "華美達廣場酒店（五一廣場店）|文和友（海信廣場店）": { walk: "步行 5 分鐘", text: "步行可達" },
-  "文和友（海信廣場店）|太平街": { walk: "步行 8 分鐘", text: "步行可達，沿黃興南路向南" },
-  "太平街|茶顏悅色（太平街店）": { walk: "街內步行", text: "同一條街內" },
-  "華美達廣場酒店（五一廣場店）|嶽麓書院": {
-    text: "五一廣場站 <span class='line l1'>2號線</span> 西行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l4'>4號線</span> 南行 → 湖南大學站，步行 10 分鐘"
+/* ============ 路線資料庫（地鐵 + 打車）============ */
+/* 每段路線提供 subway / taxi 兩種方式詳細數據 */
+const routes = {
+  "長沙火車南站（抵達）|世野 SEYA 高空酒店（五一廣場店）": {
+    subway: { time: "約 25 分鐘", fare: "￥4", detail: "南站 <span class='line l2'>2號線</span> 西行 8 站 → 五一廣場站，2 號出口步行 3 分鐘。", transfers: "無需轉乘" },
+    taxi: { time: "約 30–40 分鐘", fare: "￥45–60", detail: "繁忙時段易塞車，行李多時較舒適。" },
+    recommend: "subway", reason: "便宜直達，免轉乘"
   },
-  "嶽麓書院|嶽麓山": { walk: "步行 5 分鐘", text: "書院後門即可登山" },
-  "嶽麓山|橘子洲頭": {
-    text: "嶽麓山南站 <span class='line l4'>4號線</span> 北行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l2'>2號線</span> 東行 → 橘子洲站"
+  "世野 SEYA 高空酒店（五一廣場店）|五一廣場": {
+    walk: { time: "3 分鐘", detail: "酒店即在五一廣場旁，步行直達。" },
+    recommend: "walk"
   },
-  "橘子洲頭|盛記一品（解放西路店）": {
-    text: "橘子洲站 <span class='line l2'>2號線</span> 東行 → 五一廣場站，步行 5 分鐘"
+  "五一廣場|黃興路步行街": {
+    walk: { time: "2 分鐘", detail: "緊鄰五一廣場，南端入口即是。" },
+    recommend: "walk"
   },
-  "湖南博物院|費大廚辣椒炒肉（IFS 店）": {
-    text: "省政府站 <span class='line l3'>3號線</span> 南行 → 五一廣場站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l1'>1號線</span>，步行可達 IFS"
+  "黃興路步行街|北二樓大排檔": {
+    walk: { time: "10 分鐘", detail: "黃興路口附近，沿途夜景熱鬧。" },
+    taxi: { time: "5 分鐘", fare: "￥10", detail: "夜晚走累可叫車，起步價搞定。" },
+    recommend: "walk", reason: "順路逛夜景"
   },
-  "費大廚辣椒炒肉（IFS 店）|長沙 IFS 國金中心": { walk: "同一商場", text: "費大廚位於 IFS 內" },
-  "長沙 IFS 國金中心|笨蘿蔔湘菜館（坡子街店）": { walk: "步行 8 分鐘", text: "沿黃興路向南即達坡子街" },
-  "墨茉點心局（IFS 店）|杜甫江閣": {
-    text: "五一廣場站 <span class='line l1'>1號線</span> → 步行 8 分鐘至湘江畔"
+  "北二樓大排檔|火宮殿（坡子街總店）": {
+    walk: { time: "返酒店休息", detail: "第二日早上由酒店步行 10 分鐘前往坡子街。" },
+    recommend: "walk"
   },
-  "杜甫江閣|炊煙時代小炒黃牛肉（五一廣場店）": { walk: "步行 12 分鐘", text: "沿解放西路向東" }
+  "世野 SEYA 高空酒店（五一廣場店）|火宮殿（坡子街總店）": {
+    walk: { time: "10 分鐘", detail: "由酒店沿黃興南路向南直達坡子街。" },
+    taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，但塞車反而更慢。" },
+    recommend: "walk", reason: "近且順路"
+  },
+  "火宮殿（坡子街總店）|坡子街": {
+    walk: { time: "原地", detail: "火宮殿即位於坡子街上。" },
+    recommend: "walk"
+  },
+  "坡子街|太平老街": {
+    walk: { time: "5 分鐘", detail: "兩街相連，沿途古色古香，必走。" },
+    recommend: "walk"
+  },
+  "太平老街|大師兄（午餐）": {
+    walk: { time: "5–8 分鐘", detail: "太平街附近多分店，沿黃興南路即可。" },
+    recommend: "walk"
+  },
+  "大師兄（午餐）|橘子洲園區（已訂下午票）": {
+    subway: { time: "約 15 分鐘", fare: "￥2", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 1 站 → 橘子洲站，2 號出口步行 5 分鐘入園。", transfers: "無需轉乘" },
+    taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "週末橘子洲大橋常塞車，地鐵反而快。" },
+    recommend: "subway", reason: "便宜又快，免塞車"
+  },
+  "橘子洲園區（已訂下午票）|晚餐（自由發揮）": {
+    subway: { time: "約 10 分鐘", fare: "￥2", detail: "橘子洲站 <span class='line l2'>2號線</span> 東行 1 站 → 五一廣場站，返酒店附近用餐。", transfers: "無需轉乘" },
+    taxi: { time: "約 15–20 分鐘", fare: "￥20–30", detail: "塞車風險高。" },
+    recommend: "subway", reason: "省時省錢"
+  },
+  "晚餐（自由發揮）|酒店早餐 / 街邊米粉": {
+    walk: { time: "返酒店休息", detail: "酒店附近用餐後步行返回。" },
+    recommend: "walk"
+  },
+  "酒店早餐 / 街邊米粉|嶽麓山": {
+    subway: { time: "約 35 分鐘", fare: "￥5", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l4'>4號線</span> 南行 → 嶽麓山南站，步行 8 分鐘。", transfers: "1 次轉乘（溁灣鎮）" },
+    taxi: { time: "約 25–35 分鐘", fare: "￥35–50", detail: "可直達南門入口，免行走，適合一家大細。" },
+    recommend: "taxi", reason: "免行李拖行 + 直達山門"
+  },
+  "嶽麓山|笨蘿蔔湘菜館（午餐）": {
+    subway: { time: "約 35 分鐘", fare: "￥5", detail: "嶽麓山南站 <span class='line l4'>4號線</span> 北行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l2'>2號線</span> 東行 → 五一廣場站，步行至坡子街分店。", transfers: "1 次轉乘（溁灣鎮）" },
+    taxi: { time: "約 25 分鐘", fare: "￥35–45", detail: "登山後較攰，打車舒適。" },
+    recommend: "taxi", reason: "登山後體力消耗大"
+  },
+  "笨蘿蔔湘菜館（午餐）|杜甫江閣": {
+    walk: { time: "12 分鐘", detail: "由坡子街向西穿過湘江中路即達江閣，沿江景觀好。" },
+    taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，飯後散步更佳。" },
+    recommend: "walk", reason: "沿江散步消食"
+  },
+  "杜甫江閣|晚餐（自由發揮）": {
+    walk: { time: "10 分鐘", detail: "返五一廣場/黃興路任選餐廳。" },
+    recommend: "walk"
+  },
+  "晚餐（自由發揮）|酒店早餐 / 茶顏悅色": {
+    walk: { time: "返酒店休息", detail: "第三日早上於酒店附近用餐。" },
+    recommend: "walk"
+  },
+  "酒店早餐 / 茶顏悅色|黃興路步行街（補逛 / 手信）": {
+    walk: { time: "5 分鐘", detail: "由酒店出發即達。" },
+    recommend: "walk"
+  },
+  "黃興路步行街（補逛 / 手信）|午餐（自由發揮）": {
+    walk: { time: "步行可達", detail: "建議博物院方向用餐，避免回頭路。" },
+    recommend: "walk"
+  },
+  "午餐（自由發揮）|湖南博物院（已訂下午票）": {
+    subway: { time: "約 30 分鐘", fare: "￥4", detail: "五一廣場站 <span class='line l1'>1號線</span> 北行 → 開福寺站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l6'>6號線</span> 東行 → 博物院站，1 號出口直達。", transfers: "1 次轉乘（開福寺）" },
+    taxi: { time: "約 15–20 分鐘", fare: "￥20–28", detail: "直達省心，下午看展更悠閒。" },
+    recommend: "taxi", reason: "下午票時間緊，打車更穩"
+  },
+  "湖南博物院（已訂下午票）|31 號公館（已訂晚餐）": {
+    subway: { time: "約 30 分鐘", fare: "￥4", detail: "博物院站 <span class='line l6'>6號線</span> 西行 → 開福寺站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l1'>1號線</span> 南行 → 五一廣場站，步行至 31 號公館。", transfers: "1 次轉乘（開福寺）" },
+    taxi: { time: "約 15–20 分鐘", fare: "￥22–30", detail: "晚餐預訂時間固定，打車更可靠。" },
+    recommend: "taxi", reason: "預訂時間勿遲到"
+  },
+  "31 號公館（已訂晚餐）|長沙火車南站（離開）": {
+    subway: { time: "約 30 分鐘", fare: "￥4", detail: "五一廣場站 <span class='line l2'>2號線</span> 東行 8 站 → 長沙火車南站，3 號出口直達高鐵候車廳。", transfers: "無需轉乘" },
+    taxi: { time: "約 25–40 分鐘", fare: "￥45–65", detail: "趕高鐵建議提早 1.5 小時出發，避開晚高峰塞車。" },
+    recommend: "subway", reason: "趕高鐵免塞車風險"
+  }
 };
-
-function getTransitHint(from, to) {
-  const key = from + "|" + to;
-  if (subwayHints[key]) return subwayHints[key];
-  // 預設：相近區域用打車/步行
-  return { text: "建議打車或叫滴滴，約 10–20 分鐘車程；亦可使用百度地圖查實時公交。" };
-}
 
 /* ============ 渲染 ============ */
 let currentDay = 0;
@@ -333,19 +444,76 @@ function tagInfo(type) {
     attraction: { cls: "tag-attraction", text: "景點" },
     food: { cls: "tag-food", text: "餐廳" },
     hotel: { cls: "tag-hotel", text: "住宿" },
-    other: { cls: "tag-other", text: "交通" }
+    booked: { cls: "tag-booked", text: "已預訂" },
+    station: { cls: "tag-station", text: "車站" },
+    other: { cls: "tag-other", text: "其他" }
   };
   return map[type] || map.other;
 }
 
+function renderCompareTable(route) {
+  let rows = '';
+  const rec = route.recommend;
+
+  if (route.walk) {
+    const isRec = rec === "walk";
+    rows += `
+      <tr>
+        <td class="mode-cell mode-walk"><span class="icon">🚶</span>步行</td>
+        <td><span class="pill cheap">免費</span><span class="pill fast">${route.walk.time}</span>${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td>
+        <td>${route.walk.detail}</td>
+      </tr>
+    `;
+  }
+  if (route.subway) {
+    const isRec = rec === "subway";
+    rows += `
+      <tr>
+        <td class="mode-cell mode-subway"><span class="icon">🚇</span>地鐵</td>
+        <td><span class="pill cheap">${route.subway.fare}</span><span class="pill">${route.subway.time}</span>${route.subway.transfers ? `<span class="pill">${route.subway.transfers}</span>` : ''}${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td>
+        <td>${route.subway.detail}</td>
+      </tr>
+    `;
+  }
+  if (route.taxi) {
+    const isRec = rec === "taxi";
+    rows += `
+      <tr>
+        <td class="mode-cell mode-taxi"><span class="icon">🚖</span>打車</td>
+        <td><span class="pill">${route.taxi.fare}</span><span class="pill fast">${route.taxi.time}</span>${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td>
+        <td>${route.taxi.detail}</td>
+      </tr>
+    `;
+  }
+
+  return `
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th class="col-mode">方式</th>
+          <th>時間 / 費用</th>
+          <th>說明</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    ${route.reason ? `<div class="transit-detail" style="background:#fff8e1;color:#92400e;font-size:11px;padding:6px 8px;border-radius:6px;margin-bottom:6px;">💡 推薦原因：${route.reason}</div>` : ''}
+  `;
+}
+
+function getRoute(from, to) {
+  return routes[from + "|" + to] || {
+    taxi: { time: "約 15–25 分鐘", fare: "￥20–35", detail: "建議使用滴滴打車。" },
+    recommend: "taxi"
+  };
+}
+
 function render() {
-  // Tabs
   const tabs = document.getElementById("dayTabs");
   tabs.innerHTML = itinerary.map((d, i) =>
     `<div class="day-tab ${i === currentDay ? 'active' : ''}" onclick="switchDay(${i})">${d.date}<br><span style="font-size:9px;opacity:0.85">${d.title.split('｜')[0]}</span></div>`
   ).join('');
 
-  // Itinerary
   const day = itinerary[currentDay];
   const cont = document.getElementById("itinerary");
 
@@ -359,45 +527,42 @@ function render() {
 
   day.events.forEach((ev, i) => {
     const tag = tagInfo(ev.type);
-    const showLinks = ev.type === "attraction" || ev.type === "food" || ev.type === "hotel";
+    const showLinks = ev.type === "attraction" || ev.type === "food" || ev.type === "hotel" || ev.type === "booked" || ev.type === "station";
 
-    // 上一個有實體地點的行程作為導航起點
+    // 上一個地點（包括車站）
     let prevPlace = null;
     for (let k = i - 1; k >= 0; k--) {
       const p = day.events[k];
-      if (p.type === "attraction" || p.type === "food" || p.type === "hotel") {
-        prevPlace = p.title; break;
-      }
+      if (showableType(p.type)) { prevPlace = p.title; break; }
     }
-    // 如果今日第一個地點，找前一日最後一個地點
-    if (!prevPlace && i > 0 && currentDay > 0) {
+    if (!prevPlace && currentDay > 0) {
       const prevDay = itinerary[currentDay - 1];
       for (let k = prevDay.events.length - 1; k >= 0; k--) {
         const p = prevDay.events[k];
-        if (p.type === "attraction" || p.type === "food" || p.type === "hotel") {
-          prevPlace = p.title; break;
-        }
+        if (showableType(p.type)) { prevPlace = p.title; break; }
       }
     }
 
-    // 交通卡（顯示在行程之前，除了第一個）
-    if (prevPlace && showLinks) {
-      const hint = getTransitHint(prevPlace, ev.title);
+    if (prevPlace && showableType(ev.type)) {
+      const route = getRoute(prevPlace, ev.title);
       html += `
         <div class="transit">
           <div class="transit-route">
-            🚇 <span class="from">${prevPlace}</span><span class="arrow">→</span><span class="to">${ev.title}</span>
+            🛣️ <span class="from">${prevPlace}</span><span class="arrow">→</span><span class="to">${ev.title}</span>
           </div>
-          <div class="transit-detail">${hint.walk ? '🚶 ' + hint.walk + '：' : ''}${hint.text}</div>
-          <a class="transit-baidu" href="${baiduDir(prevPlace, ev.title)}" target="_blank">
-            🗺️ 百度地圖導航
-          </a>
+          ${renderCompareTable(route)}
+          <div class="transit-actions">
+            <a class="transit-baidu" href="${baiduDir(prevPlace, ev.title)}" target="_blank">🗺️ 百度地圖導航</a>
+            <a class="transit-didi" href="${didiLink()}" target="_blank">🚖 滴滴打車</a>
+          </div>
         </div>
       `;
     }
 
+    const bookedClass = ev.type === "booked" ? " booked-item" : "";
+
     html += `
-      <div class="event" data-day="${currentDay}" data-idx="${i}">
+      <div class="event${bookedClass}" data-day="${currentDay}" data-idx="${i}">
         <button class="delete-btn edit-only" onclick="deleteEvent(${currentDay}, ${i})">×</button>
         <div class="event-time"><span class="editable" data-path="ev.${currentDay}.${i}.time">${ev.time}</span></div>
         <div class="event-title">
@@ -424,13 +589,16 @@ function render() {
   bindEditables();
 }
 
+function showableType(t) {
+  return t === "attraction" || t === "food" || t === "hotel" || t === "booked" || t === "station";
+}
+
 function switchDay(i) {
   currentDay = i;
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ============ 編輯模式 ============ */
 function toggleEdit() {
   document.body.classList.toggle("edit-mode");
   document.getElementById("editBtn").classList.toggle("active");
@@ -449,11 +617,9 @@ function bindEditables() {
         const field = path[3];
         itinerary[+path[1]].events[+path[2]][field] = newVal;
       }
-      // 重新渲染以同步連結
       render();
-      // 動畫提示
       setTimeout(() => {
-        document.querySelectorAll(".event-links a, .transit-baidu").forEach(a => {
+        document.querySelectorAll(".event-links a, .transit-baidu, .transit-didi").forEach(a => {
           a.classList.add("auto-updated");
           setTimeout(() => a.classList.remove("auto-updated"), 1100);
         });
