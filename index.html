@@ -425,7 +425,7 @@
   <div class="header-top">
     <div>
       <h1>🌶️ 長沙 4 日 3 夜</h1>
-      <div class="subtitle">智能行程 · 真實導航 · 自動更新</div>
+      <div class="subtitle">22-25/5（五至一）· 智能行程</div>
     </div>
     <div class="header-btns">
       <button class="h-btn" id="editBtn" onclick="toggleEdit()">✏️ 編輯</button>
@@ -447,7 +447,7 @@
     ✨ <strong>自動更新已開啟</strong>：改任何景點/餐廳名稱，路線、時間、費用、地圖、小紅書連結會即時重新計算。
   </div>
   <div class="alert-banner booked">
-    📌 <strong>已預訂行程（不可改時間）</strong>：5/22 下晝橘子洲、5/24 下晝湖南博物院、5/24 夜晚 31 號公館。
+    📌 <strong>已預訂行程（不可改時間）</strong>：5/23（六）下晝橘子洲、5/25（一）下晝湖南博物院、5/25（一）夜晚 31 號公館。
   </div>
   <div class="day-tabs" id="dayTabs"></div>
   <div id="itinerary-content"></div>
@@ -498,11 +498,11 @@
       </div>
       <div class="hotel-feature">
         <div class="label">📅 入住</div>
-        <div class="value"><span class="editable" data-hotel="checkin">5月21日</span></div>
+        <div class="value"><span class="editable" data-hotel="checkin">5月22日（五）</span></div>
       </div>
       <div class="hotel-feature">
         <div class="label">📅 退房</div>
-        <div class="value"><span class="editable" data-hotel="checkout">5月24日</span></div>
+        <div class="value"><span class="editable" data-hotel="checkout">5月25日（一）</span></div>
       </div>
       <div class="hotel-feature">
         <div class="label">🌙 夜數</div>
@@ -608,7 +608,7 @@
 /* ============ 行程資料 ============ */
 const itinerary = [
   {
-    day: 1, date: "5/21 Day 1",
+    day: 1, date: "5/22 五 Day 1",
     title: "抵達長沙｜五一廣場夜遊",
     desc: "長沙南站 → 世野 SEYA 酒店 → 五一商圈",
     events: [
@@ -620,7 +620,7 @@ const itinerary = [
     ]
   },
   {
-    day: 2, date: "5/22 Day 2",
+    day: 2, date: "5/23 六 Day 2",
     title: "老長沙＋橘子洲（已訂）",
     desc: "坡子街早餐 → 太平老街 → 橘子洲園區",
     events: [
@@ -633,7 +633,7 @@ const itinerary = [
     ]
   },
   {
-    day: 3, date: "5/23 Day 3",
+    day: 3, date: "5/24 日 Day 3",
     title: "嶽麓山＋湘江景",
     desc: "登山賞景 → 笨蘿蔔午餐 → 杜甫江閣",
     events: [
@@ -645,7 +645,7 @@ const itinerary = [
     ]
   },
   {
-    day: 4, date: "5/24 Day 4",
+    day: 4, date: "5/25 一 Day 4",
     title: "湖南博物院＋31 號公館（已訂）",
     desc: "上午自由 → 博物院（已訂下午）→ 31 號公館晚餐（已訂）→ 長沙南站離開",
     events: [
@@ -663,20 +663,20 @@ const itinerary = [
 const trainData = {
   outbound: [
     {
-      fromCity: "深圳北", fromTime: "10:30", fromDate: "5月21日",
-      toCity: "長沙南", toTime: "13:55", toDate: "5月21日",
+      fromCity: "深圳北", fromTime: "10:30", fromDate: "5月22日（五）",
+      toCity: "長沙南", toTime: "13:55", toDate: "5月22日（五）",
       duration: "3h 25m", trainNo: "G6044", seat: "二等座", price: "389", pax: "2"
     }
   ],
   return: [
     {
-      fromCity: "長沙南", fromTime: "17:00", fromDate: "5月24日",
-      toCity: "廣州南", toTime: "19:00", toDate: "5月24日",
+      fromCity: "長沙南", fromTime: "17:00", fromDate: "5月25日（一）",
+      toCity: "廣州南", toTime: "19:00", toDate: "5月25日（一）",
       duration: "2h 00m", trainNo: "G6011", seat: "二等座", price: "314", pax: "2"
     },
     {
-      fromCity: "廣州南", fromTime: "19:37", fromDate: "5月24日",
-      toCity: "香港西九龍", toTime: "20:25", toDate: "5月24日",
+      fromCity: "廣州南", fromTime: "19:37", fromDate: "5月25日（一）",
+      toCity: "香港西九龍", toTime: "20:25", toDate: "5月25日（一）",
       duration: "0h 48m", trainNo: "G6531", seat: "二等座", price: "215", pax: "2"
     }
   ]
@@ -687,8 +687,8 @@ const hotelData = {
   name: "世野 SEYA 高空酒店 五一廣場店",
   desc: "坐擁長沙市中心五一廣場高空景觀，地鐵 1/2 號線 5 分鐘可達，步行至黃興路步行街、坡子街、太平老街。",
   addr: "芙蓉區黃興中路",
-  checkin: "5月21日",
-  checkout: "5月24日",
+  checkin: "5月22日（五）",
+  checkout: "5月25日（一）",
   nights: "3",
   pricePerNight: "580"
 };
@@ -1111,7 +1111,6 @@ function bindEditables() {
         flashUpdates();
         showToast("🔄 路線、時間、連結已自動更新");
       } else if (tpath) {
-        // tpath format: "outbound.0.fromCity" or "return.1.trainNo"
         const [section, idx, key] = tpath.split('.');
         if (trainData[section] && trainData[section][+idx]) {
           trainData[section][+idx][key] = newVal;
@@ -1158,12 +1157,13 @@ function addEvent(dIdx) {
 /* ============ 火車頁渲染 ============ */
 function renderTrainLeg(section, idx, leg, totalLegs) {
   const labelText = section === "outbound" ? "去程" : "回程";
+  const dayLabel = section === "outbound" ? "Day 1（5/22 五）" : "Day 4（5/25 一）";
   const legBadge = totalLegs > 1 ? `<span class="leg-badge">第 ${idx + 1} 程 / 共 ${totalLegs} 程</span>` : '';
   return `
     <div class="train-route">
       ${totalLegs > 1 ? `<button class="train-del edit-only" onclick="removeTrainLeg('${section}', ${idx})">×</button>` : ''}
       <div class="leg-label">
-        <span>${labelText} · ${section === "outbound" ? "Day 1" : "Day 4"}</span>
+        <span>${labelText} · ${dayLabel}</span>
         ${legBadge}
       </div>
       <div class="train-flow">
@@ -1205,7 +1205,6 @@ function renderTrainLeg(section, idx, leg, totalLegs) {
 }
 
 function calcLayover(arrTime, depTime) {
-  // 簡單分鐘差（同日）
   const parse = (t) => {
     const m = t.match(/(\d{1,2}):(\d{2})/);
     if (!m) return null;
@@ -1224,7 +1223,6 @@ function renderTrainSection(section) {
   let html = '';
   list.forEach((leg, idx) => {
     html += renderTrainLeg(section, idx, leg, list.length);
-    // 轉乘等待時間
     if (idx < list.length - 1) {
       const next = list[idx + 1];
       const mins = calcLayover(leg.toTime, next.fromTime);
