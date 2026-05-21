@@ -13,10 +13,10 @@
   .header {
     position: sticky; top: 0; z-index: 100;
     background: linear-gradient(135deg, #c0392b 0%, #e67e22 100%);
-    color: white; padding: 14px 16px 12px;
+    color: white; padding: 14px 16px 0;
     box-shadow: 0 2px 12px rgba(192, 57, 43, 0.3);
   }
-  .header-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .header-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-bottom: 10px; }
   .header h1 { font-size: 17px; font-weight: 700; }
   .header .subtitle { font-size: 11px; opacity: 0.9; margin-top: 2px; }
   .header-btns { display: flex; gap: 6px; flex-shrink: 0; }
@@ -26,7 +26,25 @@
     font-size: 11px; font-weight: 600; cursor: pointer;
   }
   .h-btn.active { background: white; color: #c0392b; }
+
+  .nav-tabs {
+    display: flex; gap: 0; overflow-x: auto;
+    margin: 0 -16px; padding: 0 16px;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    flex-shrink: 0; padding: 10px 14px;
+    color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 600;
+    cursor: pointer; border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+  .nav-tab.active {
+    color: white; border-bottom-color: white;
+  }
+
   .main { padding: 12px 12px 80px; }
+  .page { display: none; }
+  .page.active { display: block; }
 
   .alert-banner {
     background: linear-gradient(135deg, #ffe4ec, #fff0f5);
@@ -41,6 +59,10 @@
   .alert-banner.booked {
     background: linear-gradient(135deg, #fff3cd, #ffe69c);
     border-color: #d97706; color: #92400e;
+  }
+  .alert-banner.success {
+    background: linear-gradient(135deg, #d4edda, #e8f5e9);
+    border-color: #2d8a5f; color: #155724;
   }
 
   .editable {
@@ -62,11 +84,26 @@
   body.edit-mode .event { padding-right: 32px; position: relative; }
 
   @keyframes flashUpdate {
-    0% { background: #fff3cd; }
-    50% { background: #ffe066; }
-    100% { background: transparent; }
+    0% { background: #ffe066; transform: scale(1); }
+    50% { background: #ffd700; transform: scale(1.03); }
+    100% { background: transparent; transform: scale(1); }
   }
-  .auto-updated { animation: flashUpdate 1s ease; }
+  .auto-updated { animation: flashUpdate 1.2s ease; }
+
+  @keyframes slideInToast {
+    from { transform: translate(-50%, 100px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+  }
+  .update-toast {
+    position: fixed; bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #2d8a5f, #1a8e3a);
+    color: white; padding: 10px 18px; border-radius: 24px;
+    font-size: 13px; font-weight: 600; z-index: 1000;
+    box-shadow: 0 4px 16px rgba(45, 138, 95, 0.4);
+    animation: slideInToast 0.3s ease;
+    pointer-events: none;
+  }
 
   .delete-btn {
     position: absolute; top: 8px; right: 8px;
@@ -140,14 +177,25 @@
   .tag-booked { background: #fff3cd; color: #d97706; border: 1px solid #d97706; }
   .tag-station { background: #e0e7ff; color: #3730a3; }
 
+  .type-selector {
+    display: inline-flex; gap: 3px; margin-left: 4px;
+  }
+  .type-btn {
+    padding: 1px 5px; border: 1px solid #ddd; background: white;
+    border-radius: 3px; font-size: 9px; cursor: pointer;
+  }
+  .type-btn.active {
+    background: #c0392b; color: white; border-color: #c0392b;
+  }
+
   .event-links {
     display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px;
   }
-  .event-links a {
+  .event-links a, .event-links button {
     display: inline-flex; align-items: center; gap: 3px;
     padding: 5px 10px; border-radius: 6px;
     font-size: 11px; font-weight: 600; text-decoration: none;
-    color: white;
+    color: white; border: none; cursor: pointer;
   }
   .event-links .map-btn {
     background: linear-gradient(135deg, #4285f4, #1a73e8);
@@ -227,15 +275,148 @@
     color: white; font-size: 11px; font-weight: 600;
     text-decoration: none;
   }
-  .transit-amap {
-    background: linear-gradient(135deg, #4285f4, #1a73e8);
+  .transit-amap { background: linear-gradient(135deg, #4285f4, #1a73e8); }
+  .transit-gmap { background: linear-gradient(135deg, #34a853, #1a8e3a); }
+  .transit-didi { background: linear-gradient(135deg, #ff8a00, #e67e22); }
+
+  /* ============ 火車頁 ============ */
+  .info-card {
+    background: white; border-radius: 14px; padding: 14px;
+    margin-bottom: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
-  .transit-gmap {
-    background: linear-gradient(135deg, #34a853, #1a8e3a);
+  .info-card h3 {
+    font-size: 15px; color: #c0392b; margin-bottom: 10px;
+    padding-bottom: 8px; border-bottom: 2px solid #f0d9c8;
+    display: flex; align-items: center; gap: 6px;
   }
-  .transit-didi {
-    background: linear-gradient(135deg, #ff8a00, #e67e22);
+  .train-route {
+    background: linear-gradient(135deg, #fef0e6, #fff8e1);
+    border-radius: 10px; padding: 12px; margin-bottom: 10px;
+    border-left: 4px solid #c0392b;
+    position: relative;
   }
+  .train-route .leg-label {
+    font-size: 11px; color: #6b5b4d; margin-bottom: 6px;
+    font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .leg-badge {
+    background: #c0392b; color: white;
+    padding: 1px 7px; border-radius: 10px; font-size: 10px;
+  }
+  .train-flow {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .train-station {
+    text-align: center; flex: 1;
+  }
+  .train-station .city { font-size: 13px; font-weight: 700; color: #2c1810; }
+  .train-station .time { font-size: 18px; font-weight: 700; color: #c0392b; margin: 2px 0; }
+  .train-station .date { font-size: 10px; color: #6b5b4d; }
+  .train-arrow {
+    flex: 0 0 auto; color: #c0392b; font-size: 16px;
+    padding: 0 6px;
+  }
+  .train-arrow .duration { font-size: 10px; color: #6b5b4d; display: block; }
+  .train-meta {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 6px; font-size: 11px; margin-top: 8px;
+  }
+  .train-meta-item {
+    background: white; padding: 6px 8px; border-radius: 6px;
+  }
+  .train-meta-item .label { color: #6b5b4d; font-size: 10px; }
+  .train-meta-item .value { font-weight: 700; color: #2c1810; font-size: 12px; }
+
+  .layover {
+    background: #fff8e1; border: 1px dashed #d97706;
+    border-radius: 8px; padding: 6px 10px; margin: 6px 0 10px;
+    font-size: 11px; color: #92400e;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .train-del {
+    position: absolute; top: 8px; right: 8px;
+    width: 22px; height: 22px; border: none;
+    background: #fee; color: #c0392b; border-radius: 50%;
+    cursor: pointer; font-size: 13px; font-weight: bold;
+    align-items: center; justify-content: center;
+  }
+  .train-add-btn {
+    width: 100%; padding: 9px; margin-top: 4px; margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff8e1, #fef0e6);
+    border: 2px dashed #e67e22; border-radius: 10px;
+    color: #c0392b; font-weight: 600; font-size: 12px; cursor: pointer;
+  }
+
+  /* ============ 預算頁 ============ */
+  .budget-summary {
+    background: linear-gradient(135deg, #c0392b, #e67e22);
+    color: white; border-radius: 14px; padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
+  }
+  .budget-summary .total-label { font-size: 12px; opacity: 0.9; }
+  .budget-summary .total-amount {
+    font-size: 32px; font-weight: 700; margin: 4px 0;
+  }
+  .budget-summary .per-person { font-size: 12px; opacity: 0.9; }
+
+  .budget-breakdown {
+    background: white; border-radius: 14px; padding: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .budget-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid #f5ece2;
+  }
+  .budget-item:last-child { border-bottom: none; }
+  .budget-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .budget-info { flex: 1; margin-left: 10px; }
+  .budget-info .name { font-size: 13px; font-weight: 600; color: #2c1810; }
+  .budget-info .detail { font-size: 11px; color: #6b5b4d; }
+  .budget-amount { font-size: 14px; font-weight: 700; color: #c0392b; }
+
+  .budget-bar {
+    height: 6px; background: #f0d9c8; border-radius: 3px;
+    overflow: hidden; margin-top: 10px;
+    display: flex;
+  }
+  .budget-bar-seg { height: 100%; }
+
+  /* 酒店頁 */
+  .hotel-image-placeholder {
+    width: 100%; height: 140px;
+    background: linear-gradient(135deg, #1a4d8f, #4285f4);
+    border-radius: 12px; margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 40px;
+    position: relative; overflow: hidden;
+  }
+  .hotel-image-placeholder::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.2) 0%, transparent 40%),
+      radial-gradient(circle at 70% 70%, rgba(255,255,255,0.15) 0%, transparent 40%);
+  }
+  .hotel-image-placeholder span { position: relative; z-index: 1; }
+
+  .hotel-features {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 8px; margin-top: 10px;
+  }
+  .hotel-feature {
+    background: #f9f4ef; padding: 8px 10px; border-radius: 8px;
+    font-size: 11px;
+  }
+  .hotel-feature .icon { margin-right: 4px; }
+  .hotel-feature .label { color: #6b5b4d; font-size: 10px; }
+  .hotel-feature .value { font-weight: 600; color: #2c1810; display: block; }
 </style>
 </head>
 <body>
@@ -244,27 +425,183 @@
   <div class="header-top">
     <div>
       <h1>🌶️ 長沙 4 日 3 夜</h1>
-      <div class="subtitle">智能行程 · 真實導航 · 地鐵 vs 打車比較</div>
+      <div class="subtitle">智能行程 · 真實導航 · 自動更新</div>
     </div>
     <div class="header-btns">
       <button class="h-btn" id="editBtn" onclick="toggleEdit()">✏️ 編輯</button>
     </div>
   </div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" data-page="itinerary" onclick="switchPage('itinerary')">📅 行程</div>
+    <div class="nav-tab" data-page="train" onclick="switchPage('train')">🚄 火車</div>
+    <div class="nav-tab" data-page="hotel" onclick="switchPage('hotel')">🏨 酒店</div>
+    <div class="nav-tab" data-page="budget" onclick="switchPage('budget')">💰 預算</div>
+  </div>
 </div>
 
 <div class="main">
-  <div class="alert-banner">
-    📕 <strong>小紅書改用 App Deep Link</strong>：點擊 📕 按鈕會直接喚起小紅書 App 並自動執行搜尋（需已安裝 App，未安裝會無反應）。
-  </div>
-  <div class="alert-banner info">
-    🗺️ <strong>地鐵 vs 打車比較表</strong>：每段路線都列出兩種方式的時間、車費、轉乘提示，並有 ⭐ 推薦標示。
+
+<!-- ============ 行程頁 ============ -->
+<div class="page active" id="page-itinerary">
+  <div class="alert-banner success">
+    ✨ <strong>自動更新已開啟</strong>：改任何景點/餐廳名稱，路線、時間、費用、地圖、小紅書連結會即時重新計算。
   </div>
   <div class="alert-banner booked">
-    📌 <strong>已預訂行程（不可改時間）</strong>：5/22 下晝橘子洲園區、5/24 下晝湖南博物院、5/24 夜晚 31 號公館。
+    📌 <strong>已預訂行程（不可改時間）</strong>：5/22 下晝橘子洲、5/24 下晝湖南博物院、5/24 夜晚 31 號公館。
+  </div>
+  <div class="day-tabs" id="dayTabs"></div>
+  <div id="itinerary-content"></div>
+</div>
+
+<!-- ============ 火車頁 ============ -->
+<div class="page" id="page-train">
+  <div class="info-card">
+    <h3>🚄 高鐵行程（去程）</h3>
+    <div id="trainOutboundList"></div>
+    <button class="train-add-btn edit-only" onclick="addTrainLeg('outbound')">＋ 新增去程班次</button>
   </div>
 
-  <div class="day-tabs" id="dayTabs"></div>
-  <div id="itinerary"></div>
+  <div class="info-card">
+    <h3>🚄 高鐵行程（回程）</h3>
+    <div id="trainReturnList"></div>
+    <button class="train-add-btn edit-only" onclick="addTrainLeg('return')">＋ 新增回程班次</button>
+    <div class="alert-banner info" style="margin-top:10px;margin-bottom:0;">
+      💡 <strong>溫馨提示</strong>：跨站轉乘建議預留 30 分鐘以上，廣州南站轉香港西九龍班次需重新出閘過關。
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h3>🚇 站內交通</h3>
+    <div style="font-size:12px;color:#6b5b4d;line-height:1.7;">
+      <strong>長沙南站 → 五一廣場酒店：</strong><br>
+      • 地鐵 <span class="line l2">2 號線</span> 西行 8 站 → 五一廣場站，2 號出口（約 25 分鐘，¥4）<br>
+      • 打車（約 30–40 分鐘，¥45–60）<br><br>
+      <strong>磁浮快線：</strong>長沙南站 ↔ 長沙黃花機場（約 20 分鐘，¥20）
+    </div>
+  </div>
+</div>
+
+<!-- ============ 酒店頁 ============ -->
+<div class="page" id="page-hotel">
+  <div class="info-card">
+    <div class="hotel-image-placeholder"><span>🏨</span></div>
+    <h3>🏨 <span class="editable" data-hotel="name">世野 SEYA 高空酒店 五一廣場店</span></h3>
+
+    <div style="font-size:12px;color:#6b5b4d;margin-bottom:10px;">
+      <span class="editable" data-hotel="desc">坐擁長沙市中心五一廣場高空景觀，地鐵 1/2 號線 5 分鐘可達，步行至黃興路步行街、坡子街、太平老街。</span>
+    </div>
+
+    <div class="hotel-features">
+      <div class="hotel-feature">
+        <div class="label">📍 地址</div>
+        <div class="value"><span class="editable" data-hotel="addr">芙蓉區黃興中路</span></div>
+      </div>
+      <div class="hotel-feature">
+        <div class="label">📅 入住</div>
+        <div class="value"><span class="editable" data-hotel="checkin">5月21日</span></div>
+      </div>
+      <div class="hotel-feature">
+        <div class="label">📅 退房</div>
+        <div class="value"><span class="editable" data-hotel="checkout">5月24日</span></div>
+      </div>
+      <div class="hotel-feature">
+        <div class="label">🌙 夜數</div>
+        <div class="value"><span class="editable" data-hotel="nights">3</span> 晚</div>
+      </div>
+      <div class="hotel-feature">
+        <div class="label">💰 每晚</div>
+        <div class="value">¥ <span class="editable" data-hotel="pricePerNight">580</span></div>
+      </div>
+      <div class="hotel-feature">
+        <div class="label">💰 總費用</div>
+        <div class="value" id="hotelTotal">¥ 1740</div>
+      </div>
+    </div>
+
+    <div class="event-links" style="margin-top:12px;">
+      <a class="map-btn" id="hotelBaiduLink" href="#" target="_blank" rel="noopener">🗺️ 百度地圖</a>
+      <a class="gmap-btn" id="hotelGmapLink" href="#" target="_blank" rel="noopener">🌐 Google Maps</a>
+      <a class="xhs-btn" id="hotelXhsLink" href="#">📕 小紅書</a>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h3>✨ 酒店周邊</h3>
+    <div style="font-size:12px;color:#6b5b4d;line-height:1.8;">
+      🍜 步行 2 分鐘：黃興路步行街、五一廣場<br>
+      🥟 步行 10 分鐘：火宮殿（坡子街）<br>
+      🎋 步行 12 分鐘：太平老街<br>
+      🚇 步行 5 分鐘：五一廣場地鐵站 <span class="line l1">1 號線</span> <span class="line l2">2 號線</span><br>
+      🌉 地鐵 1 站：橘子洲景區
+    </div>
+  </div>
+</div>
+
+<!-- ============ 預算頁 ============ -->
+<div class="page" id="page-budget">
+  <div class="budget-summary">
+    <div class="total-label">總預算估算（2 人）</div>
+    <div class="total-amount">¥ <span id="budgetTotal">5,250</span></div>
+    <div class="per-person">人均 ¥ <span id="budgetPerPerson">2,625</span> · 4 日 3 夜</div>
+    <div class="budget-bar" id="budgetBar"></div>
+  </div>
+
+  <div class="budget-breakdown">
+    <div class="budget-item">
+      <div class="budget-icon" style="background:#fef0e6;">🚄</div>
+      <div class="budget-info">
+        <div class="name">高鐵</div>
+        <div class="detail" id="budget-train-detail">所有班次合計</div>
+      </div>
+      <div class="budget-amount" id="budget-train">¥ 1,556</div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-icon" style="background:#e3f2fd;">🏨</div>
+      <div class="budget-info">
+        <div class="name">酒店</div>
+        <div class="detail">世野 SEYA × 3 晚</div>
+      </div>
+      <div class="budget-amount" id="budget-hotel">¥ 1,740</div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-icon" style="background:#ffe5d9;">🍜</div>
+      <div class="budget-info">
+        <div class="name">餐飲</div>
+        <div class="detail">¥ <span class="editable" data-budget="foodPerDay">200</span> /人/日 × 2 人 × 4 日</div>
+      </div>
+      <div class="budget-amount" id="budget-food">¥ 1,600</div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-icon" style="background:#e8f5e9;">🎫</div>
+      <div class="budget-info">
+        <div class="name">景點門票</div>
+        <div class="detail">橘子洲、嶽麓山、湖南博物院（免費預約）</div>
+      </div>
+      <div class="budget-amount">¥ <span class="editable" data-budget="tickets">120</span></div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-icon" style="background:#fff3cd;">🚖</div>
+      <div class="budget-info">
+        <div class="name">市內交通</div>
+        <div class="detail">地鐵 + 打車</div>
+      </div>
+      <div class="budget-amount">¥ <span class="editable" data-budget="transport">200</span></div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-icon" style="background:#ffe4ec;">🛍️</div>
+      <div class="budget-info">
+        <div class="name">購物 / 手信</div>
+        <div class="detail">茶顏悅色、墨茉、零食</div>
+      </div>
+      <div class="budget-amount">¥ <span class="editable" data-budget="shopping">300</span></div>
+    </div>
+  </div>
+
+  <div class="alert-banner info" style="margin-top:10px;">
+    💡 編輯模式下可調整餐飲、門票、交通、購物預算，總金額自動重算。
+  </div>
+</div>
+
 </div>
 
 <script>
@@ -322,33 +659,61 @@ const itinerary = [
   }
 ];
 
-/* ============ 真實連結生成 ============ */
+/* ============ 火車資料（去程 1 班，回程 2 班轉乘）============ */
+const trainData = {
+  outbound: [
+    {
+      fromCity: "深圳北", fromTime: "10:30", fromDate: "5月21日",
+      toCity: "長沙南", toTime: "13:55", toDate: "5月21日",
+      duration: "3h 25m", trainNo: "G6044", seat: "二等座", price: "389", pax: "2"
+    }
+  ],
+  return: [
+    {
+      fromCity: "長沙南", fromTime: "17:00", fromDate: "5月24日",
+      toCity: "廣州南", toTime: "19:00", toDate: "5月24日",
+      duration: "2h 00m", trainNo: "G6011", seat: "二等座", price: "314", pax: "2"
+    },
+    {
+      fromCity: "廣州南", fromTime: "19:37", fromDate: "5月24日",
+      toCity: "香港西九龍", toTime: "20:25", toDate: "5月24日",
+      duration: "0h 48m", trainNo: "G6531", seat: "二等座", price: "215", pax: "2"
+    }
+  ]
+};
 
-/* 
-  小紅書 — App Deep Link
-  使用小紅書官方 URL Scheme：xhsdiscover://
-  搜尋頁面：xhsdiscover://search/result?keyword=XXX
-  點擊後會直接喚起手機上嘅小紅書 App 並自動執行搜尋。
-  注意：需已安裝小紅書 App，桌面瀏覽器或未安裝 App 嘅手機點擊將無反應。
-*/
+/* ============ 酒店資料 ============ */
+const hotelData = {
+  name: "世野 SEYA 高空酒店 五一廣場店",
+  desc: "坐擁長沙市中心五一廣場高空景觀，地鐵 1/2 號線 5 分鐘可達，步行至黃興路步行街、坡子街、太平老街。",
+  addr: "芙蓉區黃興中路",
+  checkin: "5月21日",
+  checkout: "5月24日",
+  nights: "3",
+  pricePerNight: "580"
+};
+
+/* ============ 預算資料 ============ */
+const budgetData = {
+  foodPerDay: "200",
+  tickets: "120",
+  transport: "200",
+  shopping: "300"
+};
+
+/* ============ 真實連結生成 ============ */
 function xhsLink(name) {
   return "xhsdiscover://search/result?keyword=" +
          encodeURIComponent("长沙 " + name);
 }
-
-/* 百度地圖 POI 搜尋 */
 function baiduSearch(name) {
   return "https://map.baidu.com/search/" +
          encodeURIComponent("长沙" + name);
 }
-
-/* Google Maps 搜尋 */
 function gmapSearch(name) {
   return "https://www.google.com/maps/search/?api=1&query=" +
          encodeURIComponent("长沙 " + name);
 }
-
-/* 百度地圖 點對點導航 */
 function baiduDir(from, to) {
   return "https://api.map.baidu.com/direction?origin=" +
          encodeURIComponent(from) +
@@ -356,21 +721,17 @@ function baiduDir(from, to) {
          "&mode=transit&region=" + encodeURIComponent("长沙") +
          "&output=html&src=webapp";
 }
-
-/* Google Maps 導航 */
 function gmapDir(from, to) {
   return "https://www.google.com/maps/dir/?api=1&origin=" +
          encodeURIComponent("长沙 " + from) +
          "&destination=" + encodeURIComponent("长沙 " + to) +
          "&travelmode=transit";
 }
-
-/* 滴滴出行 H5 入口 */
 function didiLink() {
   return "https://common.diditaxi.com.cn/general/webEntry";
 }
 
-/* ============ 路線資料庫（地鐵 + 打車）============ */
+/* ============ 路線資料庫 ============ */
 const routes = {
   "長沙火車南站|世野 SEYA 高空酒店 五一廣場店": {
     subway: { time: "約 25 分鐘", fare: "￥4", detail: "南站 <span class='line l2'>2號線</span> 西行 8 站 → 五一廣場站，2 號出口步行 3 分鐘。", transfers: "無需轉乘" },
@@ -389,10 +750,6 @@ const routes = {
     walk: { time: "10 分鐘", detail: "黃興路口附近，沿途夜景熱鬧。" },
     taxi: { time: "5 分鐘", fare: "￥10", detail: "夜晚走累可叫車，起步價搞定。" },
     recommend: "walk", reason: "順路逛夜景"
-  },
-  "北二樓大排檔|火宮殿 坡子街總店": {
-    walk: { time: "返酒店休息", detail: "第二日早上由酒店步行 10 分鐘前往坡子街。" },
-    recommend: "walk"
   },
   "世野 SEYA 高空酒店 五一廣場店|火宮殿 坡子街總店": {
     walk: { time: "10 分鐘", detail: "由酒店沿黃興南路向南直達坡子街。" },
@@ -416,15 +773,6 @@ const routes = {
     taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "週末橘子洲大橋常塞車，地鐵反而快。" },
     recommend: "subway", reason: "便宜又快，免塞車"
   },
-  "橘子洲景區|晚餐（自由發揮）": {
-    subway: { time: "約 10 分鐘", fare: "￥2", detail: "橘子洲站 <span class='line l2'>2號線</span> 東行 1 站 → 五一廣場站，返酒店附近用餐。", transfers: "無需轉乘" },
-    taxi: { time: "約 15–20 分鐘", fare: "￥20–30", detail: "塞車風險高。" },
-    recommend: "subway", reason: "省時省錢"
-  },
-  "晚餐（自由發揮）|酒店早餐": {
-    walk: { time: "返酒店休息", detail: "酒店附近用餐後步行返回。" },
-    recommend: "walk"
-  },
   "酒店早餐|嶽麓山": {
     subway: { time: "約 35 分鐘", fare: "￥5", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l4'>4號線</span> 南行 → 嶽麓山南站，步行 8 分鐘。", transfers: "1 次轉乘（溁灣鎮）" },
     taxi: { time: "約 25–35 分鐘", fare: "￥35–50", detail: "可直達南門入口，免行走，適合一家大細。" },
@@ -440,27 +788,6 @@ const routes = {
     taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，飯後散步更佳。" },
     recommend: "walk", reason: "沿江散步消食"
   },
-  "杜甫江閣|晚餐（自由發揮）": {
-    walk: { time: "10 分鐘", detail: "返五一廣場/黃興路任選餐廳。" },
-    recommend: "walk"
-  },
-  "晚餐（自由發揮）|茶顏悅色": {
-    walk: { time: "返酒店休息", detail: "第三日早上於酒店附近用餐。" },
-    recommend: "walk"
-  },
-  "茶顏悅色|黃興路步行街": {
-    walk: { time: "5 分鐘", detail: "由酒店出發即達。" },
-    recommend: "walk"
-  },
-  "黃興路步行街|午餐（自由發揮）": {
-    walk: { time: "步行可達", detail: "建議博物院方向用餐，避免回頭路。" },
-    recommend: "walk"
-  },
-  "午餐（自由發揮）|湖南博物院": {
-    subway: { time: "約 30 分鐘", fare: "￥4", detail: "五一廣場站 <span class='line l1'>1號線</span> 北行 → 開福寺站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l6'>6號線</span> 東行 → 博物院站，1 號出口直達。", transfers: "1 次轉乘（開福寺）" },
-    taxi: { time: "約 15–20 分鐘", fare: "￥20–28", detail: "直達省心，下午看展更悠閒。" },
-    recommend: "taxi", reason: "下午票時間緊，打車更穩"
-  },
   "湖南博物院|31號公館": {
     subway: { time: "約 30 分鐘", fare: "￥4", detail: "博物院站 <span class='line l6'>6號線</span> 西行 → 開福寺站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l1'>1號線</span> 南行 → 五一廣場站，步行至 31 號公館。", transfers: "1 次轉乘（開福寺）" },
     taxi: { time: "約 15–20 分鐘", fare: "￥22–30", detail: "晚餐預訂時間固定，打車更可靠。" },
@@ -473,7 +800,110 @@ const routes = {
   }
 };
 
-/* ============ 渲染 ============ */
+/* ============ 智能路線推算 ============ */
+function inferRoute(from, to) {
+  const exact = routes[from + "|" + to];
+  if (exact) return exact;
+
+  const f = from.toLowerCase();
+  const t = to.toLowerCase();
+  const sameTitle = (s, kws) => kws.some(k => s.includes(k));
+
+  const isStation = (s) => sameTitle(s, ["火車", "高鐵", "長沙南", "車站", "南站", "站"]);
+  const isAirport = (s) => sameTitle(s, ["機場", "黃花"]);
+  const isWuyiZone = (s) => sameTitle(s, ["五一", "黃興", "酒店", "seya", "世野", "ifs", "茶顏"]);
+  const isOldStreet = (s) => sameTitle(s, ["坡子", "太平", "火宮殿", "文和友", "大師兄"]);
+  const isHexi = (s) => sameTitle(s, ["嶽麓", "岳麓", "麓山", "愛晚", "笨蘿蔔", "梅溪湖"]);
+  const isJuzi = (s) => sameTitle(s, ["橘子洲", "毛主席"]);
+  const isJiang = (s) => sameTitle(s, ["杜甫", "湘江", "江閣"]);
+  const isMuseum = (s) => sameTitle(s, ["博物院", "博物館", "馬王堆"]);
+  const is31 = (s) => sameTitle(s, ["31", "公館"]);
+  const isBei2 = (s) => sameTitle(s, ["北二樓", "大排檔"]);
+
+  if (isStation(f) || isStation(t)) {
+    return {
+      subway: { time: "約 25–35 分鐘", fare: "￥4–5", detail: "<span class='line l2'>2號線</span> 直達或 <span class='line l1'>1號線</span> 轉乘至市區。", transfers: "0–1 次轉乘" },
+      taxi: { time: "約 30–45 分鐘", fare: "￥45–65", detail: "繁忙時段易塞車，建議提早出門。" },
+      recommend: "subway", reason: "便宜可靠免塞車"
+    };
+  }
+  if (isAirport(f) || isAirport(t)) {
+    return {
+      subway: { time: "約 50 分鐘", fare: "￥24", detail: "磁浮快線 + 地鐵 2 號線轉乘。", transfers: "1 次轉乘" },
+      taxi: { time: "約 40 分鐘", fare: "￥120–160", detail: "高速直達，行李多較舒適。" },
+      recommend: "subway", reason: "磁浮免塞車"
+    };
+  }
+  if ((isWuyiZone(f) && isWuyiZone(t)) || (isOldStreet(f) && isOldStreet(t)) || from === to) {
+    return {
+      walk: { time: "3–8 分鐘", detail: "同屬五一/老街核心區，步行可達。" },
+      recommend: "walk"
+    };
+  }
+  if ((isWuyiZone(f) && isOldStreet(t)) || (isOldStreet(f) && isWuyiZone(t))) {
+    return {
+      walk: { time: "8–12 分鐘", detail: "由五一廣場沿黃興南路即達坡子街/太平老街，沿途熱鬧。" },
+      taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，繞路反而慢。" },
+      recommend: "walk", reason: "順路邊走邊逛"
+    };
+  }
+  if ((isJuzi(f) || isJuzi(t)) && (isWuyiZone(f) || isOldStreet(f) || isWuyiZone(t) || isOldStreet(t))) {
+    return {
+      subway: { time: "約 15 分鐘", fare: "￥2", detail: "<span class='line l2'>2號線</span> 五一廣場站 ↔ 橘子洲站，1 站直達。", transfers: "無需轉乘" },
+      taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "週末橘子洲大橋常塞車。" },
+      recommend: "subway", reason: "1 站直達免塞車"
+    };
+  }
+  if ((isHexi(f) || isHexi(t)) && (isWuyiZone(f) || isOldStreet(f) || isWuyiZone(t) || isOldStreet(t))) {
+    return {
+      subway: { time: "約 30–35 分鐘", fare: "￥5", detail: "<span class='line l2'>2號線</span> → 溁灣鎮站 <span class='transfer-icon'>⇄</span> <span class='line l4'>4號線</span> 南行至嶽麓山南。", transfers: "1 次轉乘（溁灣鎮）" },
+      taxi: { time: "約 25–35 分鐘", fare: "￥35–50", detail: "過橘子洲大橋直達，行李多較舒適。" },
+      recommend: "taxi", reason: "免轉乘 + 直達山門"
+    };
+  }
+  if ((isHexi(f) && isJiang(t)) || (isJiang(f) && isHexi(t))) {
+    return {
+      taxi: { time: "約 20–30 分鐘", fare: "￥30–40", detail: "過湘江大橋直達。" },
+      subway: { time: "約 35 分鐘", fare: "￥5", detail: "需經溁灣鎮轉 <span class='line l2'>2號線</span> 至五一廣場再步行。", transfers: "1 次轉乘" },
+      recommend: "taxi", reason: "過橋直達省時"
+    };
+  }
+  if ((isOldStreet(f) && isJiang(t)) || (isJiang(f) && isOldStreet(t))) {
+    return {
+      walk: { time: "10–15 分鐘", detail: "沿湘江中路步行，江景開揚。" },
+      taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價。" },
+      recommend: "walk", reason: "沿江散步好風景"
+    };
+  }
+  if ((isMuseum(f) || isMuseum(t)) && (isWuyiZone(f) || isOldStreet(f) || isWuyiZone(t) || isOldStreet(t))) {
+    return {
+      subway: { time: "約 30 分鐘", fare: "￥4", detail: "<span class='line l1'>1號線</span> → 開福寺站 <span class='transfer-icon'>⇄</span> <span class='line l6'>6號線</span> 至博物院站。", transfers: "1 次轉乘（開福寺）" },
+      taxi: { time: "約 15–20 分鐘", fare: "￥20–28", detail: "直達省心。" },
+      recommend: "taxi", reason: "直達節省看展時間"
+    };
+  }
+  if ((isMuseum(f) && (is31(t) || isWuyiZone(t))) || (isMuseum(t) && (is31(f) || isWuyiZone(f)))) {
+    return {
+      subway: { time: "約 30 分鐘", fare: "￥4", detail: "<span class='line l6'>6號線</span> → 開福寺站 <span class='transfer-icon'>⇄</span> <span class='line l1'>1號線</span> 至五一廣場。", transfers: "1 次轉乘（開福寺）" },
+      taxi: { time: "約 15–20 分鐘", fare: "￥22–30", detail: "預訂晚餐建議打車免遲到。" },
+      recommend: "taxi", reason: "晚餐勿遲到"
+    };
+  }
+  if ((isBei2(f) || isBei2(t))) {
+    return {
+      walk: { time: "8–12 分鐘", detail: "黃興路口附近，夜晚邊走邊逛夜景。" },
+      taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價搞定。" },
+      recommend: "walk", reason: "夜景順路"
+    };
+  }
+  return {
+    subway: { time: "約 25–35 分鐘", fare: "￥3–5", detail: "建議查百度地圖實時路線。", transfers: "可能需 1 次轉乘" },
+    taxi: { time: "約 15–25 分鐘", fare: "￥20–35", detail: "市內中等距離。" },
+    recommend: "taxi", reason: "中等距離打車較快"
+  };
+}
+
+/* ============ 行程頁渲染 ============ */
 let currentDay = 0;
 
 function tagInfo(type) {
@@ -491,68 +921,39 @@ function tagInfo(type) {
 function renderCompareTable(route) {
   let rows = '';
   const rec = route.recommend;
-
   if (route.walk) {
     const isRec = rec === "walk";
-    rows += `
-      <tr>
-        <td class="mode-cell mode-walk"><span class="icon">🚶</span>步行</td>
-        <td><span class="pill cheap">免費</span><span class="pill fast">${route.walk.time}</span>${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td>
-        <td>${route.walk.detail}</td>
-      </tr>
-    `;
+    rows += `<tr><td class="mode-cell mode-walk"><span class="icon">🚶</span>步行</td><td><span class="pill cheap">免費</span><span class="pill fast">${route.walk.time}</span>${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td><td>${route.walk.detail}</td></tr>`;
   }
   if (route.subway) {
     const isRec = rec === "subway";
-    rows += `
-      <tr>
-        <td class="mode-cell mode-subway"><span class="icon">🚇</span>地鐵</td>
-        <td><span class="pill cheap">${route.subway.fare}</span><span class="pill">${route.subway.time}</span>${route.subway.transfers ? `<span class="pill">${route.subway.transfers}</span>` : ''}${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td>
-        <td>${route.subway.detail}</td>
-      </tr>
-    `;
+    rows += `<tr><td class="mode-cell mode-subway"><span class="icon">🚇</span>地鐵</td><td><span class="pill cheap">${route.subway.fare}</span><span class="pill">${route.subway.time}</span>${route.subway.transfers ? `<span class="pill">${route.subway.transfers}</span>` : ''}${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td><td>${route.subway.detail}</td></tr>`;
   }
   if (route.taxi) {
     const isRec = rec === "taxi";
-    rows += `
-      <tr>
-        <td class="mode-cell mode-taxi"><span class="icon">🚖</span>打車</td>
-        <td><span class="pill">${route.taxi.fare}</span><span class="pill fast">${route.taxi.time}</span>${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td>
-        <td>${route.taxi.detail}</td>
-      </tr>
-    `;
+    rows += `<tr><td class="mode-cell mode-taxi"><span class="icon">🚖</span>打車</td><td><span class="pill">${route.taxi.fare}</span><span class="pill fast">${route.taxi.time}</span>${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td><td>${route.taxi.detail}</td></tr>`;
   }
-
   return `
     <table class="compare-table">
-      <thead>
-        <tr>
-          <th class="col-mode">方式</th>
-          <th>時間 / 費用</th>
-          <th>說明</th>
-        </tr>
-      </thead>
+      <thead><tr><th class="col-mode">方式</th><th>時間 / 費用</th><th>說明</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>
-    ${route.reason ? `<div class="transit-detail" style="background:#fff8e1;color:#92400e;font-size:11px;padding:6px 8px;border-radius:6px;margin-bottom:6px;">💡 推薦原因：${route.reason}</div>` : ''}
+    ${route.reason ? `<div style="background:#fff8e1;color:#92400e;font-size:11px;padding:6px 8px;border-radius:6px;margin-bottom:6px;">💡 推薦原因：${route.reason}</div>` : ''}
   `;
 }
 
-function getRoute(from, to) {
-  return routes[from + "|" + to] || {
-    taxi: { time: "約 15–25 分鐘", fare: "￥20–35", detail: "建議使用滴滴打車。" },
-    recommend: "taxi"
-  };
+function showableType(t) {
+  return t === "attraction" || t === "food" || t === "hotel" || t === "booked" || t === "station";
 }
 
-function render() {
+function renderItinerary() {
   const tabs = document.getElementById("dayTabs");
   tabs.innerHTML = itinerary.map((d, i) =>
     `<div class="day-tab ${i === currentDay ? 'active' : ''}" onclick="switchDay(${i})">${d.date}<br><span style="font-size:9px;opacity:0.85">${d.title.split('｜')[0]}</span></div>`
   ).join('');
 
   const day = itinerary[currentDay];
-  const cont = document.getElementById("itinerary");
+  const cont = document.getElementById("itinerary-content");
 
   let html = `
     <div class="day-header">
@@ -564,7 +965,7 @@ function render() {
 
   day.events.forEach((ev, i) => {
     const tag = tagInfo(ev.type);
-    const showLinks = ev.type === "attraction" || ev.type === "food" || ev.type === "hotel" || ev.type === "booked" || ev.type === "station";
+    const showLinks = showableType(ev.type);
 
     let prevPlace = null;
     for (let k = i - 1; k >= 0; k--) {
@@ -580,9 +981,9 @@ function render() {
     }
 
     if (prevPlace && showableType(ev.type)) {
-      const route = getRoute(prevPlace, ev.title);
+      const route = inferRoute(prevPlace, ev.title);
       html += `
-        <div class="transit">
+        <div class="transit auto-target">
           <div class="transit-route">
             🛣️ <span class="from">${prevPlace}</span><span class="arrow">→</span><span class="to">${ev.title}</span>
           </div>
@@ -597,6 +998,13 @@ function render() {
     }
 
     const bookedClass = ev.type === "booked" ? " booked-item" : "";
+    const typeButtons = `
+      <span class="type-selector edit-only">
+        ${["attraction","food","hotel","booked","station"].map(tp =>
+          `<button class="type-btn ${ev.type===tp?'active':''}" onclick="changeType(${currentDay},${i},'${tp}')">${tagInfo(tp).text}</button>`
+        ).join('')}
+      </span>
+    `;
 
     html += `
       <div class="event${bookedClass}" data-day="${currentDay}" data-idx="${i}">
@@ -605,6 +1013,7 @@ function render() {
         <div class="event-title">
           <span class="event-tag ${tag.cls}">${tag.text}</span>
           <span class="editable" data-path="ev.${currentDay}.${i}.title">${ev.title}</span>
+          ${typeButtons}
         </div>
         <div class="event-desc"><span class="editable" data-path="ev.${currentDay}.${i}.desc">${ev.desc}</span></div>
         ${showLinks ? `
@@ -627,13 +1036,25 @@ function render() {
   bindEditables();
 }
 
-function showableType(t) {
-  return t === "attraction" || t === "food" || t === "hotel" || t === "booked" || t === "station";
+function changeType(d, i, type) {
+  itinerary[d].events[i].type = type;
+  renderItinerary();
+  showToast("✅ 已更新類型");
 }
 
 function switchDay(i) {
   currentDay = i;
-  render();
+  renderItinerary();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function switchPage(name) {
+  document.querySelectorAll(".nav-tab").forEach(t =>
+    t.classList.toggle("active", t.dataset.page === name)
+  );
+  document.querySelectorAll(".page").forEach(p =>
+    p.classList.toggle("active", p.id === "page-" + name)
+  );
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -644,24 +1065,70 @@ function toggleEdit() {
   document.getElementById("editBtn").textContent = txt;
 }
 
+/* ============ Toast & flash ============ */
+function showToast(msg) {
+  const old = document.querySelector(".update-toast");
+  if (old) old.remove();
+  const toast = document.createElement("div");
+  toast.className = "update-toast";
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 1800);
+}
+function flashUpdates() {
+  setTimeout(() => {
+    document.querySelectorAll(
+      ".event-links a, .transit-amap, .transit-gmap, .transit-didi, .auto-target, .compare-table"
+    ).forEach(el => {
+      el.classList.remove("auto-updated");
+      void el.offsetWidth;
+      el.classList.add("auto-updated");
+    });
+  }, 50);
+}
+
+/* ============ 編輯綁定 ============ */
 function bindEditables() {
   document.querySelectorAll(".editable").forEach(el => {
+    if (el.dataset.bound) return;
+    el.dataset.bound = "1";
+
     el.addEventListener("blur", function() {
-      const path = this.dataset.path.split('.');
+      const path = this.dataset.path;
+      const tpath = this.dataset.train;
+      const hpath = this.dataset.hotel;
+      const bpath = this.dataset.budget;
       const newVal = this.textContent.trim();
-      if (path[0] === "day") {
-        itinerary[+path[1]][path[2] === "title" ? "title" : "desc"] = newVal;
-      } else if (path[0] === "ev") {
-        const field = path[3];
-        itinerary[+path[1]].events[+path[2]][field] = newVal;
+
+      if (path) {
+        const parts = path.split('.');
+        if (parts[0] === "day") {
+          itinerary[+parts[1]][parts[2] === "title" ? "title" : "desc"] = newVal;
+        } else if (parts[0] === "ev") {
+          itinerary[+parts[1]].events[+parts[2]][parts[3]] = newVal;
+        }
+        renderItinerary();
+        flashUpdates();
+        showToast("🔄 路線、時間、連結已自動更新");
+      } else if (tpath) {
+        // tpath format: "outbound.0.fromCity" or "return.1.trainNo"
+        const [section, idx, key] = tpath.split('.');
+        if (trainData[section] && trainData[section][+idx]) {
+          trainData[section][+idx][key] = newVal;
+          renderTrain();
+          renderBudget();
+          showToast("🔄 火車與預算已更新");
+        }
+      } else if (hpath) {
+        hotelData[hpath] = newVal;
+        renderHotelCalc();
+        renderBudget();
+        showToast("🔄 酒店與預算已更新");
+      } else if (bpath) {
+        budgetData[bpath] = newVal;
+        renderBudget();
+        showToast("🔄 預算已重新計算");
       }
-      render();
-      setTimeout(() => {
-        document.querySelectorAll(".event-links a, .transit-amap, .transit-gmap, .transit-didi").forEach(a => {
-          a.classList.add("auto-updated");
-          setTimeout(() => a.classList.remove("auto-updated"), 1100);
-        });
-      }, 50);
     });
     el.addEventListener("keydown", function(e) {
       if (e.key === "Enter") { e.preventDefault(); this.blur(); }
@@ -669,11 +1136,13 @@ function bindEditables() {
   });
 }
 
+/* ============ 行程操作 ============ */
 function deleteEvent(dIdx, eIdx) {
   itinerary[dIdx].events.splice(eIdx, 1);
-  render();
+  renderItinerary();
+  flashUpdates();
+  showToast("🔄 行程已刪除，路線重新計算");
 }
-
 function addEvent(dIdx) {
   itinerary[dIdx].events.push({
     time: "12:00",
@@ -681,10 +1150,185 @@ function addEvent(dIdx) {
     title: "新景點",
     desc: "點擊編輯描述"
   });
-  render();
+  renderItinerary();
+  flashUpdates();
+  showToast("✅ 已新增，路線自動連接");
 }
 
-render();
+/* ============ 火車頁渲染 ============ */
+function renderTrainLeg(section, idx, leg, totalLegs) {
+  const labelText = section === "outbound" ? "去程" : "回程";
+  const legBadge = totalLegs > 1 ? `<span class="leg-badge">第 ${idx + 1} 程 / 共 ${totalLegs} 程</span>` : '';
+  return `
+    <div class="train-route">
+      ${totalLegs > 1 ? `<button class="train-del edit-only" onclick="removeTrainLeg('${section}', ${idx})">×</button>` : ''}
+      <div class="leg-label">
+        <span>${labelText} · ${section === "outbound" ? "Day 1" : "Day 4"}</span>
+        ${legBadge}
+      </div>
+      <div class="train-flow">
+        <div class="train-station">
+          <div class="city"><span class="editable" data-train="${section}.${idx}.fromCity">${leg.fromCity}</span></div>
+          <div class="time"><span class="editable" data-train="${section}.${idx}.fromTime">${leg.fromTime}</span></div>
+          <div class="date"><span class="editable" data-train="${section}.${idx}.fromDate">${leg.fromDate}</span></div>
+        </div>
+        <div class="train-arrow">
+          🚄→
+          <span class="duration"><span class="editable" data-train="${section}.${idx}.duration">${leg.duration}</span></span>
+        </div>
+        <div class="train-station">
+          <div class="city"><span class="editable" data-train="${section}.${idx}.toCity">${leg.toCity}</span></div>
+          <div class="time"><span class="editable" data-train="${section}.${idx}.toTime">${leg.toTime}</span></div>
+          <div class="date"><span class="editable" data-train="${section}.${idx}.toDate">${leg.toDate}</span></div>
+        </div>
+      </div>
+      <div class="train-meta">
+        <div class="train-meta-item">
+          <div class="label">車次</div>
+          <div class="value"><span class="editable" data-train="${section}.${idx}.trainNo">${leg.trainNo}</span></div>
+        </div>
+        <div class="train-meta-item">
+          <div class="label">座位</div>
+          <div class="value"><span class="editable" data-train="${section}.${idx}.seat">${leg.seat}</span></div>
+        </div>
+        <div class="train-meta-item">
+          <div class="label">票價</div>
+          <div class="value">¥ <span class="editable" data-train="${section}.${idx}.price">${leg.price}</span> /人</div>
+        </div>
+        <div class="train-meta-item">
+          <div class="label">人數</div>
+          <div class="value"><span class="editable" data-train="${section}.${idx}.pax">${leg.pax}</span> 人</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function calcLayover(arrTime, depTime) {
+  // 簡單分鐘差（同日）
+  const parse = (t) => {
+    const m = t.match(/(\d{1,2}):(\d{2})/);
+    if (!m) return null;
+    return parseInt(m[1]) * 60 + parseInt(m[2]);
+  };
+  const a = parse(arrTime), d = parse(depTime);
+  if (a === null || d === null) return null;
+  let diff = d - a;
+  if (diff < 0) diff += 24 * 60;
+  return diff;
+}
+
+function renderTrainSection(section) {
+  const list = trainData[section];
+  if (!list || list.length === 0) return '<div style="font-size:12px;color:#888;padding:8px;">尚未設定班次</div>';
+  let html = '';
+  list.forEach((leg, idx) => {
+    html += renderTrainLeg(section, idx, leg, list.length);
+    // 轉乘等待時間
+    if (idx < list.length - 1) {
+      const next = list[idx + 1];
+      const mins = calcLayover(leg.toTime, next.fromTime);
+      const station = leg.toCity;
+      if (mins !== null) {
+        html += `
+          <div class="layover">
+            ⏱️ <strong>${station} 轉乘等待</strong>：${mins} 分鐘 ${mins < 30 ? '⚠️ 時間較緊' : '（充足）'}
+          </div>
+        `;
+      }
+    }
+  });
+  return html;
+}
+
+function renderTrain() {
+  const ob = document.getElementById("trainOutboundList");
+  const rt = document.getElementById("trainReturnList");
+  if (ob) ob.innerHTML = renderTrainSection("outbound");
+  if (rt) rt.innerHTML = renderTrainSection("return");
+  bindEditables();
+}
+
+function addTrainLeg(section) {
+  trainData[section].push({
+    fromCity: "起點", fromTime: "00:00", fromDate: "日期",
+    toCity: "終點", toTime: "00:00", toDate: "日期",
+    duration: "0h 00m", trainNo: "車次", seat: "二等座", price: "0", pax: "2"
+  });
+  renderTrain();
+  renderBudget();
+  showToast("✅ 已新增班次");
+}
+
+function removeTrainLeg(section, idx) {
+  trainData[section].splice(idx, 1);
+  renderTrain();
+  renderBudget();
+  showToast("🔄 已刪除班次，預算重算");
+}
+
+/* ============ 酒店自動計算 ============ */
+function renderHotelCalc() {
+  const total = (parseInt(hotelData.nights) || 0) * (parseInt(hotelData.pricePerNight) || 0);
+  const el = document.getElementById("hotelTotal");
+  if (el) el.textContent = "¥ " + total.toLocaleString();
+
+  const baidu = document.getElementById("hotelBaiduLink");
+  const gmap = document.getElementById("hotelGmapLink");
+  const xhs = document.getElementById("hotelXhsLink");
+  if (baidu) baidu.href = baiduSearch(hotelData.name);
+  if (gmap) gmap.href = gmapSearch(hotelData.name);
+  if (xhs) xhs.href = xhsLink(hotelData.name);
+}
+
+/* ============ 預算自動計算 ============ */
+function renderBudget() {
+  const allLegs = [...trainData.outbound, ...trainData.return];
+  const trainTotal = allLegs.reduce((sum, t) =>
+    sum + (parseInt(t.price) || 0) * (parseInt(t.pax) || 0), 0
+  );
+  const trainDetail = `去程 ${trainData.outbound.length} 班 + 回程 ${trainData.return.length} 班 × ${trainData.outbound[0]?.pax || 2} 人`;
+
+  const hotelTotal = (parseInt(hotelData.nights) || 0) * (parseInt(hotelData.pricePerNight) || 0);
+  const foodTotal = (parseInt(budgetData.foodPerDay) || 0) * 2 * 4;
+  const tickets = parseInt(budgetData.tickets) || 0;
+  const transport = parseInt(budgetData.transport) || 0;
+  const shopping = parseInt(budgetData.shopping) || 0;
+
+  const total = trainTotal + hotelTotal + foodTotal + tickets + transport + shopping;
+
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+  set("budget-train", "¥ " + trainTotal.toLocaleString());
+  set("budget-train-detail", trainDetail);
+  set("budget-hotel", "¥ " + hotelTotal.toLocaleString());
+  set("budget-food", "¥ " + foodTotal.toLocaleString());
+  set("budgetTotal", total.toLocaleString());
+  set("budgetPerPerson", Math.round(total / 2).toLocaleString());
+
+  const bar = document.getElementById("budgetBar");
+  if (bar && total > 0) {
+    const segs = [
+      { val: trainTotal, color: "#fef0e6" },
+      { val: hotelTotal, color: "#ffd9b8" },
+      { val: foodTotal, color: "#ffb88a" },
+      { val: tickets, color: "#ff9966" },
+      { val: transport, color: "#ff7a4a" },
+      { val: shopping, color: "#e67e22" }
+    ];
+    bar.innerHTML = segs.map(s =>
+      `<div class="budget-bar-seg" style="width:${(s.val/total*100).toFixed(1)}%;background:${s.color};"></div>`
+    ).join('');
+  }
+}
+
+/* ============ 啟動 ============ */
+renderItinerary();
+renderTrain();
+renderHotelCalc();
+renderBudget();
 </script>
 
 </body>
