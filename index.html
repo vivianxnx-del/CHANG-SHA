@@ -68,14 +68,21 @@
   .edit-only { display: none !important; }
   body.edit-mode .event { padding-right: 32px; position: relative; }
 
+  /* Highlight editable train fields specially */
+  body.edit-mode .train-card .editable {
+    background: #fff8e1;
+    border-color: #c0392b;
+  }
+  .train-card .editable:hover {
+    background: #fff3cd;
+  }
+
   @keyframes flashUpdate {
     0% { background: #fff3cd; }
     50% { background: #ffe066; }
     100% { background: transparent; }
   }
-  .auto-updated {
-    animation: flashUpdate 1.2s ease;
-  }
+  .auto-updated { animation: flashUpdate 1.2s ease; }
 
   .delete-btn {
     position: absolute; top: 8px; right: 8px;
@@ -149,11 +156,26 @@
   .train-arrow { padding: 0 8px; color: #e67e22; font-size: 16px; }
   .train-info { display: flex; justify-content: space-between; padding-top: 6px; border-top: 1px dashed #f0d9c8; font-size: 11px; color: #6b5b4d; }
 
+  .train-edit-bar {
+    display: flex; gap: 6px; margin-top: 8px; padding-top: 8px;
+    border-top: 1px dashed #f0d9c8;
+  }
+  .train-edit-btn {
+    flex: 1; padding: 7px; font-size: 11px; font-weight: 600;
+    background: #fff8e1; color: #c0392b;
+    border: 1.5px solid #f0d9c8; border-radius: 8px;
+    cursor: pointer;
+  }
+  .train-edit-btn:hover { background: #ffeec5; }
+  .train-edit-btn.lock { background: #e8f5e9; color: #2d8a5f; border-color: #c8e6c9; }
+  .train-edit-btn.lock.active { background: #2d8a5f; color: white; border-color: #2d8a5f; }
+
   .train-hint {
     margin-top: 8px; padding-top: 6px;
     border-top: 1px dashed #f0d9c8;
-    font-size: 10px; color: #888; font-style: italic;
+    font-size: 10px; color: #888;
   }
+  .train-hint.locked { color: #2d8a5f; }
 
   .timeline { position: relative; padding-left: 22px; }
   .timeline::before {
@@ -410,7 +432,7 @@
   <!-- ============ 行程頁 ============ -->
   <section class="page active" id="page-itinerary">
     <div class="alert-banner edit-only info">
-      ✨ <strong>智能編輯</strong>：改地點 → 自動更新車程時間 + 車費；改車站 → 自動更新車次/時間/票價
+      ✨ <strong>火車卡編輯</strong>：直接點時間 / 車次 / 票價即可修改。「🔒 鎖定」防止自動覆蓋；「🔄 自動帶入」會用車站名重新查資料庫
     </div>
 
     <div class="day-tabs">
@@ -433,7 +455,7 @@
         <p><span class="editable">🚄 高鐵抵達 · 🌳 橘子洲日落 · 🍢 大排檔晚餐</span></p>
       </div>
 
-      <div class="train-card" data-train-card>
+      <div class="train-card" data-train-card data-locked="true">
         <div>
           <span class="train-no"><span class="editable t-no">G79</span></span>
           <span class="train-direction"><span class="editable">去程 · 香港 → 長沙</span></span>
@@ -453,9 +475,12 @@
         </div>
         <div class="train-info">
           <span>⏱ <span class="editable t-duration">3h29m</span></span>
-          <span>💺 <span class="editable t-fare">¥538</span>/人</span>
+          <span>💺 <span class="editable t-fare">538</span> 元/人</span>
         </div>
-        <div class="train-hint edit-only">💡 改車站名 → 自動帶出車次、時間、票價</div>
+        <div class="train-edit-bar">
+          <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定（不會自動覆蓋）</button>
+          <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
+        </div>
       </div>
 
       <div class="timeline" data-day="1">
@@ -469,7 +494,7 @@
           <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
           <div class="event-time"><span class="editable">12:35 - 13:30</span></div>
           <div class="event-title">🏨 <span class="editable place">酒店</span> Check-in</div>
-          <div class="event-desc"><span class="editable">建湘路 393 號 世茂環球金融中心 70 樓</span></div>
+          <div class="event-desc"><span class="editable">五一廣場 · 世野SEYA高空酒店</span></div>
         </div>
         <div class="event" data-place="大師兄弟米粉">
           <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
@@ -603,10 +628,10 @@
     <div class="day-content" id="day-4" style="display:none">
       <div class="day-header">
         <h2><span class="editable">悠閒早餐 + 回程（轉車）</span></h2>
-        <p><span class="editable">🥞 茶顏悅色 · 🛍 最後採購 · 🚄 G6011 + G6531 轉車返港</span></p>
+        <p><span class="editable">🥞 茶顏悅色 · 🛍 最後採購 · 🚄 G6011 + G6531 廣州南轉車返港</span></p>
       </div>
       <div class="alert-banner">
-        ⚠️ <strong>回程改為轉車</strong>：<span class="editable">G6011（長沙南→深圳北） + G6531（深圳北→西九龍）</span>
+        ⚠️ <strong>回程改為轉車</strong>：<span class="editable">G6011（長沙南 17:00 → 廣州南 19:00） + G6531（廣州南 19:37 → 西九龍 20:25）</span>
       </div>
 
       <div class="timeline" data-day="4">
@@ -630,76 +655,82 @@
         </div>
         <div class="event highlight" data-place="長沙南站">
           <button class="delete-btn edit-only" type="button" onclick="deleteEvent(this)">×</button>
-          <div class="event-time"><span class="editable">11:00</span></div>
+          <div class="event-time"><span class="editable">15:30</span></div>
           <div class="event-title">🚉 抵達 <span class="editable place">長沙南站</span></div>
           <div class="event-desc"><span class="editable">提前約 1.5 小時，從容取票、安檢</span></div>
         </div>
       </div>
       <button class="add-event-btn edit-only" type="button" onclick="addEvent(4)">+ 新增 Day 4 行程</button>
 
-      <div class="train-card return" data-train-card>
+      <div class="train-card return" data-train-card data-locked="true">
         <div>
           <span class="train-no"><span class="editable t-no">G6011</span></span>
-          <span class="train-direction"><span class="editable">回程 ① · 長沙南 → 深圳北</span></span>
+          <span class="train-direction"><span class="editable">回程 ① · 長沙南 → 廣州南</span></span>
         </div>
         <div class="train-route">
           <div class="station">
             <div class="station-name"><span class="editable t-from">長沙南</span></div>
-            <div class="station-time"><span class="editable t-depart">12:30</span></div>
+            <div class="station-time"><span class="editable t-depart">17:00</span></div>
             <div class="station-date"><span class="editable">5/25 (一)</span></div>
           </div>
           <div class="train-arrow">▶▶</div>
           <div class="station">
-            <div class="station-name"><span class="editable t-to">深圳北</span></div>
-            <div class="station-time"><span class="editable t-arrive">15:45</span></div>
+            <div class="station-name"><span class="editable t-to">廣州南</span></div>
+            <div class="station-time"><span class="editable t-arrive">19:00</span></div>
             <div class="station-date"><span class="editable">5/25 (一)</span></div>
           </div>
         </div>
         <div class="train-info">
-          <span>⏱ <span class="editable t-duration">3h15m</span></span>
-          <span>💺 <span class="editable t-fare">¥465</span>/人</span>
+          <span>⏱ <span class="editable t-duration">2h00m</span></span>
+          <span>💺 <span class="editable t-fare">314</span> 元/人</span>
         </div>
-        <div class="train-hint edit-only">💡 改車站名 → 自動帶出車次、時間、票價</div>
+        <div class="train-edit-bar">
+          <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定（不會自動覆蓋）</button>
+          <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
+        </div>
       </div>
 
       <div class="alert-banner info" style="margin: -2px 0 10px;">
-        🔄 <strong>深圳北轉車</strong>：預留 <span class="editable">45-60 分鐘</span> 換乘（需辦理出境）
+        🔄 <strong>廣州南轉車</strong>：預留 <span class="editable">37 分鐘</span> 換乘（同站轉乘、無需出境）
       </div>
 
-      <div class="train-card transfer" data-train-card>
+      <div class="train-card transfer" data-train-card data-locked="true">
         <div>
           <span class="train-no"><span class="editable t-no">G6531</span></span>
-          <span class="train-direction"><span class="editable">回程 ② · 深圳北 → 西九龍</span></span>
+          <span class="train-direction"><span class="editable">回程 ② · 廣州南 → 西九龍</span></span>
         </div>
         <div class="train-route">
           <div class="station">
-            <div class="station-name"><span class="editable t-from">深圳北</span></div>
-            <div class="station-time"><span class="editable t-depart">16:30</span></div>
+            <div class="station-name"><span class="editable t-from">廣州南</span></div>
+            <div class="station-time"><span class="editable t-depart">19:37</span></div>
             <div class="station-date"><span class="editable">5/25 (一)</span></div>
           </div>
           <div class="train-arrow">▶▶</div>
           <div class="station">
             <div class="station-name"><span class="editable t-to">香港西九龍</span></div>
-            <div class="station-time"><span class="editable t-arrive">16:50</span></div>
+            <div class="station-time"><span class="editable t-arrive">20:25</span></div>
             <div class="station-date"><span class="editable">5/25 (一)</span></div>
           </div>
         </div>
         <div class="train-info">
-          <span>⏱ <span class="editable t-duration">20分鐘</span></span>
-          <span>💺 <span class="editable t-fare">¥75</span>/人</span>
+          <span>⏱ <span class="editable t-duration">48分鐘</span></span>
+          <span>💺 <span class="editable t-fare">215</span> 元/人</span>
         </div>
-        <div class="train-hint edit-only">💡 改車站名 → 自動帶出車次、時間、票價</div>
+        <div class="train-edit-bar">
+          <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定（不會自動覆蓋）</button>
+          <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ 火車頁 ============ -->
   <section class="page" id="page-train">
-    <div class="alert-banner edit-only info">
-      ✨ <strong>智能更新</strong>：改車站名 → 自動帶出車次、時間、票價（資料庫包含香港/長沙/深圳/廣州/武漢主要班次）
+    <div class="alert-banner info">
+      ✏️ <strong>所有時間 / 車次 / 票價可直接點擊修改</strong>。預設「🔒 已鎖定」狀態，你嘅修改唔會被自動覆蓋。如果想重新查資料庫，按「🔄 自動帶入」。
     </div>
 
-    <div class="train-card" data-train-card>
+    <div class="train-card" data-train-card data-locked="true">
       <div>
         <span class="train-no"><span class="editable t-no">G79</span></span>
         <span class="train-direction"><span class="editable">去程 · 5/22 (五)</span></span>
@@ -719,11 +750,15 @@
         <span>⏱ <span class="editable t-duration">3h29m</span></span>
         <span>💺 二等 ¥<span class="editable t-fare">538</span></span>
       </div>
+      <div class="train-edit-bar">
+        <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定</button>
+        <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
+      </div>
     </div>
 
-    <h3 style="margin: 14px 0 8px; color: #2d8a5f; font-size: 14px;">🔄 <span class="editable">回程（轉車）</span></h3>
+    <h3 style="margin: 14px 0 8px; color: #2d8a5f; font-size: 14px;">🔄 <span class="editable">回程（廣州南轉車）</span></h3>
 
-    <div class="train-card return" data-train-card>
+    <div class="train-card return" data-train-card data-locked="true">
       <div>
         <span class="train-no"><span class="editable t-no">G6011</span></span>
         <span class="train-direction"><span class="editable">第一段 · 5/25 (一)</span></span>
@@ -731,41 +766,49 @@
       <div class="train-route">
         <div class="station">
           <div class="station-name"><span class="editable t-from">長沙南</span></div>
-          <div class="station-time"><span class="editable t-depart">12:30</span></div>
+          <div class="station-time"><span class="editable t-depart">17:00</span></div>
         </div>
         <div class="train-arrow">▶▶</div>
         <div class="station">
-          <div class="station-name"><span class="editable t-to">深圳北</span></div>
-          <div class="station-time"><span class="editable t-arrive">15:45</span></div>
+          <div class="station-name"><span class="editable t-to">廣州南</span></div>
+          <div class="station-time"><span class="editable t-arrive">19:00</span></div>
         </div>
       </div>
       <div class="train-info">
-        <span>⏱ <span class="editable t-duration">3h15m</span></span>
-        <span>💺 二等 ¥<span class="editable t-fare">465</span></span>
+        <span>⏱ <span class="editable t-duration">2h00m</span></span>
+        <span>💺 二等 ¥<span class="editable t-fare">314</span></span>
+      </div>
+      <div class="train-edit-bar">
+        <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定</button>
+        <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
       </div>
     </div>
 
-    <div class="alert-banner info">🔄 <strong>深圳北轉車</strong>：<span class="editable">預留 45-60 分鐘換乘</span></div>
+    <div class="alert-banner info">🔄 <strong>廣州南轉車</strong>：<span class="editable">預留 37 分鐘換乘（同站轉乘、無需出境）</span></div>
 
-    <div class="train-card transfer" data-train-card>
+    <div class="train-card transfer" data-train-card data-locked="true">
       <div>
         <span class="train-no"><span class="editable t-no">G6531</span></span>
         <span class="train-direction"><span class="editable">第二段 · 5/25 (一)</span></span>
       </div>
       <div class="train-route">
         <div class="station">
-          <div class="station-name"><span class="editable t-from">深圳北</span></div>
-          <div class="station-time"><span class="editable t-depart">16:30</span></div>
+          <div class="station-name"><span class="editable t-from">廣州南</span></div>
+          <div class="station-time"><span class="editable t-depart">19:37</span></div>
         </div>
         <div class="train-arrow">▶▶</div>
         <div class="station">
           <div class="station-name"><span class="editable t-to">香港西九龍</span></div>
-          <div class="station-time"><span class="editable t-arrive">16:50</span></div>
+          <div class="station-time"><span class="editable t-arrive">20:25</span></div>
         </div>
       </div>
       <div class="train-info">
-        <span>⏱ <span class="editable t-duration">20分鐘</span></span>
-        <span>💺 二等 ¥<span class="editable t-fare">75</span></span>
+        <span>⏱ <span class="editable t-duration">48分鐘</span></span>
+        <span>💺 二等 ¥<span class="editable t-fare">215</span></span>
+      </div>
+      <div class="train-edit-bar">
+        <button class="train-edit-btn lock active" type="button" onclick="toggleLock(this)">🔒 已鎖定</button>
+        <button class="train-edit-btn" type="button" onclick="autoFillTrain(this)">🔄 自動帶入</button>
       </div>
     </div>
 
@@ -785,11 +828,11 @@
     </div>
 
     <div class="hotel-hero">
-      <span class="badge"><span class="editable">⭐ 五星級 · 雲端酒店</span></span>
-      <h2><span class="editable">長沙世茂希爾頓酒店</span></h2>
-      <div class="name-en"><span class="editable">Hilton Changsha Riverside</span></div>
+      <span class="badge"><span class="editable">⭐ 五星級 · 高空酒店</span></span>
+      <h2><span class="editable">世野SEYA高空酒店（五一廣場店）</span></h2>
+      <div class="name-en"><span class="editable">SEYA Sky Hotel (Wuyi Square)</span></div>
       <div class="stars"><span class="editable">★★★★★ 8.9 分（極好）</span></div>
-      <div class="floor">🏙 <span class="editable">70 樓無敵江景房</span></div>
+      <div class="floor">🏙 <span class="editable">高空樓層 · 五一廣場核心位置</span></div>
     </div>
 
     <div class="info-grid">
@@ -810,8 +853,8 @@
       </div>
       <div class="info-card">
         <span class="icon">🏙</span>
-        <div class="val"><span class="editable">70 F</span></div>
-        <div class="lbl"><span class="editable">高樓江景</span></div>
+        <div class="val"><span class="editable">高空</span></div>
+        <div class="lbl"><span class="editable">五一廣場店</span></div>
       </div>
     </div>
 
@@ -819,7 +862,7 @@
       <h3>📍 酒店資訊</h3>
       <div class="hotel-row">
         <span class="label">地址</span>
-        <span class="value"><span class="editable">長沙市芙蓉區建湘路 393 號 世茂環球金融中心</span></span>
+        <span class="value"><span class="editable">長沙市芙蓉區五一廣場（黃興路步行街旁）</span></span>
       </div>
       <div class="hotel-row">
         <span class="label">電話</span>
@@ -835,14 +878,14 @@
       </div>
       <div class="hotel-row">
         <span class="label">早餐</span>
-        <span class="value"><span class="editable">含早餐 · 70 樓自助餐廳</span></span>
+        <span class="value"><span class="editable">含早餐 · 高樓層自助餐廳</span></span>
       </div>
       <div class="hotel-row">
         <span class="label">Wi-Fi</span>
         <span class="value"><span class="editable">免費高速 Wi-Fi</span></span>
       </div>
       <div class="contact-btns">
-        <a class="contact-btn map" href="https://www.google.com/maps/search/?api=1&query=長沙世茂希爾頓酒店" target="_blank">
+        <a class="contact-btn map" href="https://www.google.com/maps/search/?api=1&query=世野SEYA高空酒店+五一廣場+長沙" target="_blank">
           📍 Google 地圖
         </a>
         <a class="contact-btn phone" href="tel:+8673188889999">
@@ -855,26 +898,26 @@
       <h3>🛏 房型配置</h3>
       <div class="room-card">
         <div class="room-title">
-          <span><span class="editable">豪華江景大床房</span></span>
+          <span><span class="editable">高空景觀大床房</span></span>
           <span style="color:#e67e22;">¥<span class="editable">780</span>/晚</span>
         </div>
         <div class="room-meta">
           <strong>👥 入住人數：</strong><span class="editable">2 大人</span><br>
           <strong>🛏 床型：</strong><span class="editable">1 張 King Size 大床</span><br>
           <strong>📐 房間面積：</strong><span class="editable">約 42 m²</span><br>
-          <strong>🌆 景觀：</strong><span class="editable">湘江 + 橘子洲全景</span>
+          <strong>🌆 景觀：</strong><span class="editable">五一廣場 + 城市夜景</span>
         </div>
       </div>
       <div class="room-card">
         <div class="room-title">
-          <span><span class="editable">豪華江景雙床房</span></span>
+          <span><span class="editable">高空景觀雙床房</span></span>
           <span style="color:#e67e22;">¥<span class="editable">720</span>/晚</span>
         </div>
         <div class="room-meta">
           <strong>👥 入住人數：</strong><span class="editable">2 大人</span><br>
           <strong>🛏 床型：</strong><span class="editable">2 張 Single 單人床</span><br>
           <strong>📐 房間面積：</strong><span class="editable">約 42 m²</span><br>
-          <strong>🌆 景觀：</strong><span class="editable">湘江 + 橘子洲全景</span>
+          <strong>🌆 景觀：</strong><span class="editable">五一廣場 + 城市夜景</span>
         </div>
       </div>
     </div>
@@ -886,7 +929,7 @@
         <div class="feat">🏊 <span class="editable">室內泳池</span></div>
         <div class="feat">💪 <span class="editable">健身中心</span></div>
         <div class="feat">💆 <span class="editable">SPA 按摩</span></div>
-        <div class="feat">🍷 <span class="editable">70F 雲端酒吧</span></div>
+        <div class="feat">🍷 <span class="editable">高空酒吧</span></div>
         <div class="feat">🚗 <span class="editable">免費停車</span></div>
         <div class="feat">🧺 <span class="editable">24h 洗衣</span></div>
         <div class="feat">🎮 <span class="editable">兒童樂園</span></div>
@@ -902,7 +945,7 @@
             <div class="n-name"><span class="editable">五一廣場 / 黃興路步行街</span></div>
             <div class="n-detail"><span class="editable">最熱鬧商圈、夜市、購物</span></div>
           </div>
-          <div class="n-dist"><span class="editable">步行 5 分</span></div>
+          <div class="n-dist"><span class="editable">步行 1 分</span></div>
         </div>
         <div class="nearby-item">
           <div class="n-icon">🍜</div>
@@ -972,7 +1015,7 @@
         </div>
         <div class="ci-item">
           <div class="ci-icon">🥐</div>
-          <div class="ci-text"><strong>早餐時間：</strong><span class="editable">06:30 - 10:30（70 F 自助餐廳）</span></div>
+          <div class="ci-text"><strong>早餐時間：</strong><span class="editable">06:30 - 10:30（高樓層自助餐廳）</span></div>
         </div>
         <div class="ci-item">
           <div class="ci-icon">🕛</div>
@@ -986,19 +1029,19 @@
     </div>
 
     <div class="alert-banner success">
-      ✅ <strong>訂單已確認</strong>：<span class="editable">訂單號 #HCS20260522-4488 · Booking.com 已支付</span>
+      ✅ <strong>訂單已確認</strong>：<span class="editable">訂單號 #SEYA20260522-4488 · 已支付</span>
     </div>
   </section>
 
   <!-- ============ 預算 ============ -->
   <section class="page" id="page-budget">
     <div class="alert-banner edit-only info">
-      ✨ <strong>自動計算</strong>：高鐵費隨車次自動更新；交通費隨行程地點自動計算
+      ✨ <strong>自動計算</strong>：高鐵費隨車卡票價自動更新；交通費隨行程地點自動計算
     </div>
 
     <div class="card">
       <h3>💰 預算總覽（4 人）</h3>
-      <div class="hotel-row"><span class="label">🚄 高鐵</span><span class="value" id="b-train">¥4,312</span></div>
+      <div class="hotel-row"><span class="label">🚄 高鐵</span><span class="value" id="b-train">¥0</span></div>
       <div class="hotel-row"><span class="label">🏨 酒店 3 晚</span><span class="value">¥<span class="editable b-num" data-budget="hotel-budget">4500</span></span></div>
       <div class="hotel-row"><span class="label">🍽 餐費</span><span class="value">¥<span class="editable b-num" data-budget="food">3500</span></span></div>
       <div class="hotel-row"><span class="label">🚇 公共交通</span><span class="value" id="b-metro">¥0</span></div>
@@ -1010,7 +1053,7 @@
         <div class="num" id="totalAmount">¥0</div>
         <div class="per" id="perPerson">人均約 ¥0</div>
       </div>
-      <p class="sync-tip">高鐵 / 交通費自動加總，不可手動編輯</p>
+      <p class="sync-tip">高鐵 / 交通費自動加總</p>
     </div>
 
     <div class="card">
@@ -1054,22 +1097,18 @@ const TRAIN_ROUTES = {
   '長沙南-香港西九龍': { trainNo: 'G80',   depart: '14:15', arrive: '17:44', duration: '3h29m', fare: 538 },
   '西九龍-長沙南':     { trainNo: 'G79',   depart: '08:05', arrive: '11:34', duration: '3h29m', fare: 538 },
   '長沙南-西九龍':     { trainNo: 'G80',   depart: '14:15', arrive: '17:44', duration: '3h29m', fare: 538 },
-  '長沙南-深圳北':     { trainNo: 'G6011', depart: '12:30', arrive: '15:45', duration: '3h15m', fare: 465 },
-  '深圳北-長沙南':     { trainNo: 'G6012', depart: '09:00', arrive: '12:15', duration: '3h15m', fare: 465 },
-  '深圳北-香港西九龍': { trainNo: 'G6531', depart: '16:30', arrive: '16:50', duration: '20分鐘', fare: 75 },
+  '長沙南-廣州南':     { trainNo: 'G6011', depart: '17:00', arrive: '19:00', duration: '2h00m', fare: 314 },
+  '廣州南-長沙南':     { trainNo: 'G6012', depart: '10:00', arrive: '12:00', duration: '2h00m', fare: 314 },
+  '廣州南-香港西九龍': { trainNo: 'G6531', depart: '19:37', arrive: '20:25', duration: '48分鐘', fare: 215 },
+  '香港西九龍-廣州南': { trainNo: 'G6532', depart: '08:00', arrive: '08:48', duration: '48分鐘', fare: 215 },
+  '廣州南-西九龍':     { trainNo: 'G6531', depart: '19:37', arrive: '20:25', duration: '48分鐘', fare: 215 },
+  '西九龍-廣州南':     { trainNo: 'G6532', depart: '08:00', arrive: '08:48', duration: '48分鐘', fare: 215 },
+  '長沙南-深圳北':     { trainNo: 'G6101', depart: '12:30', arrive: '15:45', duration: '3h15m', fare: 465 },
+  '深圳北-長沙南':     { trainNo: 'G6102', depart: '09:00', arrive: '12:15', duration: '3h15m', fare: 465 },
+  '深圳北-香港西九龍': { trainNo: 'G5601', depart: '16:30', arrive: '16:50', duration: '20分鐘', fare: 75 },
   '香港西九龍-深圳北': { trainNo: 'G5602', depart: '07:30', arrive: '07:50', duration: '20分鐘', fare: 75 },
-  '深圳北-西九龍':     { trainNo: 'G6531', depart: '16:30', arrive: '16:50', duration: '20分鐘', fare: 75 },
+  '深圳北-西九龍':     { trainNo: 'G5601', depart: '16:30', arrive: '16:50', duration: '20分鐘', fare: 75 },
   '西九龍-深圳北':     { trainNo: 'G5602', depart: '07:30', arrive: '07:50', duration: '20分鐘', fare: 75 },
-  '長沙南-廣州南':     { trainNo: 'G837',  depart: '13:00', arrive: '15:18', duration: '2h18m', fare: 314 },
-  '廣州南-長沙南':     { trainNo: 'G838',  depart: '10:00', arrive: '12:18', duration: '2h18m', fare: 314 },
-  '長沙南-武漢':       { trainNo: 'G556',  depart: '10:00', arrive: '11:30', duration: '1h30m', fare: 165 },
-  '武漢-長沙南':       { trainNo: 'G555',  depart: '08:00', arrive: '09:30', duration: '1h30m', fare: 165 },
-  '香港西九龍-廣州南': { trainNo: 'G6502', depart: '08:00', arrive: '08:48', duration: '48分鐘', fare: 215 },
-  '廣州南-香港西九龍': { trainNo: 'G6501', depart: '15:00', arrive: '15:48', duration: '48分鐘', fare: 215 },
-  '長沙南-北京西':     { trainNo: 'G502',  depart: '09:00', arrive: '14:30', duration: '5h30m', fare: 869 },
-  '北京西-長沙南':     { trainNo: 'G501',  depart: '07:00', arrive: '12:30', duration: '5h30m', fare: 869 },
-  '長沙南-上海虹橋':   { trainNo: 'G1372', depart: '11:00', arrive: '15:30', duration: '4h30m', fare: 678 },
-  '上海虹橋-長沙南':   { trainNo: 'G1371', depart: '08:00', arrive: '12:30', duration: '4h30m', fare: 678 },
 };
 
 const PLACES = {
@@ -1079,11 +1118,13 @@ const PLACES = {
   '長沙南':    { lat: 28.149, lng: 113.062, hub: 'south' },
   '長沙站':    { lat: 28.196, lng: 113.012, hub: 'east' },
   '深圳北':    { lat: 22.610, lng: 114.029, hub: 'sz' },
+  '廣州南':    { lat: 22.991, lng: 113.266, hub: 'gz' },
   '黃花機場':  { lat: 28.190, lng: 113.220, hub: 'airport' },
   '長沙黃花機場': { lat: 28.190, lng: 113.220, hub: 'airport' },
   '酒店':      { lat: 28.193, lng: 112.985, hub: 'wuyi' },
-  '希爾頓':    { lat: 28.193, lng: 112.985, hub: 'wuyi' },
-  '世茂希爾頓': { lat: 28.193, lng: 112.985, hub: 'wuyi' },
+  '世野SEYA高空酒店': { lat: 28.193, lng: 112.985, hub: 'wuyi' },
+  'SEYA':      { lat: 28.193, lng: 112.985, hub: 'wuyi' },
+  '世野':      { lat: 28.193, lng: 112.985, hub: 'wuyi' },
   '五一廣場':  { lat: 28.196, lng: 112.984, hub: 'wuyi' },
   '黃興路步行街': { lat: 28.194, lng: 112.982, hub: 'wuyi' },
   '黃興路':    { lat: 28.194, lng: 112.982, hub: 'wuyi' },
@@ -1120,13 +1161,6 @@ const PLACES = {
   '湖南省博物館': { lat: 28.225, lng: 113.013, hub: 'museum' },
   '天心閣':    { lat: 28.187, lng: 112.991, hub: 'wuyi' },
   '簡牘博物館': { lat: 28.187, lng: 112.991, hub: 'wuyi' },
-  '長沙世界之窗': { lat: 28.250, lng: 113.080, hub: 'east' },
-  '海底世界':  { lat: 28.250, lng: 113.080, hub: 'east' },
-  '生態動物園': { lat: 28.270, lng: 113.330, hub: 'far' },
-  '靖港古鎮':  { lat: 28.470, lng: 112.760, hub: 'far' },
-  '萬家麗廣場': { lat: 28.205, lng: 113.020, hub: 'east' },
-  '德思勤':    { lat: 28.155, lng: 112.985, hub: 'south' },
-  '德思勤城市廣場': { lat: 28.155, lng: 112.985, hub: 'south' },
 };
 
 function makeAllEditable() {
@@ -1136,7 +1170,6 @@ function makeAllEditable() {
   });
 }
 
-/* ★★★ 修正：確保任何時候 tap/click 任何 editable 都即時可改 ★★★ */
 ['pointerdown', 'touchstart', 'mousedown', 'focusin'].forEach(evt => {
   document.addEventListener(evt, (e) => {
     const ed = e.target && e.target.closest && e.target.closest('.editable');
@@ -1146,6 +1179,60 @@ function makeAllEditable() {
     }
   }, true);
 });
+
+// 鎖定切換
+function toggleLock(btn) {
+  const card = btn.closest('[data-train-card]');
+  const locked = card.dataset.locked === 'true';
+  card.dataset.locked = locked ? 'false' : 'true';
+  if (card.dataset.locked === 'true') {
+    btn.classList.add('active');
+    btn.textContent = '🔒 已鎖定';
+    showToast('🔒 已鎖定，改車站不會自動帶入');
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '🔓 未鎖定';
+    showToast('🔓 已解鎖，改車站會自動帶入');
+  }
+}
+
+// 手動觸發自動帶入
+function autoFillTrain(btn) {
+  const card = btn.closest('[data-train-card]');
+  const fromEl = card.querySelector('.t-from');
+  const toEl = card.querySelector('.t-to');
+  const from = fromEl.textContent.trim();
+  const to = toEl.textContent.trim();
+  const route = TRAIN_ROUTES[`${from}-${to}`];
+  if (!route) {
+    showToast('❌ 資料庫無此路線：' + from + '→' + to);
+    return;
+  }
+  const fields = [
+    ['.t-no', route.trainNo],
+    ['.t-depart', route.depart],
+    ['.t-arrive', route.arrive],
+    ['.t-duration', route.duration],
+    ['.t-fare', String(route.fare)]
+  ];
+  fields.forEach(([sel, val]) => {
+    const el = card.querySelector(sel);
+    if (el) {
+      el.textContent = val;
+      el.classList.remove('auto-updated');
+      void el.offsetWidth;
+      el.classList.add('auto-updated');
+    }
+  });
+  card.dataset.locked = 'true';
+  const lockBtn = card.querySelector('.train-edit-btn.lock');
+  if (lockBtn) {
+    lockBtn.classList.add('active');
+    lockBtn.textContent = '🔒 已鎖定';
+  }
+  showToast('🔄 已從資料庫帶入：' + route.trainNo);
+  recalculateBudgetOnly();
+}
 
 function getDistance(p1, p2) {
   const a = PLACES[p1], b = PLACES[p2];
@@ -1161,9 +1248,7 @@ function getDistance(p1, p2) {
 
 function calcTransit(from, to) {
   const dist = getDistance(from, to);
-  if (dist === null) {
-    return { unknown: true, from, to };
-  }
+  if (dist === null) return { unknown: true, from, to };
   const sameHub = PLACES[from].hub === PLACES[to].hub;
 
   if (dist < 1 && sameHub) {
@@ -1190,48 +1275,6 @@ function calcTransit(from, to) {
     taxi:  { time: taxiTime, cost: taxiCost, costMax: taxiCostMax, label: '滴滴' },
     recommend, dist
   };
-}
-
-function updateTrainCard(card, triggerEl) {
-  const fromEl = card.querySelector('.t-from');
-  const toEl = card.querySelector('.t-to');
-  if (!fromEl || !toEl) return false;
-
-  const from = fromEl.textContent.trim();
-  const to = toEl.textContent.trim();
-  const key = `${from}-${to}`;
-  const route = TRAIN_ROUTES[key];
-
-  if (!route) return false;
-
-  const updates = [
-    ['.t-no',       route.trainNo],
-    ['.t-depart',   route.depart],
-    ['.t-arrive',   route.arrive],
-    ['.t-duration', route.duration],
-    ['.t-fare',     String(route.fare)]
-  ];
-
-  let anyUpdated = false;
-  updates.forEach(([sel, val]) => {
-    const el = card.querySelector(sel);
-    if (el && el !== triggerEl && el.textContent.trim() !== val) {
-      el.textContent = val;
-      el.classList.remove('auto-updated');
-      void el.offsetWidth;
-      el.classList.add('auto-updated');
-      anyUpdated = true;
-    }
-  });
-  return anyUpdated;
-}
-
-function updateAllTrainCards() {
-  let updatedCount = 0;
-  document.querySelectorAll('[data-train-card]').forEach(card => {
-    if (updateTrainCard(card, null)) updatedCount++;
-  });
-  return updatedCount;
 }
 
 function renderTransitCards() {
@@ -1264,7 +1307,7 @@ function renderTransitCards() {
               <span class="t-icon">❓</span>
               <div class="t-info">
                 <div class="t-mode" style="color:#f39c12">未知地點</div>
-                <div class="t-detail" style="font-size:10px">無法估算車程，請輸入長沙標準景點 / 餐廳名稱</div>
+                <div class="t-detail" style="font-size:10px">無法估算車程</div>
               </div>
             </div>
           </div>`;
@@ -1360,6 +1403,11 @@ function calcTotalTrainCost() {
   return total;
 }
 
+function recalculateBudgetOnly() {
+  const transitData = renderTransitCards();
+  recalculateBudget(transitData);
+}
+
 function recalculateBudget(transitData) {
   const trainCost = calcTotalTrainCost();
   document.getElementById('b-train').textContent = `¥${trainCost.toLocaleString()}`;
@@ -1401,15 +1449,16 @@ function recalculateBudget(transitData) {
   document.getElementById('sum-time').textContent = `${todayData.time} 分`;
 }
 
+// 同步：只更新地圖連結 + 行程通勤 + 預算（不會碰火車卡內容！）
 function syncAll(silent) {
   updateMapLinks();
-  updateAllTrainCards();
   const transitData = renderTransitCards();
   recalculateBudget(transitData);
   makeAllEditable();
-  if (!silent) showToast('✅ 已同步所有資料');
+  if (!silent) showToast('✅ 已同步行程資料（火車卡保持不變）');
 }
 
+// 編輯火車卡欄位 → 唔會自動覆蓋，只更新預算
 document.addEventListener('focusout', (e) => {
   const el = e.target;
   if (!el.classList || !el.classList.contains('editable')) return;
@@ -1417,13 +1466,37 @@ document.addEventListener('focusout', (e) => {
   const trainCard = el.closest('[data-train-card]');
   if (trainCard) {
     const isStation = el.classList.contains('t-from') || el.classList.contains('t-to');
-    if (isStation) {
-      const updated = updateTrainCard(trainCard, el);
-      if (updated) {
-        showToast('🚄 已自動帶出車次資料');
+    const isLocked = trainCard.dataset.locked === 'true';
+
+    // 改車站名 + 未鎖定 → 自動帶入
+    if (isStation && !isLocked) {
+      const fromEl = trainCard.querySelector('.t-from');
+      const toEl = trainCard.querySelector('.t-to');
+      const from = fromEl.textContent.trim();
+      const to = toEl.textContent.trim();
+      const route = TRAIN_ROUTES[`${from}-${to}`];
+      if (route) {
+        const fields = [
+          ['.t-no', route.trainNo],
+          ['.t-depart', route.depart],
+          ['.t-arrive', route.arrive],
+          ['.t-duration', route.duration],
+          ['.t-fare', String(route.fare)]
+        ];
+        fields.forEach(([sel, val]) => {
+          const fel = trainCard.querySelector(sel);
+          if (fel && fel !== el) {
+            fel.textContent = val;
+            fel.classList.remove('auto-updated');
+            void fel.offsetWidth;
+            fel.classList.add('auto-updated');
+          }
+        });
+        showToast('🔄 已自動帶入：' + route.trainNo);
       }
     }
-    setTimeout(() => syncAll(true), 100);
+    // 改其他欄位 → 只更新預算，唔覆蓋
+    setTimeout(() => recalculateBudgetOnly(), 50);
     return;
   }
 
@@ -1436,7 +1509,7 @@ document.addEventListener('focusout', (e) => {
   }
 
   if (el.classList.contains('b-num')) {
-    setTimeout(() => syncAll(true), 100);
+    setTimeout(() => recalculateBudgetOnly(), 50);
     return;
   }
 });
@@ -1461,7 +1534,7 @@ editToggle.addEventListener('click', (e) => {
     editToggle.classList.add('active');
     editIcon.textContent = '✓';
     editText.textContent = '完成';
-    showToast('✏️ 編輯模式：改地點/車站會自動更新');
+    showToast('✏️ 編輯模式：點任何文字直接修改');
   } else {
     editToggle.classList.remove('active');
     editIcon.textContent = '✏️';
@@ -1480,7 +1553,6 @@ document.querySelectorAll('.nav-item').forEach(item => {
     item.classList.add('active');
     document.getElementById(target).classList.add('active');
     window.scrollTo({top: 0, behavior: 'smooth'});
-    /* ★★★ 修正：切頁後立即 + 延遲都重新啟用編輯 ★★★ */
     makeAllEditable();
     setTimeout(makeAllEditable, 50);
     setTimeout(makeAllEditable, 300);
@@ -1522,7 +1594,7 @@ function addEvent(day) {
       sel.addRange(range);
     }
   }, 100);
-  showToast('✓ 請輸入地名（會自動計算車程）');
+  showToast('✓ 請輸入地名');
 }
 
 function deleteEvent(btn) {
