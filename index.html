@@ -254,7 +254,7 @@
 
 <div class="main">
   <div class="alert-banner">
-    💡 <strong>真係有效嘅連結（已重新驗證）</strong>：📕 小紅書改用 <strong>Bing 站內搜尋</strong>（避開 XHS 登入牆）；🗺️ 百度導航改用 <strong>官方 API direction 端點</strong>（直接顯示公交路線建議）。
+    📕 <strong>小紅書改用 App Deep Link</strong>：點擊 📕 按鈕會直接喚起小紅書 App 並自動執行搜尋（需已安裝 App，未安裝會無反應）。
   </div>
   <div class="alert-banner info">
     🗺️ <strong>地鐵 vs 打車比較表</strong>：每段路線都列出兩種方式的時間、車費、轉乘提示，並有 ⭐ 推薦標示。
@@ -322,41 +322,33 @@ const itinerary = [
   }
 ];
 
-/* ============ 真實連結生成（已重寫） ============ */
+/* ============ 真實連結生成 ============ */
 
 /* 
-  小紅書 — 全新方案
-  原因：xiaohongshu.com 的 search_result 頁面有強制登入牆，未登入會被擋。
-  解法：用 Bing 國際版做「站內搜尋」(site:xiaohongshu.com)，
-  Bing 會直接列出該地點嘅小紅書真實筆記連結，點入即可看內容。
-  Bing 在 HK 同內地都能用，無登入牆，最穩定。
+  小紅書 — App Deep Link
+  使用小紅書官方 URL Scheme：xhsdiscover://
+  搜尋頁面：xhsdiscover://search/result?keyword=XXX
+  點擊後會直接喚起手機上嘅小紅書 App 並自動執行搜尋。
+  注意：需已安裝小紅書 App，桌面瀏覽器或未安裝 App 嘅手機點擊將無反應。
 */
 function xhsLink(name) {
-  return "https://www.bing.com/search?q=" +
-         encodeURIComponent("site:xiaohongshu.com 长沙 " + name);
+  return "xhsdiscover://search/result?keyword=" +
+         encodeURIComponent("长沙 " + name);
 }
 
-/* 百度地圖 POI 搜尋（無變） */
+/* 百度地圖 POI 搜尋 */
 function baiduSearch(name) {
   return "https://map.baidu.com/search/" +
          encodeURIComponent("长沙" + name);
 }
 
-/* Google Maps 搜尋（HK 預覽用） */
+/* Google Maps 搜尋 */
 function gmapSearch(name) {
   return "https://www.google.com/maps/search/?api=1&query=" +
          encodeURIComponent("长沙 " + name);
 }
 
-/* 
-  百度地圖 點對點導航 — 全新方案
-  原因：上一版 /dir/A/B/ 路徑式 URL 會被百度當成搜尋關鍵字，唔會自動算路線。
-  解法：改用百度官方文檔嘅 API direction 端點：
-  https://api.map.baidu.com/direction?origin=A&destination=B&mode=transit&region=城市&output=html&src=webapp
-  output=html 會強制返回正常網頁版地圖，
-  並自動執行公交路線規劃，跳轉後即見「最佳路線」建議列表。
-  呢個係百度官方公開嘅 URI API，最穩陣。
-*/
+/* 百度地圖 點對點導航 */
 function baiduDir(from, to) {
   return "https://api.map.baidu.com/direction?origin=" +
          encodeURIComponent(from) +
@@ -365,7 +357,7 @@ function baiduDir(from, to) {
          "&output=html&src=webapp";
 }
 
-/* Google Maps 導航（公共交通模式） */
+/* Google Maps 導航 */
 function gmapDir(from, to) {
   return "https://www.google.com/maps/dir/?api=1&origin=" +
          encodeURIComponent("长沙 " + from) +
@@ -619,7 +611,7 @@ function render() {
           <div class="event-links">
             <a class="map-btn" href="${baiduSearch(ev.title)}" target="_blank" rel="noopener">🗺️ 百度地圖</a>
             <a class="gmap-btn" href="${gmapSearch(ev.title)}" target="_blank" rel="noopener">🌐 Google Maps</a>
-            <a class="xhs-btn" href="${xhsLink(ev.title)}" target="_blank" rel="noopener">📕 小紅書</a>
+            <a class="xhs-btn" href="${xhsLink(ev.title)}">📕 小紅書</a>
           </div>
         ` : ''}
       </div>
