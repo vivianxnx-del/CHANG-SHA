@@ -447,7 +447,7 @@
     ✨ <strong>自動更新已開啟</strong>：改任何景點/餐廳名稱，路線、時間、費用、地圖、小紅書連結會即時重新計算。
   </div>
   <div class="alert-banner booked">
-    📌 <strong>已預訂行程（不可改時間）</strong>：5/23（六）下晝橘子洲、5/25（一）下晝湖南博物院、5/25（一）夜晚 31 號公館。
+    📌 <strong>已預訂行程（不可改時間）</strong>：5/22（五）下午橘子洲、5/24（日）下午湖南博物院、5/24（日）晚上 31 號公館。
   </div>
   <div class="day-tabs" id="dayTabs"></div>
   <div id="itinerary-content"></div>
@@ -609,52 +609,52 @@
 const itinerary = [
   {
     day: 1, date: "5/22 五 Day 1",
-    title: "抵達長沙｜五一廣場夜遊",
-    desc: "長沙南站 → 世野 SEYA 酒店 → 五一商圈",
+    title: "抵達長沙｜橘子洲（已訂下午）",
+    desc: "長沙南站 → 酒店放行李 → 橘子洲下午票 → 五一商圈 → 北二樓大排檔",
     events: [
-      { time: "14:00", type: "station", title: "長沙火車南站", desc: "高鐵抵達長沙南站，地鐵 2 號線、4 號線、磁浮快線交匯。" },
-      { time: "15:30", type: "hotel", title: "世野 SEYA 高空酒店 五一廣場店", desc: "高空景觀酒店，位於市中心五一廣場，地鐵 1/2 號線 5 分鐘可達。" },
-      { time: "17:00", type: "attraction", title: "五一廣場", desc: "長沙最核心商圈，地鐵 1/2 號線交匯，逛街必到。" },
-      { time: "18:00", type: "attraction", title: "黃興路步行街", desc: "霓虹招牌與網紅店密集，長沙最熱鬧步行街。" },
-      { time: "22:00", type: "food", title: "北二樓大排檔", desc: "深夜食堂級湘菜大排檔，蒜蓉粉絲蝦、牛蛙煲必試，氣氛超本地。" }
+      { time: "13:55", type: "station", title: "長沙火車南站", desc: "高鐵抵達長沙南站，地鐵 2 號線直達五一廣場酒店。" },
+      { time: "14:30", type: "hotel", title: "世野 SEYA 高空酒店 五一廣場店", desc: "快速 check-in 放低行李，準備出發橘子洲。" },
+      { time: "15:30", type: "booked", title: "橘子洲景區", desc: "下午票已預訂！毛主席青年雕像、湘江中央島嶼，建議搭小火車環島。地鐵 2 號線由五一廣場 1 站直達。" },
+      { time: "18:00", type: "attraction", title: "五一廣場", desc: "返回市中心地標商圈，地鐵 1/2 號線交匯，逛街必到。" },
+      { time: "18:30", type: "attraction", title: "黃興路步行街", desc: "霓虹網紅商業街，邊行邊逛準備宵夜。" },
+      { time: "20:00", type: "food", title: "北二樓大排檔", desc: "深夜食堂級湘菜大排檔，蒜蓉粉絲蝦、牛蛙煲必試，氣氛超本地。" }
     ]
   },
   {
     day: 2, date: "5/23 六 Day 2",
-    title: "老長沙＋橘子洲（已訂）",
-    desc: "坡子街早餐 → 太平老街 → 橘子洲園區",
+    title: "老城區漫遊｜杜甫江閣",
+    desc: "火宮殿早餐 → 坡子街 → 太平老街 → 大師兄午餐 → 杜甫江閣",
     events: [
       { time: "09:00", type: "food", title: "火宮殿 坡子街總店", desc: "百年老店早餐，臭豆腐、糖油粑粑、姊妹糰子、米粉一次過。" },
-      { time: "10:30", type: "attraction", title: "坡子街", desc: "火宮殿所在地，老長沙美食街區，緊接太平街。" },
+      { time: "10:30", type: "attraction", title: "坡子街", desc: "火宮殿所在地，老長沙美食街區，緊接太平老街，慢逛即可。" },
       { time: "11:30", type: "attraction", title: "太平老街", desc: "古樸石板街，茶顏悅色、文和友周邊店林立，慢逛拍照。" },
-      { time: "13:00", type: "food", title: "大師兄牛肉麵", desc: "招牌大師兄水餃、刀削麵、小炒肉，份量足又抵食。" },
-      { time: "14:30", type: "booked", title: "橘子洲景區", desc: "毛主席青年雕像、湘江中央島嶼，建議搭小火車環島。下午票已預訂，準時入園。" },
-      { time: "18:30", type: "food", title: "晚餐（自由發揮）", desc: "建議返五一商圈或河東品嚐湘菜館，可改為任何餐廳。" }
+      { time: "13:00", type: "food", title: "大師兄牛肉麵", desc: "招牌大師兄水餃、刀削麵、小炒肉，份量足又抵食，太平街旁分店。" },
+      { time: "15:00", type: "attraction", title: "杜甫江閣", desc: "湘江東岸仿古樓閣，紀念詩聖杜甫，江景開揚，下午光線最美。由太平街沿江散步直達。" },
+      { time: "18:30", type: "food", title: "晚餐（自由發揮）", desc: "返五一商圈或太平街選湘菜館；保留體力，明天有 3 個重點行程。" }
     ]
   },
   {
     day: 3, date: "5/24 日 Day 3",
-    title: "嶽麓山＋湘江景",
-    desc: "登山賞景 → 笨蘿蔔午餐 → 杜甫江閣",
+    title: "嶽麓山＋湖南博物院＋31號公館（雙預訂日）",
+    desc: "嶽麓山 → 笨蘿蔔午餐 → 湖南博物院（已訂下午）→ 31號公館（已訂晚上）",
     events: [
-      { time: "09:00", type: "food", title: "酒店早餐", desc: "輕食出發，準備上嶽麓山。" },
-      { time: "10:00", type: "attraction", title: "嶽麓山", desc: "千年名山，含嶽麓書院、愛晚亭、麓山寺，可乘索道上山。建議走南門入口。" },
-      { time: "13:30", type: "food", title: "笨蘿蔔湘菜館", desc: "性價比超高湘菜館，臘味合蒸、口味蝦、剁椒魚頭必點。" },
-      { time: "15:30", type: "attraction", title: "杜甫江閣", desc: "湘江畔仿古樓閣，紀念詩聖杜甫，江景開揚，下午光線最美。" },
-      { time: "18:00", type: "food", title: "晚餐（自由發揮）", desc: "可於五一廣場附近選湘菜或茶顏悅色補一杯。" }
+      { time: "08:30", type: "food", title: "酒店早餐", desc: "輕食出發，準備上嶽麓山。" },
+      { time: "09:30", type: "attraction", title: "嶽麓山", desc: "千年名山，含嶽麓書院、愛晚亭、麓山寺。建議南門入口輕鬆遊覽，半日完成不太累。" },
+      { time: "13:00", type: "food", title: "笨蘿蔔湘菜館", desc: "性價比超高湘菜館，臘味合蒸、口味蝦、剁椒魚頭必點。河西分店食完即上博物院。" },
+      { time: "14:30", type: "booked", title: "湖南博物院", desc: "下午票已預訂！馬王堆漢墓辛追夫人必看。地鐵 6 號線博物院站直達。" },
+      { time: "18:30", type: "booked", title: "31號公館", desc: "已預訂晚餐！長沙頂級湘菜地標，民國風裝潢，準時到場。位於五一廣場旁，飯後步行返酒店即可。" }
     ]
   },
   {
     day: 4, date: "5/25 一 Day 4",
-    title: "湖南博物院＋31 號公館（已訂）",
-    desc: "上午自由 → 博物院（已訂下午）→ 31 號公館晚餐（已訂）→ 長沙南站離開",
+    title: "悠閒收尾｜離開長沙",
+    desc: "黃興路補手信 → 午餐 → 長沙南站離開",
     events: [
-      { time: "09:30", type: "food", title: "茶顏悅色", desc: "悠閒早餐，準備出發。" },
+      { time: "09:30", type: "food", title: "茶顏悅色", desc: "悠閒早餐，最後一杯長沙特色奶茶。" },
       { time: "11:00", type: "attraction", title: "黃興路步行街", desc: "黃興路或 IFS 補手信，墨茉點心局、文和友零食。" },
-      { time: "12:30", type: "food", title: "午餐（自由發揮）", desc: "建議博物院附近輕食，準備下午看展。" },
-      { time: "14:00", type: "booked", title: "湖南博物院", desc: "馬王堆漢墓辛追夫人必看。下午票已預訂，地鐵 6 號線博物院站直達。" },
-      { time: "18:30", type: "booked", title: "31號公館", desc: "長沙頂級湘菜地標，民國風裝潢。已預訂晚餐，準時到場。" },
-      { time: "21:30", type: "station", title: "長沙火車南站", desc: "由 31 號公館返酒店取行李後前往長沙南站搭高鐵離開。建議預留 1 小時。" }
+      { time: "12:30", type: "food", title: "午餐（自由發揮）", desc: "酒店附近選湘菜或輕食，準備返港。" },
+      { time: "14:30", type: "hotel", title: "返酒店取行李", desc: "退房，準備前往火車站。" },
+      { time: "15:30", type: "station", title: "長沙火車南站", desc: "前往長沙南站搭高鐵離開。地鐵 2 號線約 25 分鐘直達，預留 1.5 小時。" }
     ]
   }
 ];
@@ -738,9 +738,15 @@ const routes = {
     taxi: { time: "約 30–40 分鐘", fare: "￥45–60", detail: "繁忙時段易塞車，行李多時較舒適。" },
     recommend: "subway", reason: "便宜直達，免轉乘"
   },
-  "世野 SEYA 高空酒店 五一廣場店|五一廣場": {
-    walk: { time: "3 分鐘", detail: "酒店即在五一廣場旁，步行直達。" },
-    recommend: "walk"
+  "世野 SEYA 高空酒店 五一廣場店|橘子洲景區": {
+    subway: { time: "約 12 分鐘", fare: "￥2", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 1 站 → 橘子洲站，2 號出口步行 5 分鐘入園。", transfers: "無需轉乘" },
+    taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "週末橘子洲大橋常塞車，地鐵反而快。" },
+    recommend: "subway", reason: "1 站直達，免塞車"
+  },
+  "橘子洲景區|五一廣場": {
+    subway: { time: "約 12 分鐘", fare: "￥2", detail: "橘子洲站 <span class='line l2'>2號線</span> 東行 1 站 → 五一廣場站。", transfers: "無需轉乘" },
+    taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "晚上週末易塞車。" },
+    recommend: "subway", reason: "1 站直達快捷"
   },
   "五一廣場|黃興路步行街": {
     walk: { time: "2 分鐘", detail: "緊鄰五一廣場，南端入口即是。" },
@@ -751,10 +757,10 @@ const routes = {
     taxi: { time: "5 分鐘", fare: "￥10", detail: "夜晚走累可叫車，起步價搞定。" },
     recommend: "walk", reason: "順路逛夜景"
   },
-  "世野 SEYA 高空酒店 五一廣場店|火宮殿 坡子街總店": {
-    walk: { time: "10 分鐘", detail: "由酒店沿黃興南路向南直達坡子街。" },
-    taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，但塞車反而更慢。" },
-    recommend: "walk", reason: "近且順路"
+  "北二樓大排檔|火宮殿 坡子街總店": {
+    walk: { time: "8–12 分鐘", detail: "次日早上由酒店出發較順路；兩地相距黃興路步行街與坡子街。" },
+    taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價搞定。" },
+    recommend: "walk", reason: "由酒店步行直達坡子街"
   },
   "火宮殿 坡子街總店|坡子街": {
     walk: { time: "原地", detail: "火宮殿即位於坡子街上。" },
@@ -768,25 +774,26 @@ const routes = {
     walk: { time: "5–8 分鐘", detail: "太平街附近多分店，沿黃興南路即可。" },
     recommend: "walk"
   },
-  "大師兄牛肉麵|橘子洲景區": {
-    subway: { time: "約 15 分鐘", fare: "￥2", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 1 站 → 橘子洲站，2 號出口步行 5 分鐘入園。", transfers: "無需轉乘" },
-    taxi: { time: "約 15–25 分鐘", fare: "￥20–30", detail: "週末橘子洲大橋常塞車，地鐵反而快。" },
-    recommend: "subway", reason: "便宜又快，免塞車"
+  "大師兄牛肉麵|杜甫江閣": {
+    walk: { time: "10–12 分鐘", detail: "由太平街向西穿過湘江中路即達江閣，沿江景觀好，飯後散步消食。" },
+    taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，散步更佳。" },
+    recommend: "walk", reason: "沿江散步消食"
   },
   "酒店早餐|嶽麓山": {
     subway: { time: "約 35 分鐘", fare: "￥5", detail: "五一廣場站 <span class='line l2'>2號線</span> 西行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l4'>4號線</span> 南行 → 嶽麓山南站，步行 8 分鐘。", transfers: "1 次轉乘（溁灣鎮）" },
-    taxi: { time: "約 25–35 分鐘", fare: "￥35–50", detail: "可直達南門入口，免行走，適合一家大細。" },
-    recommend: "taxi", reason: "免行李拖行 + 直達山門"
+    taxi: { time: "約 25–35 分鐘", fare: "￥35–50", detail: "可直達南門入口，免行走，較舒適。" },
+    recommend: "taxi", reason: "免轉乘 + 直達山門"
   },
   "嶽麓山|笨蘿蔔湘菜館": {
-    subway: { time: "約 35 分鐘", fare: "￥5", detail: "嶽麓山南站 <span class='line l4'>4號線</span> 北行 → 溁灣鎮站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l2'>2號線</span> 東行 → 五一廣場站，步行至坡子街分店。", transfers: "1 次轉乘（溁灣鎮）" },
-    taxi: { time: "約 25 分鐘", fare: "￥35–45", detail: "登山後較攰，打車舒適。" },
-    recommend: "taxi", reason: "登山後體力消耗大"
+    walk: { time: "—", detail: "—" },
+    subway: { time: "約 25 分鐘", fare: "￥4", detail: "嶽麓山南站 <span class='line l4'>4號線</span> 北行 → 河西分店附近。", transfers: "無需轉乘" },
+    taxi: { time: "約 15 分鐘", fare: "￥18–25", detail: "登山後較攰，打車舒適直達。" },
+    recommend: "taxi", reason: "登山後體力消耗大，河西分店最近"
   },
-  "笨蘿蔔湘菜館|杜甫江閣": {
-    walk: { time: "12 分鐘", detail: "由坡子街向西穿過湘江中路即達江閣，沿江景觀好。" },
-    taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價，飯後散步更佳。" },
-    recommend: "walk", reason: "沿江散步消食"
+  "笨蘿蔔湘菜館|湖南博物院": {
+    subway: { time: "約 45 分鐘", fare: "￥5", detail: "<span class='line l4'>4號線</span> → 湘雅路站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l6'>6號線</span> → 博物院站。", transfers: "1 次轉乘" },
+    taxi: { time: "約 25–35 分鐘", fare: "￥40–55", detail: "跨江北上，預訂時段建議打車免轉乘耽誤。" },
+    recommend: "taxi", reason: "預訂時段勿遲到"
   },
   "湖南博物院|31號公館": {
     subway: { time: "約 30 分鐘", fare: "￥4", detail: "博物院站 <span class='line l6'>6號線</span> 西行 → 開福寺站 <span class='transfer-icon'>⇄ 轉</span> <span class='line l1'>1號線</span> 南行 → 五一廣場站，步行至 31 號公館。", transfers: "1 次轉乘（開福寺）" },
@@ -875,6 +882,13 @@ function inferRoute(from, to) {
       recommend: "walk", reason: "沿江散步好風景"
     };
   }
+  if ((isJiang(f) && isWuyiZone(t)) || (isWuyiZone(f) && isJiang(t))) {
+    return {
+      walk: { time: "12–18 分鐘", detail: "由江邊向東步行返五一廣場/黃興路。" },
+      taxi: { time: "5–8 分鐘", fare: "￥10–15", detail: "起步價即可。" },
+      recommend: "walk", reason: "夜景順路"
+    };
+  }
   if ((isMuseum(f) || isMuseum(t)) && (isWuyiZone(f) || isOldStreet(f) || isWuyiZone(t) || isOldStreet(t))) {
     return {
       subway: { time: "約 30 分鐘", fare: "￥4", detail: "<span class='line l1'>1號線</span> → 開福寺站 <span class='transfer-icon'>⇄</span> <span class='line l6'>6號線</span> 至博物院站。", transfers: "1 次轉乘（開福寺）" },
@@ -889,7 +903,7 @@ function inferRoute(from, to) {
       recommend: "taxi", reason: "晚餐勿遲到"
     };
   }
-  if ((isBei2(f) || isBei2(t))) {
+  if (isBei2(f) || isBei2(t)) {
     return {
       walk: { time: "8–12 分鐘", detail: "黃興路口附近，夜晚邊走邊逛夜景。" },
       taxi: { time: "5 分鐘", fare: "￥10", detail: "起步價搞定。" },
@@ -921,7 +935,7 @@ function tagInfo(type) {
 function renderCompareTable(route) {
   let rows = '';
   const rec = route.recommend;
-  if (route.walk) {
+  if (route.walk && route.walk.time !== "—") {
     const isRec = rec === "walk";
     rows += `<tr><td class="mode-cell mode-walk"><span class="icon">🚶</span>步行</td><td><span class="pill cheap">免費</span><span class="pill fast">${route.walk.time}</span>${isRec ? '<span class="pill best">⭐ 推薦</span>' : ''}</td><td>${route.walk.detail}</td></tr>`;
   }
